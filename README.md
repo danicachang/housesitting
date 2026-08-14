@@ -37,18 +37,14 @@ minute or two.
 
 ## Changing things
 
-**A review.** Every sit is one `<article>` in the reviews section, in one of
-two shapes. A sit with photos is an `<article class="sit">`: a photo panel and
-a body holding the reviewer, a short pulled quote, and the full text inside a
-`<details>`. A sit without photos is an `<article class="quote">` in the grid
-further down — same body, no photo panel. Copy whichever shape fits and edit
-it. Reviews are quoted exactly as hosts wrote them, typos included — that's
-deliberate, it's what makes them read as real. The pulled quote must be a
-sentence lifted verbatim from the review below it.
-
-Note the heading level: reviewers in `.sits` are `<h3>`, directly under the
-section's `<h2>`. Reviewers in the `.quotes` grid are `<h4>`, because they sit
-under the "Six more sits" `<h3>` that introduces them.
+**A review.** Every sit is one `<article class="sit">` in the reviews section,
+holding three things: a `<figure class="sit__lead">` with the one photo that
+opens the card, a `<div class="sit__body">` with the reviewer and the review,
+and — for sits with more than one photo — a `<div class="sit__gallery">` with
+all the rest. Copy an existing article and edit it. Reviews are quoted exactly
+as hosts wrote them, typos included; that's deliberate, it's what makes them
+read as real, and the whole review is always on the page rather than behind a
+"read more". Reviewer names are `<h3>`, directly under the section's `<h2>`.
 
 **A photo.** Drop the original into `originals/`, add a line to the `photos`
 array in `tools/build-images.mjs` giving it a slug and a caption, then:
@@ -58,21 +54,16 @@ npm install        # first time only
 node tools/build-images.mjs
 ```
 
-That writes an 800px and a 1600px WebP into `docs/images/`. Then put it on the
-page — every photo lives with the sit it came from, so it goes into that
-reviewer's `<article>`. The first photo is the `sit__main` and takes one of
-three frame classes, picked so nothing important gets cropped out:
-`--tall` (3:4), `--square` (1:1) or `--wide` (3:2). Any others go in the
-`sit__strip` beneath it. If a subject sits off-centre in its frame, nudge it
-with an inline `style="object-position: 50% 30%"` rather than re-cropping the
-original.
+That writes an 800px and a 1600px WebP into `docs/images/`, and prints a list
+of anything in `originals/` that isn't published — if a photo shows up there,
+it's been added to the folder but not to the array. Photos that are left out
+on purpose go in the `skipped` map with the reason.
 
-**Promoting a sit that had no photos.** Six of the thirteen sits are currently
-in the photo-less `quote` grid. Once a sit has photos, move its `<article>` up
-into `.sits`, change its class from `quote` to `sit`, promote its reviewer
-heading from `<h4>` to `<h3>`, and wrap the body in `<div class="sit__body">`
-alongside a new `<div class="sit__photos">`. Update the "Six more sits" heading
-and the `13` in the tally if the counts change.
+Then put it on the page, in the `sit__gallery` of the sit it came from. Copy
+the `width` and `height` from the build output; nothing is cropped, so those
+numbers are what reserve the right amount of space while the image loads. The
+gallery lays out in columns and lets photos of different shapes fall where
+they fall, so there's no frame to fit and no `object-position` to set.
 
 **The email address.** It appears twice in the contact section near the bottom
 of `docs/index.html`, as the link target and the visible text. It is still the
@@ -104,14 +95,20 @@ scroll past ten more to act.
 - The three Kiwi and Aussie House Sitters reviews have no avatars, because
   neither site shows reviewer photos. They use a monogram of the same size
   instead — `<div class="avatar avatar--initial">` in place of the `<img>`.
-- There is no separate photo gallery any more. Every photo is attached to the
-  sit it was taken on, which is the point: each one is evidence for the review
-  sitting next to it. That also means each photo appears exactly once, so
-  adding a photo to a sit is the only place it needs to go.
+- There is no separate photo gallery. Every photo is attached to the sit it was
+  taken on, which is the point: each one is evidence for the review sitting
+  next to it. That also means each photo appears exactly once, so adding a
+  photo to a sit is the only place it needs to go.
+- **Nothing on the page is cropped.** Every image is shown at the proportions
+  it was shot at — no `object-fit: cover`, no fixed `aspect-ratio` on a photo,
+  no `object-position` nudges. Layouts have to absorb the varying shapes
+  instead: the sit galleries use CSS columns, the "who we are" trio is aligned
+  to the top of its row, and a tall lead photo is scaled down by `max-height`
+  rather than being trimmed to fit.
 - `sharp` is a dev dependency only. It runs on your machine to produce image
   files and is never involved in serving the site.
-- **The page loads two fonts from Google Fonts** — Lora for headings and pulled
-  quotes, Raleway for everything else. This is the one external request the
+- **The page loads two fonts from Google Fonts** — Lora for headings and the
+  reviews, Raleway for everything else. This is the one external request the
   page makes. Both are requested with `display=swap` behind a `preconnect`, and
   the CSS lists full system fallbacks, so the page reads fine before they
   arrive and fine if they never do. Deleting the `<link>` tags in the `<head>`

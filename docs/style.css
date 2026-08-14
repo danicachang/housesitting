@@ -10,7 +10,7 @@
 :root {
   /* ---- surfaces ---- */
   --surface:         #faf8f5;  /* warm paper */
-  --surface-sunken:  #f2ece3;  /* quote cards, image placeholders */
+  --surface-sunken:  #f2ece3;  /* image placeholders while they load */
   --surface-raised:  #ffffff;
 
   /* ---- ink (all ratios measured against --surface) ---- */
@@ -128,24 +128,16 @@ a:hover { color: var(--ink); }
   grid-template-columns: 1fr;
 }
 
+/* Every photo on this page is shown at the shape it was taken in — nothing is
+   cropped to fit a slot. These two are both 3:2, so the pair still lines up
+   when the grid goes to two columns. */
 .hero__images img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
   background: var(--surface-sunken);
 }
 
-/* Danica's photo is backlit with the dog low-left; Dan's has the poodle
-   centred. Nudge each crop so neither subject is cut off. */
-.hero__images img:first-child { object-position: 55% 60%; }
-.hero__images img:last-child  { object-position: 50% 55%; }
-
 @media (min-width: 50rem) {
   .hero__images { grid-template-columns: 1fr 1fr; }
-  .hero__images img {
-    aspect-ratio: auto;
-    height: clamp(24rem, 62vh, 40rem);
-  }
 }
 
 .hero__text {
@@ -408,7 +400,6 @@ figcaption {
 .sit {
   display: grid;
   gap: var(--gap);
-  align-items: center;
   padding-block: clamp(2.5rem, 5vw, 4.5rem);
   border-top: 1px solid var(--rule);
 }
@@ -416,45 +407,57 @@ figcaption {
 .sit:first-child { border-top: 0; padding-top: 0; }
 
 @media (min-width: 58rem) {
-  .sit { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
-  /* Alternate which side the photos land on, keeping the photo column the
-     wider of the two either way. The body is always second in the source, so
-     screen readers and narrow screens get name → quote in order. */
+  .sit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  /* Alternate which side the lead photo lands on, keeping the photo column
+     the wider of the two either way. The body is always second in the source,
+     so screen readers and narrow screens get name → review in order.
+     Every child is ordered explicitly: the gallery spans the row below, and
+     without an order of its own it would be placed before whichever item got
+     pushed to 2 and end up above the lead photo. */
+  .sit__lead    { order: 1; }
+  .sit__body    { order: 2; }
+  .sit__gallery { order: 3; grid-column: 1 / -1; }
+
   .sit:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
-  .sit:nth-of-type(even) .sit__photos { order: 2; }
+  .sit:nth-of-type(even) .sit__lead { order: 2; }
+  .sit:nth-of-type(even) .sit__body { order: 1; }
 }
 
-.sit__photos { min-width: 0; }
+/* Uncropped, so the height follows the shape of the photo. Portraits would
+   otherwise tower over the review beside them, hence the cap: it scales the
+   whole frame down rather than cutting anything off it. */
+.sit__lead { margin: 0; min-width: 0; }
 
-.sit__main {
-  width: 100%;
-  object-fit: cover;
+.sit__lead img {
+  width: auto;
+  max-width: 100%;
+  max-height: 32rem;
+  margin-inline: auto;
   background: var(--surface-sunken);
 }
 
-/* Three frames rather than one: cropping every photo to the same rectangle
-   either beheads the portraits or guts the landscapes. */
-.sit__main--tall   { aspect-ratio: 3 / 4; }
-.sit__main--square { aspect-ratio: 1; }
-.sit__main--wide   { aspect-ratio: 3 / 2; }
+/* Nothing else in the card to carry it, so the one photo gets the full cap. */
+.sit:not(:has(.sit__gallery)) .sit__lead img { max-height: 38rem; }
 
-.sit__strip {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+/* Mixed portraits and landscapes at their true proportions don't make rows,
+   so they're set in columns and left to fall where they fall. */
+.sit__gallery {
+  columns: 2;
+  column-gap: 0.5rem;
 }
 
-.sit__strip img {
+@media (min-width: 40rem) { .sit__gallery { columns: 3; } }
+@media (min-width: 58rem) { .sit__gallery { columns: 4; } }
+
+.sit__gallery img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+  margin-bottom: 0.5rem;
+  break-inside: avoid;
   background: var(--surface-sunken);
 }
-
-/* A lone extra photo shouldn't be squeezed into a thumbnail square. */
-.sit__strip:has(img:only-child) img { aspect-ratio: 3 / 2; }
 
 .sit__body { min-width: 0; }
 
@@ -486,8 +489,7 @@ figcaption {
   background: #ece5da;
 }
 
-.sit__who h3,
-.sit__who h4 {
+.sit__who h3 {
   font-family: var(--serif);
   font-weight: 400;
   font-size: 1.3rem;
@@ -503,113 +505,43 @@ figcaption {
   max-width: none;
 }
 
-/* Pull quote — the sentence the review turns on, lifted verbatim. */
-.pull {
+/* The review in full, verbatim, and never behind a control — someone deciding
+   whether to trust us with their house shouldn't have to click to read it. */
+.review {
   position: relative;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(1.35rem, 1.05rem + 1.2vw, 2rem);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  font-size: var(--text-base);
+  line-height: 1.6;
 }
 
-.pull::before {
+.review::before {
   /* Empty alt text after the slash — the mark is decoration, and the
      blockquote already carries the meaning. Screen readers skip it. */
   content: "\201C" / "";
   position: absolute;
-  top: -0.35em;
-  left: -0.5ch;
+  top: -0.3em;
+  left: -0.55ch;
   font-family: var(--serif);
-  font-size: 2.6em;
+  font-size: 3.4em;
   line-height: 1;
   color: var(--rule-strong);
   pointer-events: none;
 }
 
-.pull p { max-width: 24ch; margin: 0; }
-
-.pull--sm { font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem); }
-.pull--sm p { max-width: none; }
-
-/* The full text is there for anyone who wants it — it just isn't the first
-   thing on the page. Native <details>, so still no JavaScript. */
-.full { margin-top: 1rem; }
-
-.full summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  /* Padding rather than bare text: the row this makes is 44px tall, which is
-     what a thumb needs. The negative inline margin keeps the label optically
-     aligned with the prose above it. */
-  min-height: 44px;
-  padding-inline: var(--space-2);
-  margin-inline-start: calc(var(--space-2) * -1);
-  cursor: pointer;
-  list-style: none;
-  touch-action: manipulation;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.full summary::-webkit-details-marker { display: none; }
-
-.full summary::after {
-  content: "";
-  width: 0.4rem;
-  height: 0.4rem;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-2px) rotate(45deg);
-  transition: transform 0.15s ease;
-}
-
-.full[open] summary::after { transform: translateY(1px) rotate(-135deg); }
-
-.full summary:hover { color: var(--ink); }
-
-.full p {
-  margin: 1rem 0 0;
-  font-size: var(--text-sm);
-  color: var(--ink-muted);
-}
-
-/* ---------- the sits with no photos ---------- */
-
-.quotes__head {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
-  margin: clamp(3rem, 6vw, 5rem) 0 0.6rem;
-  padding-top: clamp(2.5rem, 5vw, 4rem);
-  border-top: 1px solid var(--rule);
-}
-
-.quotes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-  gap: clamp(1rem, 2vw, 1.75rem);
-  margin-top: 2rem;
-}
-
-.quote {
-  background: var(--surface-sunken);
-  padding: clamp(1.5rem, 2.5vw, 2rem);
-}
-
-.quote .sit__who { margin-bottom: 1.1rem; }
+.review p { margin: 0 0 0.8em; }
+.review p:last-child { margin-bottom: 0; }
 
 /* ---------- photo grids ---------- */
 
-/* Two up on a phone — three 1:1 crops across 360px leaves each face too small
-   to read. Three up from 40rem, which is where the sizes attribute switches. */
+/* Two up on a phone — three across 360px leaves each face too small to read.
+   Three up from 40rem, which is where the sizes attribute switches. These
+   three are a portrait, a square and a landscape and stay that way, so the
+   row is aligned at the top and left to end unevenly. */
 .trio {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: start;
   gap: clamp(0.5rem, 1.2vw, 1rem);
   margin: var(--gap) 0 0.9rem;
 }
@@ -622,8 +554,6 @@ figcaption {
 
 .trio img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
   background: var(--surface-sunken);
 }
 
