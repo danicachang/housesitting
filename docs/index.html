@@ -5,128 +5,416 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Danica &amp; Dan — house and pet sitters</title>
 <meta name="description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
+<meta name="theme-color" content="#faf8f5">
+
+<!-- Absolute URLs: relative paths don't resolve for the scrapers behind link
+     previews in Messenger, WhatsApp, Slack and iMessage. -->
 <meta property="og:title" content="Danica &amp; Dan — house and pet sitters">
 <meta property="og:description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="images/nz-dan-poodle-lake-1600.webp">
+<meta property="og:url" content="https://danicachang.github.io/housesitting/">
+<meta property="og:image" content="https://danicachang.github.io/housesitting/images/nz-dan-poodle-lake-1600.webp">
+<meta property="og:image:alt" content="Dan kneeling nose-to-nose with a black standard poodle on a grassy slope above Lake Taupō.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Raleway:wght@400;600&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="hero">
   <div class="hero__images">
     <img src="images/nz-danica-poodle-800.webp"
          srcset="images/nz-danica-poodle-800.webp 800w, images/nz-danica-poodle-1600.webp 1600w"
-         sizes="(min-width: 45rem) 50vw, 100vw"
+         sizes="(min-width: 50rem) 50vw, 100vw"
          width="1600" height="1067" fetchpriority="high"
          alt="Danica crouching in autumn grass beside Nico, a black standard poodle, red maple leaves behind them.">
     <img src="images/nz-dan-poodle-lake-800.webp"
          srcset="images/nz-dan-poodle-lake-800.webp 800w, images/nz-dan-poodle-lake-1600.webp 1600w"
-         sizes="(min-width: 45rem) 50vw, 100vw"
-         width="1600" height="1066" fetchpriority="high"
+         sizes="(min-width: 50rem) 50vw, 100vw"
+         width="1600" height="1066" loading="lazy"
          alt="Dan kneeling nose-to-nose with Nico on a grassy slope above Lake Taupō.">
   </div>
   <div class="hero__text wrap">
-    <p class="hero__caption">Nico — Taupō, New Zealand, 2023</p>
-    <h1>Danica &amp; Dan</h1>
-    <p class="lede">We look after your home and your animals while you're
-      away, and we don't charge for it.</p>
-    <p class="hero__meta">One month minimum · New Zealand &amp; Australia</p>
+    <div>
+      <p class="eyebrow">Nico — Taupō, New Zealand, 2023</p>
+      <h1>Danica &amp; Dan</h1>
+    </div>
+    <div>
+      <p class="lede">We look after your home and your animals while you're
+        away, and we don't charge for it.</p>
+      <p class="eyebrow">One month minimum · New Zealand &amp; Australia</p>
+      <a class="cta" href="#contact">Get in touch</a>
+    </div>
   </div>
 </header>
 
-<main>
+<main id="main">
 
-<section class="wrap">
-  <h2>The arrangement</h2>
-  <p class="big">We don't charge anything.</p>
-  <p>You get your home lived in and your animals looked after. We get a place
-    to stay while we're in the country. That's the whole arrangement — no fee,
-    no daily rate, nothing changing hands.</p>
-  <p>We only take sits of <strong>a month or longer</strong>. Shorter stays
-    don't really work for either side. It takes most animals a week just to
-    decide we're alright, and we'd rather be somewhere long enough to be
-    genuinely useful.</p>
+<section class="wrap numbered">
+  <div class="split">
+    <div class="split__text">
+      <h2>The arrangement</h2>
+      <p class="big">We don't charge anything.</p>
+      <p class="dropcap">You get your home lived in and your animals looked
+        after. We get a place to stay while we're in the country. That's the
+        whole arrangement — no fee, no daily rate, nothing changing hands.</p>
+      <p>We only take sits of <strong>a month or longer</strong>. Shorter stays
+        don't really work for either side. It takes most animals a week just to
+        decide we're alright, and we'd rather be somewhere long enough to be
+        genuinely useful.</p>
+    </div>
+    <figure class="split__media">
+      <img src="images/tuxedo-cat-800.webp"
+           srcset="images/tuxedo-cat-800.webp 800w, images/tuxedo-cat-1600.webp 1600w"
+           sizes="(min-width: 58rem) 45vw, 100vw"
+           width="1600" height="1600" loading="lazy"
+           alt="Dan on a dark leather sofa with a black-and-white cat settled in his arms.">
+      <figcaption>2021</figcaption>
+    </figure>
+  </div>
 </section>
 
-<figure class="weave wrap">
-  <img src="images/estes-danica-fireside-800.webp"
-       srcset="images/estes-danica-fireside-800.webp 800w, images/estes-danica-fireside-1600.webp 1600w"
-       sizes="(min-width: 52rem) 48rem, 100vw"
-       width="1600" height="1060" loading="lazy"
-       alt="Danica sitting on the floor by a lit fireplace with a black-and-grey dog and a cream-coloured dog.">
-  <figcaption>Estes Park, Colorado, 2021</figcaption>
-</figure>
+<section class="wrap numbered">
+  <div class="split split--flip">
+    <div class="split__text">
+      <h2>What to expect</h2>
+      <dl class="expect">
+        <dt>We're home most of the day.</dt>
+        <dd>We're both software engineers and we work remotely, so your animals
+          are rarely on their own. Most of our downtime is spent quietly at our
+          laptops, usually with something asleep nearby.</dd>
 
-<section class="wrap">
-  <h2>What to expect</h2>
-  <dl class="expect">
-    <dt>We're home most of the day.</dt>
-    <dd>We're both software engineers and we work remotely, so your animals
-      are rarely on their own. Most of our downtime is spent quietly at our
-      laptops, usually with something asleep nearby.</dd>
+        <dt>As many updates as you want.</dt>
+        <dd>Some people want a photo every day. Some would rather hear nothing
+          unless something's wrong. Both are completely fine — just tell us
+          which.</dd>
 
-    <dt>As many updates as you want.</dt>
-    <dd>Some people want a photo every day. Some would rather hear nothing
-      unless something's wrong. Both are completely fine — just tell us which.</dd>
+        <dt>The house the way you left it.</dt>
+        <dd>Clean, tidy, plants watered, garden looked after. We treat other
+          people's homes the way we'd treat our own, and we sort out small
+          problems ourselves rather than leaving them for you to come home
+          to.</dd>
 
-    <dt>The house the way you left it.</dt>
-    <dd>Clean, tidy, plants watered, garden looked after. We treat other
-      people's homes the way we'd treat our own, and we sort out small problems
-      ourselves rather than leaving them for you to come home to.</dd>
+        <dt>Your car, if you're happy for us to use it.</dt>
+        <dd>We're both licensed drivers and we don't own a vehicle. We'd
+          genuinely prefer to use yours if you're willing — for the grocery run,
+          for a vet trip if one comes up, and for taking the dog somewhere more
+          interesting than the same block every day. We've done this before with
+          no issues. If you'd rather we didn't, we'll manage on foot, on public
+          transport, and by rideshare.</dd>
 
-    <dt>Your car, if you're happy for us to use it.</dt>
-    <dd>We're both licensed drivers and we don't own a vehicle. We'd genuinely
-      prefer to use yours if you're willing — for the grocery run, for a vet
-      trip if one comes up, and for taking the dog somewhere more interesting
-      than the same block every day. We've done this before with no issues. If
-      you'd rather we didn't, we'll manage on foot, on public transport, and by
-      rideshare.</dd>
-
-    <dt>Non-smokers, and quiet.</dt>
-    <dd>Neither of us smokes. We're not going to have people over or throw
-      anything in your living room.</dd>
-  </dl>
+        <dt>Non-smokers, and quiet.</dt>
+        <dd>Neither of us smokes. We're not going to have people over or throw
+          anything in your living room.</dd>
+      </dl>
+    </div>
+    <figure class="split__media split__media--sticky">
+      <img src="images/trail-dogs-800.webp"
+           srcset="images/trail-dogs-800.webp 800w, images/trail-dogs-1600.webp 1600w"
+           sizes="(min-width: 58rem) 45vw, 100vw"
+           width="1600" height="1060" loading="lazy"
+           alt="Dan crouching on a track beside a mountain bike, rubbing the belly of one dog while another stands watching.">
+      <figcaption>2020</figcaption>
+    </figure>
+  </div>
 </section>
 
-<figure class="weave wrap">
-  <img src="images/estes-dan-trail-800.webp"
-       srcset="images/estes-dan-trail-800.webp 800w, images/estes-dan-trail-1600.webp 1600w"
-       sizes="(min-width: 52rem) 48rem, 100vw"
-       width="1600" height="1060" loading="lazy"
-       alt="Dan kneeling on a rocky trail below a mountain with two large dogs, one holding a stick.">
-  <figcaption>Estes Park, Colorado, 2021</figcaption>
-</figure>
-
-<section class="wrap" id="reviews">
+<section class="reviews wrap numbered" id="reviews">
   <h2>What hosts have said</h2>
-  <p class="note">Thirteen sits since 2021, in five countries, every one of
-    them rated five stars. These are the reviews hosts left on our Kiwi House
-    Sitters, Aussie House Sitters and TrustedHousesitters profiles, copied
-    exactly as they wrote them.</p>
 
-  <div class="reviews">
+  <dl class="tally">
+    <div>
+      <dt>13</dt>
+      <dd>sits since 2021</dd>
+    </div>
+    <div>
+      <dt>5</dt>
+      <dd>countries</dd>
+    </div>
+    <div>
+      <dt>★★★★★</dt>
+      <dd>every single one</dd>
+    </div>
+  </dl>
 
-    <article class="review">
-      <div class="review__avatar review__avatar--initial" aria-hidden="true">G</div>
-      <div>
-        <h3>Gill</h3>
-        <p class="review__meta">Taupō, North Island, New Zealand · May 2023 · 1 month 1 week</p>
-        <p>Danica and Dan are the perfect sitters. They were organised;
-          diligent; polite; easy to have in the house. They took great care of
-          Nico and he was very happy with them. Danica and Dan interacted with
-          the neighbours; sent great photos of their time with Nico and kept us
-          updated during our travels. I wish them all the best for future
-          travelling and house sitting. We totally recommend them for any home
-          owner and pet lover.</p>
+  <p class="note">Copied exactly as hosts wrote them, from our Kiwi House
+    Sitters, Aussie House Sitters and TrustedHousesitters profiles. The photos
+    are from those same sits.</p>
+
+  <div class="sits">
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--tall" style="object-position: 50% 65%"
+             src="images/nz-dan-poodle-maple-800.webp"
+             srcset="images/nz-dan-poodle-maple-800.webp 800w, images/nz-dan-poodle-maple-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="2400" loading="lazy"
+             alt="Dan crouching beside Nico beneath a maple in full red autumn colour.">
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <div class="avatar avatar--initial" aria-hidden="true">G</div>
+          <div>
+            <h3>Gill</h3>
+            <p class="sit__where">Taupō, New Zealand · May 2023 · 1 month 1 week</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>Danica and Dan are the perfect sitters.</p></blockquote>
+        <details class="full">
+          <summary>Read Gill's full review</summary>
+          <p>Danica and Dan are the perfect sitters. They were organised;
+            diligent; polite; easy to have in the house. They took great care of
+            Nico and he was very happy with them. Danica and Dan interacted with
+            the neighbours; sent great photos of their time with Nico and kept
+            us updated during our travels. I wish them all the best for future
+            travelling and house sitting. We totally recommend them for any home
+            owner and pet lover.</p>
+        </details>
       </div>
     </article>
 
-    <article class="review">
-      <div class="review__avatar review__avatar--initial" aria-hidden="true">B</div>
-      <div>
-        <h3>Bianca</h3>
-        <p class="review__meta">Auckland, North Island, New Zealand · Jun 2023 · 4 weeks</p>
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--square"
+             src="images/sheffield-cockers-gate-800.webp"
+             srcset="images/sheffield-cockers-gate-800.webp 800w, images/sheffield-cockers-gate-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="1600" loading="lazy"
+             alt="Dan crouching by a stone wall between a chocolate cocker spaniel and a golden one, both looking up at him.">
+        <div class="sit__strip">
+          <img src="images/sheffield-cockers-walk-800.webp"
+               srcset="images/sheffield-cockers-walk-800.webp 800w, images/sheffield-cockers-walk-1600.webp 1600w"
+               sizes="(min-width: 58rem) 22vw, 50vw"
+               width="1600" height="2400" loading="lazy"
+               alt="Dan walking two cocker spaniels on a gravel path, the golden one carrying a stick.">
+          <img src="images/sheffield-cockers-woods-800.webp"
+               srcset="images/sheffield-cockers-woods-800.webp 800w, images/sheffield-cockers-woods-1600.webp 1600w"
+               sizes="(min-width: 58rem) 22vw, 50vw"
+               width="1600" height="2400" loading="lazy"
+               alt="Dan kneeling on a sunlit woodland path with the two cocker spaniels sitting among ferns.">
+        </div>
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/alison.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Alison</h3>
+            <p class="sit__where">Sheffield, United Kingdom · 18 Jun – 19 Jul 2022</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>We would wholeheartedly recommend them and
+          really can't believe how lucky we were to find them !!</p></blockquote>
+        <details class="full">
+          <summary>Read Alison's full review</summary>
+          <p>We went on holiday for 4 weeks and were obviously concerned about
+            leaving our two cocker spaniels aged 5 and 15 months for such a long
+            time . They are used to us being around the house and regular
+            lengthy walks . Dan and Danica were excellent housesitters and they
+            clearly developed a good relationship with both dogs - it was
+            obvious they enjoyed the task greatly and it wasn't just a chore !
+            The house was very well looked after and clean and tidy when we
+            returned, garden was kept tidy and watered.</p>
+          <p>They are both clearly enthusiastic and friendly and easy to
+            accommodate . We would wholeheartedly recommend them and really
+            can't believe how lucky we were to find them !!</p>
+        </details>
+      </div>
+    </article>
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--tall" style="object-position: 50% 40%"
+             src="images/denver-three-dogs-800.webp"
+             srcset="images/denver-three-dogs-800.webp 800w, images/denver-three-dogs-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1365" height="2048" loading="lazy"
+             alt="Dan on a sofa in the evening with a scruffy white dog beside him, a small grey dog on his lap, and a large tan dog at his feet.">
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/jeff.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Jeff</h3>
+            <p class="sit__where">Denver, CO, US · 4 Jul – 21 Aug 2024</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>They are welcomed back any time.</p></blockquote>
+        <details class="full">
+          <summary>Read Jeff's full review</summary>
+          <p>These guys did such a great job. The house was well taken care of
+            and the dogs were very happy. I am sad that they will not be
+            available for future sits as they will be out of the country. They
+            are welcomed back any time.</p>
+        </details>
+      </div>
+    </article>
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--square"
+             src="images/oakland-dog-floor-800.webp"
+             srcset="images/oakland-dog-floor-800.webp 800w, images/oakland-dog-floor-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="1600" loading="lazy"
+             alt="Dan lying on the carpet scratching a scruffy terrier, who is grinning at the camera.">
+        <div class="sit__strip">
+          <img src="images/oakland-danica-cat-800.webp"
+               srcset="images/oakland-danica-cat-800.webp 800w, images/oakland-danica-cat-1600.webp 1600w"
+               sizes="(min-width: 58rem) 15vw, 33vw"
+               width="961" height="1117" loading="lazy"
+               alt="Danica smiling with a tabby cat draped across her shoulders like a scarf.">
+          <img src="images/oakland-dog-window-800.webp"
+               srcset="images/oakland-dog-window-800.webp 800w, images/oakland-dog-window-1600.webp 1600w"
+               sizes="(min-width: 58rem) 15vw, 33vw"
+               width="1600" height="2400" loading="lazy"
+               alt="Dan sitting by a bright window with the terrier standing attentively beside him.">
+          <img style="object-position: 50% 30%"
+               src="images/oakland-cat-and-dog-800.webp"
+               srcset="images/oakland-cat-and-dog-800.webp 800w, images/oakland-cat-and-dog-1600.webp 1600w"
+               sizes="(min-width: 58rem) 15vw, 33vw"
+               width="1600" height="2738" loading="lazy"
+               alt="Dan seated with a tabby cat on his lap and the terrier sitting at his feet.">
+        </div>
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/mary.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Mary</h3>
+            <p class="sit__where">Oakland, CA, US · 27 Jan – 7 Feb 2022</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>They left the house in excellent condition.</p></blockquote>
+        <details class="full">
+          <summary>Read Mary's full review</summary>
+          <p>Danica and Dan took great care of our house and pets during our 11
+            day vacation. They were organized and available to discuss household
+            issues before their stay. During our trip, they were responsive when
+            we checked in with them. They left the house in excellent condition.
+            We would definitely invite them back for a future vacation.</p>
+        </details>
+      </div>
+    </article>
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--tall" style="object-position: 50% 30%"
+             src="images/leeds-ginger-cat-800.webp"
+             srcset="images/leeds-ginger-cat-800.webp 800w, images/leeds-ginger-cat-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="2400" loading="lazy"
+             alt="A ginger cat lying contentedly along Dan's forearm on a wooden table.">
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/jane.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Jane</h3>
+            <p class="sit__where">Leeds, United Kingdom · 28 Jul – 2 Sep 2022</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>Our cats were very content and they kept us
+          updated on everything.</p></blockquote>
+        <details class="full">
+          <summary>Read Jane's full review</summary>
+          <p>Dan and Danica have been wonderful pet sitters for us.
+            Communication was easy and we knew we could rely on them. Our cats
+            were very content and they kept us updated on everything. They are a
+            considerate and organised couple, who we highly reccomend.</p>
+        </details>
+      </div>
+    </article>
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--wide"
+             src="images/estes-danica-fireside-800.webp"
+             srcset="images/estes-danica-fireside-800.webp 800w, images/estes-danica-fireside-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="1060" loading="lazy"
+             alt="Danica sitting on the floor by a lit fireplace with a black-and-grey dog and a cream-coloured dog.">
+        <div class="sit__strip">
+          <img src="images/estes-dan-trail-800.webp"
+               srcset="images/estes-dan-trail-800.webp 800w, images/estes-dan-trail-1600.webp 1600w"
+               sizes="(min-width: 58rem) 45vw, 100vw"
+               width="1600" height="1060" loading="lazy"
+               alt="Dan kneeling on a rocky trail below a mountain with two large dogs, one holding a stick.">
+        </div>
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/elizabeth.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Elizabeth</h3>
+            <p class="sit__where">Estes Park, CO, US · 11 Dec – 16 Dec 2021</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>The dogs were very happy when I got back,
+          clearly well loved.</p></blockquote>
+        <details class="full">
+          <summary>Read Elizabeth's full review</summary>
+          <p>Danica and Dan were great! The dogs were very happy when I got
+            back, clearly well loved, and the house was well taken care of.
+            Five stars all the way around. Thank you Danica and Dan.</p>
+        </details>
+      </div>
+    </article>
+
+    <article class="sit">
+      <div class="sit__photos">
+        <img class="sit__main sit__main--tall"
+             src="images/richmond-terrier-800.webp"
+             srcset="images/richmond-terrier-800.webp 800w, images/richmond-terrier-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="2400" loading="lazy"
+             alt="Dan standing in long summer grass with a border terrier on a lead beside him.">
+      </div>
+      <div class="sit__body">
+        <div class="sit__who">
+          <img class="avatar" src="images/avatars/lyn.webp" width="56" height="56" loading="lazy" alt="">
+          <div>
+            <h3>Lyn</h3>
+            <p class="sit__where">Richmond, United Kingdom · 5 May – 15 Jun 2022</p>
+          </div>
+        </div>
+        <blockquote class="pull"><p>Lovely couple who immediately bonded with
+          the dogs.</p></blockquote>
+        <details class="full">
+          <summary>Read Lyn's full review</summary>
+          <p>Lovely couple who immediately bonded with the dogs. They kept in
+            contact regularly and let me know if there was anything they were
+            unsure   Of Even photos of my potato plants. The house was immaculate
+            when we returned   a very responsible couple who I can highly
+            recommend . Thank you Dan and Danica</p>
+        </details>
+      </div>
+    </article>
+
+  </div>
+
+  <h3 class="quotes__head">Six more sits</h3>
+  <p class="note">We didn't come away with photos worth showing from these
+    ones. The reviews are just as real.</p>
+
+  <div class="quotes">
+
+    <article class="quote">
+      <div class="sit__who">
+        <div class="avatar avatar--initial" aria-hidden="true">B</div>
+        <div>
+          <h4>Bianca</h4>
+          <p class="sit__where">Auckland, New Zealand · Jun 2023 · 4 weeks</p>
+        </div>
+      </div>
+      <blockquote class="pull pull--sm"><p>Frankie misses them for sure.</p></blockquote>
+      <details class="full">
+        <summary>Read Bianca's full review</summary>
         <p>We were lucky to have Dan and Danica house sit for us. They were so
           wonderful caring for our dog Frankie, it made being away from her so
           much easier because we knew she was being well looked after. Dan and
@@ -134,14 +422,21 @@
           came back the house was tidy and clean. I would highly recommend Dan
           and Danica as house sitters, we honestly couldn't have asked for
           anyone better. Frankie misses them for sure.</p>
-      </div>
+      </details>
     </article>
 
-    <article class="review">
-      <div class="review__avatar review__avatar--initial" aria-hidden="true">L</div>
-      <div>
-        <h3>Lee-Ann</h3>
-        <p class="review__meta">Mile End, SA, Australia · Jul 2023 · 1 month 2 weeks</p>
+    <article class="quote">
+      <div class="sit__who">
+        <div class="avatar avatar--initial" aria-hidden="true">L</div>
+        <div>
+          <h4>Lee-Ann</h4>
+          <p class="sit__where">Mile End, SA, Australia · Jul 2023 · 1 month 2 weeks</p>
+        </div>
+      </div>
+      <blockquote class="pull pull--sm"><p>But their care for Millie went
+        'above and beyond'.</p></blockquote>
+      <details class="full">
+        <summary>Read Lee-Ann's full review</summary>
         <p>We were in a bit of a dilemma as our previous house/pet sitting
           arrangements had fallen through, and we were cautious about having
           someone we didn't know living in our home and caring for our English
@@ -154,14 +449,20 @@
           our return, reinforced with us that we had made the right decision. I
           have no hesitation in recommending Dan and Danica as house/pet
           sitters. Millie misses them!</p>
-      </div>
+      </details>
     </article>
 
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/julie.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Julie</h3>
-        <p class="review__meta">Brisbane, QLD, Australia · 7 Sep – 7 Oct 2023</p>
+    <article class="quote">
+      <div class="sit__who">
+        <img class="avatar" src="images/avatars/julie.webp" width="56" height="56" loading="lazy" alt="">
+        <div>
+          <h4>Julie</h4>
+          <p class="sit__where">Brisbane, QLD, Australia · 7 Sep – 7 Oct 2023</p>
+        </div>
+      </div>
+      <blockquote class="pull pull--sm"><p>All went like clockwork.</p></blockquote>
+      <details class="full">
+        <summary>Read Julie's full review</summary>
         <p>We had a great experience with Danica &amp; Dan.  We had quite a few
           exchanges prior to the sit to co-ordinate arrival, handover and
           departure.  All went like clockwork.   Our home was left clean and
@@ -173,26 +474,21 @@
           their stay.</p>
         <p>Highly recommend Danica &amp; Dan as reliable and trusted
           housesitters.</p>
-      </div>
+      </details>
     </article>
 
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/jeff.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Jeff</h3>
-        <p class="review__meta">Denver, CO, US · 4 Jul – 21 Aug 2024</p>
-        <p>These guys did such a great job. The house was well taken care of
-          and the dogs were very happy. I am sad that they will not be
-          available for future sits as they will be out of the country. They
-          are welcomed back any time.</p>
+    <article class="quote">
+      <div class="sit__who">
+        <img class="avatar" src="images/avatars/cassio.webp" width="56" height="56" loading="lazy" alt="">
+        <div>
+          <h4>Cassio</h4>
+          <p class="sit__where">Sumida, Japan · 25 Apr – 19 May 2024</p>
+        </div>
       </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/cassio.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Cassio</h3>
-        <p class="review__meta">Sumida, Japan · 25 Apr – 19 May 2024</p>
+      <blockquote class="pull pull--sm"><p>The house was tidy when we arrived
+        and Barney was happy.</p></blockquote>
+      <details class="full">
+        <summary>Read Cassio's full review</summary>
         <p>Dan and Danica were my first long pet sitters here. They help me and
           my wife with the process and guide us through when we had doubts.
           Since the beginning I felt the Barney of being taking care with their
@@ -200,95 +496,41 @@
         <p>I would definitely recommend them to anyone, the house was tidy when
           we arrived and Barney was happy.</p>
         <p>Thank you guys!!</p>
-      </div>
+      </details>
     </article>
 
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/jane.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Jane</h3>
-        <p class="review__meta">Leeds, United Kingdom · 28 Jul – 2 Sep 2022</p>
-        <p>Dan and Danica have been wonderful pet sitters for us. Communication
-          was easy and we knew we could rely on them. Our cats were very
-          content and they kept us updated on everything. They are a
-          considerate and organised couple, who we highly reccomend.</p>
+    <article class="quote">
+      <div class="sit__who">
+        <img class="avatar" src="images/avatars/sandra.webp" width="56" height="56" loading="lazy" alt="">
+        <div>
+          <h4>Sandra</h4>
+          <p class="sit__where">Harrogate, United Kingdom · 20 Jul – 26 Jul 2022</p>
+        </div>
       </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/alison.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Alison</h3>
-        <p class="review__meta">Sheffield, United Kingdom · 18 Jun – 19 Jul 2022</p>
-        <p>We went on holiday for 4 weeks and were obviously concerned about
-          leaving our two cocker spaniels aged 5 and 15 months for such a long
-          time . They are used to us being around the house and regular lengthy
-          walks . Dan and Danica were excellent housesitters and they clearly
-          developed a good relationship with both dogs - it was obvious they
-          enjoyed the task greatly and it wasn't just a chore ! The house was
-          very well looked after and clean and tidy when we returned, garden was
-          kept tidy and watered.</p>
-        <p>They are both clearly enthusiastic and friendly and easy to
-          accommodate . We would wholeheartedly recommend them and really can't
-          believe how lucky we were to find them !!</p>
-      </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/lyn.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Lyn</h3>
-        <p class="review__meta">Richmond, United Kingdom · 5 May – 15 Jun 2022</p>
-        <p>Lovely couple who immediately bonded with the dogs. They kept in
-          contact regularly and let me know if there was anything they were
-          unsure   Of Even photos of my potato plants. The house was immaculate
-          when we returned   a very responsible couple who I can highly
-          recommend . Thank you Dan and Danica</p>
-      </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/sandra.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Sandra</h3>
-        <p class="review__meta">Harrogate, United Kingdom · 20 Jul – 26 Jul 2022</p>
+      <blockquote class="pull pull--sm"><p>A lovely couple who provided
+        excellent care for my ageing dog and cat.</p></blockquote>
+      <details class="full">
+        <summary>Read Sandra's full review</summary>
         <p>A lovely couple who provided excellent care for my ageing dog and
           cat. We communicated well throughout the stay and they even took care
           of my plants and vegetables.</p>
         <p>My home was clean and tidy on my return and my pets were very happy
           and contented. I would highly recommend them.</p>
-      </div>
+      </details>
     </article>
 
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/mary.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Mary</h3>
-        <p class="review__meta">Oakland, CA, US · 27 Jan – 7 Feb 2022</p>
-        <p>Danica and Dan took great care of our house and pets during our 11
-          day vacation. They were organized and available to discuss household
-          issues before their stay. During our trip, they were responsive when
-          we checked in with them. They left the house in excellent condition.
-          We would definitely invite them back for a future vacation.</p>
+    <article class="quote">
+      <div class="sit__who">
+        <img class="avatar" src="images/avatars/lillian.webp" width="56" height="56" loading="lazy" alt="">
+        <div>
+          <h4>lillian</h4>
+          <p class="sit__where">Longmont, CO, US · 23 Nov – 28 Nov 2021</p>
+        </div>
       </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/elizabeth.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>Elizabeth</h3>
-        <p class="review__meta">Estes Park, CO, US · 11 Dec – 16 Dec 2021</p>
-        <p>Danica and Dan were great! The dogs were very happy when I got back,
-          clearly well loved, and the house was well taken care of.  Five stars
-          all the way around.  Thank you Danica and Dan.</p>
-      </div>
-    </article>
-
-    <article class="review">
-      <img class="review__avatar" src="images/avatars/lillian.webp" width="56" height="56" loading="lazy" alt="">
-      <div>
-        <h3>lillian</h3>
-        <p class="review__meta">Longmont, CO, US · 23 Nov – 28 Nov 2021</p>
+      <blockquote class="pull pull--sm"><p>They are trustworthy and
+        conscientious.</p></blockquote>
+      <details class="full">
+        <summary>Read lillian's full review</summary>
         <p>Dan and Danica really showed an immense amount of integrity and care
           to our pets and home while we were away. We received many
           communications on day to day events going on in our home, like dog
@@ -296,137 +538,85 @@
           scheduled date for a meet and greet was especially reassuring that we
           were leaving our babies with someone we could trust. We would greatly
           recommended them to sit, they are trustworthy and conscientious.</p>
-      </div>
+      </details>
     </article>
 
   </div>
+
+  <!-- The way to act sits with the proof, not only at the foot of the page. -->
+  <div class="cta-block">
+    <p>That's thirteen homes and thirteen sets of animals, all of whom we'd
+      happily go back to. Yours could be the fourteenth.</p>
+    <a class="cta" href="#contact">Get in touch</a>
+  </div>
 </section>
 
-<section class="wrap" id="about">
-  <h2>Who we are</h2>
-  <p>We've been nomadic since 2016. We're both software engineers, and we
-    generally settle in one area for three to six months before moving
-    somewhere new. Most recently we spent two years living and travelling
-    around Asia.</p>
-  <p>Dan grew up with animals in the house — a German Shepherd called London
-    who went everywhere with him, then two cats through his twenties. Danica
-    looked after turtles, hamsters, mice and birds.</p>
-  <p>The catch with living the way we do is that you can't really keep a pet.
-    That's the honest reason we started house sitting: we wanted animals
-    around again.</p>
-</section>
-
-<figure class="weave wrap">
-  <img src="images/about-hiking-800.webp"
-       srcset="images/about-hiking-800.webp 800w, images/about-hiking-1600.webp 1600w"
-       sizes="(min-width: 52rem) 48rem, 100vw"
-       width="1600" height="1060" loading="lazy"
-       alt="Danica and Dan standing together in hiking gear on a ridge, with snow-capped mountains and golden aspens behind them.">
-  <figcaption>Colorado, 2017</figcaption>
-</figure>
-
-<section class="wrap">
-  <p class="big">We've spent the last couple of years chasing ski seasons and
-    hiking trails — wonderful, but not very compatible with having animals
-    around.</p>
-  <p class="big">We miss it. So we're heading back to New Zealand and
-    Australia, and looking for our next long sit.</p>
-  <p>Back, because we've done four sits between the two countries already —
-    Nico in Taupō, Frankie in Auckland, Millie in Adelaide and Rusty in
-    Brisbane. We know the flights, the seasons, and how far it is to the shops.</p>
+<section class="wrap numbered" id="about">
+  <div class="split">
+    <div class="split__text">
+      <h2>Who we are</h2>
+      <p class="dropcap">We've been nomadic since 2016. We're both software
+        engineers, and we generally settle in one area for three to six months
+        before moving somewhere new. Most recently we spent two years living and
+        travelling around Asia.</p>
+      <p>Dan grew up with animals in the house — a German Shepherd called London
+        who went everywhere with him, then two cats through his twenties. Danica
+        looked after turtles, hamsters, mice and birds.</p>
+      <p>The catch with living the way we do is that you can't really keep a
+        pet. That's the honest reason we started house sitting: we wanted
+        animals around again.</p>
+    </div>
+    <figure class="split__media">
+      <img src="images/about-hiking-800.webp"
+           srcset="images/about-hiking-800.webp 800w, images/about-hiking-1600.webp 1600w"
+           sizes="(min-width: 58rem) 45vw, 100vw"
+           width="1600" height="1060" loading="lazy"
+           alt="Danica and Dan standing together in hiking gear on a ridge, with snow-capped mountains and golden aspens behind them.">
+      <figcaption>Colorado, 2017</figcaption>
+    </figure>
+  </div>
 
   <div class="trio">
     <figure>
-      <img src="images/about-danica-puppy-800.webp" width="800" height="1200" loading="lazy"
+      <img src="images/about-danica-puppy-800.webp"
+           srcset="images/about-danica-puppy-800.webp 800w, images/about-danica-puppy-1600.webp 1600w"
+           sizes="(min-width: 40rem) 30vw, 50vw"
+           width="1600" height="2400" loading="lazy"
            alt="A much younger Danica kneeling on a path, holding a German Shepherd puppy in her arms.">
     </figure>
     <figure>
-      <img src="images/about-danica-cat-800.webp" width="800" height="800" loading="lazy"
+      <img src="images/about-danica-cat-800.webp"
+           srcset="images/about-danica-cat-800.webp 800w, images/about-danica-cat-1600.webp 1600w"
+           sizes="(min-width: 40rem) 30vw, 50vw"
+           width="1600" height="1600" loading="lazy"
            alt="Danica grinning with a black-and-white cat held up beside her cheek.">
     </figure>
     <figure>
-      <img src="images/about-shepherd-800.webp" width="800" height="533" loading="lazy"
+      <img src="images/about-shepherd-800.webp"
+           srcset="images/about-shepherd-800.webp 800w, images/about-shepherd-1600.webp 1600w"
+           sizes="(min-width: 40rem) 30vw, 50vw"
+           width="1600" height="1067" loading="lazy"
            alt="Danica and Dan sitting on either side of a full-grown German Shepherd in a living room.">
     </figure>
   </div>
   <p class="note">Long before any of this — 2013 and 2014.</p>
 </section>
 
-<section class="wrap" id="photos">
-  <h2>Photos</h2>
-  <p class="note">Every animal here belongs to someone who let us stay in their
-    house.</p>
-
-  <div class="gallery">
-    <figure>
-      <img src="images/nz-dan-poodle-maple-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan crouching beside Nico beneath a maple in full red autumn colour.">
-      <figcaption>Nico — Taupō, New Zealand, 2023</figcaption>
-    </figure>
-    <figure>
-      <img src="images/denver-three-dogs-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan on a sofa in the evening with a scruffy white dog beside him, a small grey dog on his lap, and a large tan dog at his feet.">
-      <figcaption>Denver, Colorado, 2024</figcaption>
-    </figure>
-    <figure>
-      <img src="images/sheffield-cockers-gate-800.webp" width="800" height="800" loading="lazy"
-           alt="Dan crouching by a stone wall between a chocolate cocker spaniel and a golden one, both looking up at him.">
-      <figcaption>Sheffield, England, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/sheffield-cockers-walk-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan walking two cocker spaniels on a gravel path, the golden one carrying a stick.">
-      <figcaption>Sheffield, England, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/sheffield-cockers-woods-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan kneeling on a sunlit woodland path with the two cocker spaniels sitting among ferns.">
-      <figcaption>Sheffield, England, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/leeds-ginger-cat-800.webp" width="800" height="1200" loading="lazy"
-           alt="A ginger cat lying contentedly along Dan's forearm on a wooden table.">
-      <figcaption>Leeds, England, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/richmond-terrier-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan standing in long summer grass with a border terrier on a lead beside him.">
-      <figcaption>Richmond, England, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/oakland-danica-cat-800.webp" width="800" height="930" loading="lazy"
-           alt="Danica smiling with a tabby cat draped across her shoulders like a scarf.">
-      <figcaption>Oakland, California, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/oakland-cat-and-dog-800.webp" width="800" height="1369" loading="lazy"
-           alt="Dan seated with a tabby cat on his lap and a scruffy terrier sitting at his feet.">
-      <figcaption>Oakland, California, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/oakland-dog-window-800.webp" width="800" height="1200" loading="lazy"
-           alt="Dan sitting by a bright window with the same terrier standing attentively beside him.">
-      <figcaption>Oakland, California, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/oakland-dog-floor-800.webp" width="800" height="800" loading="lazy"
-           alt="Dan lying on the carpet scratching the terrier, who is grinning at the camera.">
-      <figcaption>Oakland, California, 2022</figcaption>
-    </figure>
-    <figure>
-      <img src="images/tuxedo-cat-800.webp" width="800" height="800" loading="lazy"
-           alt="Dan on a dark leather sofa with a black-and-white cat settled in his arms.">
-      <figcaption>2021</figcaption>
-    </figure>
-    <figure>
-      <img src="images/trail-dogs-800.webp" width="800" height="530" loading="lazy"
-           alt="Dan crouching on a track beside a mountain bike, rubbing the belly of one dog while another stands watching.">
-      <figcaption>2020</figcaption>
-    </figure>
+<section class="wrap">
+  <div class="split__text">
+    <p class="big">We've spent the last couple of years chasing ski seasons and
+      hiking trails — wonderful, but not very compatible with having animals
+      around.</p>
+    <p class="big">We miss it. So we're heading back to New Zealand and
+      Australia, and looking for our next long sit.</p>
+    <p>Back, because we've done four sits between the two countries already —
+      Nico in Taupō, Frankie in Auckland, Millie in Adelaide and Rusty in
+      Brisbane. We know the flights, the seasons, and how far it is to the
+      shops.</p>
   </div>
 </section>
 
-<section class="wrap contact" id="contact">
+<section class="wrap contact numbered" id="contact">
   <h2>Get in touch</h2>
   <p class="big"><a href="mailto:REPLACE-WITH-YOUR-ADDRESS@example.com">REPLACE-WITH-YOUR-ADDRESS@example.com</a></p>
   <p>Tell us where you are, when you're away, and who we'd be looking after.
