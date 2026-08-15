@@ -497,6 +497,16 @@ figcaption {
   line-height: 1.2;
 }
 
+/* Every one of these sits was rated five stars, and the tally at the top says
+   so — repeating it on each review saves the reader taking that on trust. */
+.sit__stars {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
 .sit__where {
   font-size: var(--text-xs);
   letter-spacing: 0.02em;
