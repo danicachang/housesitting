@@ -22,11 +22,18 @@ const out = path.join(root, 'docs', 'images');
 // a group ends up in that sit's card. 20210414 is the only original left out:
 // Dan is wearing a covid mask and the dogs aren't from a sit.
 const photos = [
-  // Nico, the standard poodle from Gill's sit in Taupo, May 2023. All three
-  // were taken on the same day; the lake in the background is Taupo itself.
+  // Nico, the standard poodle from Gill's sit in Taupo, May 2023. The lake
+  // behind the shore and lakeside shots is Taupo itself; the rapids below the
+  // dam in -falls are Huka Falls, a few minutes upriver from the house.
   ['20230523-04-35-30.jpg', 'nz-dan-poodle-maple', 'Nico — Taupō, New Zealand, 2023'],
   ['20230523-04-43-53.jpg', 'nz-danica-poodle', 'Nico — Taupō, New Zealand, 2023'],
   ['20230523-06-39-55.jpg', 'nz-dan-poodle-lake', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230512-06-02-41.jpg', 'nz-danica-poodle-falls', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230513-06-06-10.jpg', 'nz-dan-poodle-tug', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230513-12-12-36.jpg', 'nz-dan-poodle-shore', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230517-12-50-09.jpg', 'nz-poodle-ball', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230523-09-33-05.jpg', 'nz-dan-poodle-wash', 'Nico — Taupō, New Zealand, 2023'],
+  ['20230530-11-32-58.jpg', 'nz-poodle-lakeside', 'Nico — Taupō, New Zealand, 2023'],
 
   // The two cocker spaniels from Alison's sit in Sheffield, Jun–Jul 2022.
   ['20220626-08-57-51.jpg', 'sheffield-cockers-gate', 'Sheffield, England, 2022'],
@@ -61,8 +68,17 @@ const photos = [
   ['2022-01-31(1).jpeg', 'oakland-danica-cat', 'Oakland, California, 2022'],
   ['20220129-21-37-43.jpg', 'oakland-cat-and-dog', 'Oakland, California, 2022'],
   ['20220203-13-31-31.jpg', 'oakland-dog-window', 'Oakland, California, 2022'],
+  ['20220129-11-16-18.jpg', 'oakland-dan-toy', 'Oakland, California, 2022'],
+  ['20220131-14-44-36.jpg', 'oakland-terrier-sit', 'Oakland, California, 2022'],
+  ['20220131-15-47-38.jpg', 'oakland-dan-trail', 'Oakland, California, 2022'],
 
+  // Jane's two cats in Leeds, Jul–Sep 2022 — the ginger one and a grey tabby.
   ['20220805-13-33-55.jpg', 'leeds-ginger-cat', 'Leeds, England, 2022'],
+  ['20220730-06-20-04.jpg', 'leeds-ginger-cat-perch', 'Leeds, England, 2022'],
+  ['20220801-03-54-00.jpg', 'leeds-dan-cat-window', 'Leeds, England, 2022'],
+  ['20220807-04-27-14.jpg', 'leeds-two-cats-sofa', 'Leeds, England, 2022'],
+  ['20220813-09-45-18.jpg', 'leeds-ginger-cat-rug', 'Leeds, England, 2022'],
+  ['20220831-22-14-37.jpg', 'leeds-danica-cat', 'Leeds, England, 2022'],
 
   // Frankie, the Boston terrier from Bianca's sit in Auckland, Jun–Jul 2023.
   // The city behind the hill shot is the view from Maungawhau.
@@ -99,7 +115,15 @@ const photos = [
   ['20220606-05-47-40.jpg', 'richmond-dan-floor', 'Richmond, England, 2022'],
   ['20220608-14-05-03.jpg', 'richmond-dan-arms', 'Richmond, England, 2022'],
 
-  ['20240427-03-02-51-Enhanced-NR.jpg', 'sumida-barney', 'Barney — Sumida, Japan, 2024'],
+  // Barney, Cassio's pug. The sit was in Sumida, but the page says Tokyo,
+  // which is the ward's city and the name a reader outside Japan will know.
+  // Apr–May 2024. The two -Enhanced-NR files are the same afternoon on the
+  // sofa, denoised in Lightroom before export.
+  ['20240427-03-02-51-Enhanced-NR.jpg', 'tokyo-barney', 'Barney — Tokyo, Japan, 2024'],
+  ['20240427-03-03-27-2-Enhanced-NR.jpg', 'tokyo-barney-toy', 'Barney — Tokyo, Japan, 2024'],
+  ['20240427-03-04-41-Enhanced-NR.jpg', 'tokyo-barney-sofa', 'Barney — Tokyo, Japan, 2024'],
+  ['20240503-09-16-39.jpg', 'tokyo-barney-pansies', 'Barney — Tokyo, Japan, 2024'],
+  ['20240504-09-05-28.jpg', 'tokyo-barney-wall', 'Barney — Tokyo, Japan, 2024'],
 
   // Sandra's ageing cockapoo and cat in Harrogate, Jul 2022.
   ['20220721-07-41-11.jpg', 'harrogate-dog-sofa', 'Harrogate, England, 2022'],
@@ -108,7 +132,12 @@ const photos = [
   ['20220724-08-52-51-2.jpg', 'harrogate-dan-sofa', 'Harrogate, England, 2022'],
   ['20220726-02-50-55.jpg', 'harrogate-dog-walk', 'Harrogate, England, 2022'],
 
+  // Lillian's white terrier and long-haired cat in Longmont, Nov 2021.
   ['20211123-19-33-18.jpg', 'longmont-terrier', 'Longmont, Colorado, 2021'],
+  ['20211123-20-24-08.jpg', 'longmont-dan-terrier', 'Longmont, Colorado, 2021'],
+  ['20211124-18-33-33.jpg', 'longmont-terrier-toy', 'Longmont, Colorado, 2021'],
+  ['20211125-16-28-06.jpg', 'longmont-dan-sofa', 'Longmont, Colorado, 2021'],
+  ['20211125-17-06-33.jpg', 'longmont-cat-rug', 'Longmont, Colorado, 2021'],
 
   ['20211010-18-12-36.jpg', 'tuxedo-cat', '2021'],
   ['20200131-09-47-50.jpg', 'trail-dogs', '2020'],
@@ -214,10 +243,17 @@ for (const [file, slug, caption] of photos) {
     sizes[w] = { width: info.width, height: info.height };
   }
 
-  manifest.push({ slug, caption, ...sizes[WIDTHS[0]] });
+  // The aspect ratio is printed because the gallery needs it as a CSS custom
+  // property on every <img> — the justified rows are laid out from it, and
+  // there's no way for CSS to read it back off the width/height attributes.
+  // Printing it here keeps adding a photo to copying three numbers.
+  const { width, height } = sizes[WIDTHS[0]];
+  const ar = +(width / height).toFixed(3);
+
+  manifest.push({ slug, caption, width, height, ar });
   console.log(
     `photo  ${slug.padEnd(24)} ${meta.width}x${meta.height}` +
-      ` -> ${sizes[WIDTHS[0]].width}x${sizes[WIDTHS[0]].height}`
+      ` -> width="${width}" height="${height}" style="--ar: ${ar}"`
   );
 }
 

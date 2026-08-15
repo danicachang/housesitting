@@ -529,59 +529,125 @@ figcaption {
 
 .sit:first-child { border-top: 0; padding-top: 0; }
 
-@media (min-width: 58rem) {
-  .sit {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    align-items: start;
-  }
-  /* Alternate which side the lead photo lands on, keeping the photo column
-     the wider of the two either way. The body is always second in the source,
-     so screen readers and narrow screens get name → review in order.
-     Every child is ordered explicitly: the gallery spans the row below, and
-     without an order of its own it would be placed before whichever item got
-     pushed to 2 and end up above the lead photo. */
-  .sit__lead    { order: 1; }
-  .sit__body    { order: 2; }
-  .sit__gallery { order: 3; grid-column: 1 / -1; }
+/* Justified rows with no JavaScript and no measuring. Each photo's flex-basis
+   is its aspect ratio times a target row height, and its flex-grow is that
+   same ratio — so leftover space is handed out in proportion to width and
+   every photo in a row settles on an identical height, which is what
+   "justified" means. --ar is set per image in the HTML, from the width and
+   height already on the tag.
 
-  .sit:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
-  .sit:nth-of-type(even) .sit__lead { order: 2; }
-  .sit:nth-of-type(even) .sit__body { order: 1; }
-}
-
-/* Uncropped, so the height follows the shape of the photo. Portraits would
-   otherwise tower over the review beside them, hence the cap: it scales the
-   whole frame down rather than cutting anything off it. */
-.sit__lead { margin: 0; min-width: 0; }
-
-.sit__lead img {
-  width: auto;
-  max-width: 100%;
-  max-height: 32rem;
-  margin-inline: auto;
-  border-radius: var(--radius);
-  background: var(--surface-sunken);
-}
-
-/* Nothing else in the card to carry it, so the one photo gets the full cap. */
-.sit:not(:has(.sit__gallery)) .sit__lead img { max-height: 38rem; }
-
-/* Mixed portraits and landscapes at their true proportions don't make rows,
-   so they're set in columns and left to fall where they fall. */
+   Rows come out taller than --row-h, never shorter: flex grows a wrapped row
+   to fill but never shrinks it. --row-h is a floor to tune against, not the
+   height you get, and 190 is not a round number by accident — see below. */
 .sit__gallery {
-  columns: 2;
-  column-gap: 0.5rem;
-}
+  --row-h: 110px;
 
-@media (min-width: 40rem) { .sit__gallery { columns: 3; } }
-@media (min-width: 58rem) { .sit__gallery { columns: 4; } }
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  /* Both reversals move the short, tall row to the top. See the order rules
+     below — this half flips the rendering back so the photos still read left
+     to right, top to bottom. */
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+
+  /* row-reverse packs from the right, so anything that doesn't grow to fill
+     its row would sit against the right edge. In row-reverse, flex-end is
+     the left. */
+  justify-content: flex-end;
+}
 
 .sit__gallery img {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  break-inside: avoid;
+  flex: var(--ar) 1 calc(var(--ar) * var(--row-h));
+
+  /* Flex items are min-width:auto by default, which on a replaced element
+     resolves to its intrinsic width — 800px here. That floor silently beats
+     the flex-basis above and puts one oversized photo on every row. This is
+     the line that makes any of it work. */
+  min-width: 0;
+
+  width: auto;
+  height: auto;
   border-radius: var(--radius);
   background: var(--surface-sunken);
+}
+
+/* Flex fills rows from the start and leaves the remainder on the last row.
+   Reversing the order reverses which photos are left over, so the remainder
+   becomes the *first* photos — and the two reversals above flip the rendering
+   back the right way round. The short row lands at the top and holds the
+   opening photos, reading order still runs left to right and top to bottom in
+   source order, and DOM order still matches what you see, so none of this
+   moves anything for a screen reader.
+
+   Fourteen covers the largest sit (nine photos) with room to grow. A sit with
+   more than fourteen would need another line here. */
+.sit__gallery img:nth-child(1)  { order: 14; }
+.sit__gallery img:nth-child(2)  { order: 13; }
+.sit__gallery img:nth-child(3)  { order: 12; }
+.sit__gallery img:nth-child(4)  { order: 11; }
+.sit__gallery img:nth-child(5)  { order: 10; }
+.sit__gallery img:nth-child(6)  { order: 9; }
+.sit__gallery img:nth-child(7)  { order: 8; }
+.sit__gallery img:nth-child(8)  { order: 7; }
+.sit__gallery img:nth-child(9)  { order: 6; }
+.sit__gallery img:nth-child(10) { order: 5; }
+.sit__gallery img:nth-child(11) { order: 4; }
+.sit__gallery img:nth-child(12) { order: 3; }
+.sit__gallery img:nth-child(13) { order: 2; }
+.sit__gallery img:nth-child(14) { order: 1; }
+
+/* Every row justifies, the short one included — no flush-left remainder. The
+   cost is that the top row, holding one or two photos, grows tall to fill the
+   width, which is why --row-h is doing more work than it looks: it decides how
+   many photos land up there, and a lone portrait would stretch to around
+   1150px.
+
+   190 sits between two different failures. Below 185 a portrait is left alone
+   at the top and stretches to about 1315px — a cliff, not a slope. Above 225
+   the top row does cap lower, but the galleries gain a row each and the photo
+   column grows to 1100–1440px, overshooting the review beside it; 190 keeps
+   most columns between 450 and 780px. Anywhere from 185 to 220 renders
+   identically, so there is room either side, but not below.
+
+   The boundary moves when a sit gains photos — it last moved when Oakland went
+   from four to seven. If a gallery starts opening on something enormous,
+   re-derive this against the current photos rather than nudging it by eye. */
+
+/* No sit has a single photo any more, so this matches nothing today. It stays
+   as a guard: one photo alone has no row to justify into, and growing it to
+   the full column would make a portrait about 1150px tall. Natural size,
+   capped, uncropped. */
+.sit__gallery:not(:has(img + img)) img {
+  flex: 0 1 auto;
+  max-width: 100%;
+  max-height: 32rem;
+}
+
+/* Between the card breakpoints the sit is still one column, so the gallery is
+   full width and needs a taller floor to avoid rows of six tiny photos. */
+@media (min-width: 40rem) {
+  .sit__gallery { --row-h: 140px; }
+}
+
+/* Half review, half photos, swapping sides on alternate cards. The body is
+   always first in the source, so screen readers and narrow screens get
+   name → review → photos in that order. This block comes last because it
+   raises --row-h, and the base value above would otherwise win on source
+   order — both selectors have the same specificity. */
+@media (min-width: 58rem) {
+  .sit,
+  .sit:nth-of-type(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .sit__body    { grid-column: 1; grid-row: 1; }
+  .sit__gallery { grid-column: 2; grid-row: 1; --row-h: 190px; }
+
+  .sit:nth-of-type(even) .sit__body    { grid-column: 2; }
+  .sit:nth-of-type(even) .sit__gallery { grid-column: 1; }
 }
 
 .sit__body { min-width: 0; }

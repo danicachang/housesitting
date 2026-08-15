@@ -3,396 +3,616 @@
     "slug": "nz-dan-poodle-maple",
     "caption": "Nico — Taupō, New Zealand, 2023",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "nz-danica-poodle",
     "caption": "Nico — Taupō, New Zealand, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "nz-dan-poodle-lake",
     "caption": "Nico — Taupō, New Zealand, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
+  },
+  {
+    "slug": "nz-danica-poodle-falls",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "nz-dan-poodle-tug",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "nz-dan-poodle-shore",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "nz-poodle-ball",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "nz-dan-poodle-wash",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "nz-poodle-lakeside",
+    "caption": "Nico — Taupō, New Zealand, 2023",
+    "width": 1600,
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "sheffield-cockers-gate",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "sheffield-cockers-walk",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "sheffield-danica-cockers",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "sheffield-dan-cocker",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "sheffield-cockers-woods",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "sheffield-danica-reservoir",
     "caption": "Sheffield, England, 2022",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "denver-three-dogs",
     "caption": "Denver, Colorado, 2024",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "denver-dan-scruffy",
     "caption": "Denver, Colorado, 2024",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "denver-dog-belly",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "denver-dan-photo",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "denver-dan-foothills",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "denver-danica-trail",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "denver-dan-sunset",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "denver-dog-trail",
     "caption": "Denver, Colorado, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "adelaide-dan-millie",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "adelaide-dan-millie-sofa",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "adelaide-millie-table",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "adelaide-millie-hose",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "adelaide-millie-chest",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "adelaide-danica-millie",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "adelaide-millie-tug",
     "caption": "Millie — Mile End, Australia, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "oakland-dog-floor",
     "caption": "Oakland, California, 2022",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "oakland-danica-cat",
     "caption": "Oakland, California, 2022",
     "width": 961,
-    "height": 1117
+    "height": 1117,
+    "ar": 0.86
   },
   {
     "slug": "oakland-cat-and-dog",
     "caption": "Oakland, California, 2022",
     "width": 1600,
-    "height": 2738
+    "height": 2738,
+    "ar": 0.584
   },
   {
     "slug": "oakland-dog-window",
     "caption": "Oakland, California, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "oakland-dan-toy",
+    "caption": "Oakland, California, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "oakland-terrier-sit",
+    "caption": "Oakland, California, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "oakland-dan-trail",
+    "caption": "Oakland, California, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "leeds-ginger-cat",
     "caption": "Leeds, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "leeds-ginger-cat-perch",
+    "caption": "Leeds, England, 2022",
+    "width": 1600,
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "leeds-dan-cat-window",
+    "caption": "Leeds, England, 2022",
+    "width": 1600,
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
+    "slug": "leeds-two-cats-sofa",
+    "caption": "Leeds, England, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "leeds-ginger-cat-rug",
+    "caption": "Leeds, England, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
+  },
+  {
+    "slug": "leeds-danica-cat",
+    "caption": "Leeds, England, 2022",
+    "width": 1600,
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "auckland-frankie-hill",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "auckland-frankie-toy",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "auckland-danica-frankie",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "auckland-dan-frankie",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "auckland-dan-frankie-nose",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
   },
   {
     "slug": "auckland-dan-frankie-arms",
     "caption": "Frankie — Auckland, New Zealand, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "brisbane-rusty-lap",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "brisbane-rusty-blossom",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "brisbane-rusty-chair",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "brisbane-danica-rusty",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "brisbane-rusty-belly",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "brisbane-rusty-deck",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "brisbane-dan-rusty",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "brisbane-rusty-pier",
     "caption": "Rusty — Brisbane, Australia, 2023",
     "width": 1365,
-    "height": 2048
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "estes-danica-fireside",
     "caption": "Estes Park, Colorado, 2021",
     "width": 1600,
-    "height": 1060
+    "height": 1060,
+    "ar": 1.509
   },
   {
     "slug": "estes-dan-trail",
     "caption": "Estes Park, Colorado, 2021",
     "width": 1600,
-    "height": 1060
+    "height": 1060,
+    "ar": 1.509
   },
   {
     "slug": "estes-danica-tree",
     "caption": "Estes Park, Colorado, 2021",
     "width": 1600,
-    "height": 2415
+    "height": 2415,
+    "ar": 0.663
   },
   {
     "slug": "estes-dan-armchair",
     "caption": "Estes Park, Colorado, 2021",
     "width": 1600,
-    "height": 2416
+    "height": 2416,
+    "ar": 0.662
   },
   {
     "slug": "richmond-terrier",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "richmond-danica-abbey",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "richmond-dan-window",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "richmond-terrier-table",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "richmond-dan-floor",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "richmond-dan-arms",
     "caption": "Richmond, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
-    "slug": "sumida-barney",
-    "caption": "Barney — Sumida, Japan, 2024",
+    "slug": "tokyo-barney",
+    "caption": "Barney — Tokyo, Japan, 2024",
     "width": 1600,
-    "height": 1066
+    "height": 1066,
+    "ar": 1.501
+  },
+  {
+    "slug": "tokyo-barney-toy",
+    "caption": "Barney — Tokyo, Japan, 2024",
+    "width": 1365,
+    "height": 2048,
+    "ar": 0.667
+  },
+  {
+    "slug": "tokyo-barney-sofa",
+    "caption": "Barney — Tokyo, Japan, 2024",
+    "width": 1600,
+    "height": 1066,
+    "ar": 1.501
+  },
+  {
+    "slug": "tokyo-barney-pansies",
+    "caption": "Barney — Tokyo, Japan, 2024",
+    "width": 1365,
+    "height": 2048,
+    "ar": 0.667
+  },
+  {
+    "slug": "tokyo-barney-wall",
+    "caption": "Barney — Tokyo, Japan, 2024",
+    "width": 1365,
+    "height": 2048,
+    "ar": 0.667
   },
   {
     "slug": "harrogate-dog-sofa",
     "caption": "Harrogate, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "harrogate-danica-dog",
     "caption": "Harrogate, England, 2022",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "harrogate-cat-brush",
     "caption": "Harrogate, England, 2022",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "harrogate-dan-sofa",
     "caption": "Harrogate, England, 2022",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "harrogate-dog-walk",
     "caption": "Harrogate, England, 2022",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "longmont-terrier",
     "caption": "Longmont, Colorado, 2021",
     "width": 1600,
-    "height": 2415
+    "height": 2415,
+    "ar": 0.663
+  },
+  {
+    "slug": "longmont-dan-terrier",
+    "caption": "Longmont, Colorado, 2021",
+    "width": 1600,
+    "height": 2416,
+    "ar": 0.662
+  },
+  {
+    "slug": "longmont-terrier-toy",
+    "caption": "Longmont, Colorado, 2021",
+    "width": 1600,
+    "height": 1060,
+    "ar": 1.509
+  },
+  {
+    "slug": "longmont-dan-sofa",
+    "caption": "Longmont, Colorado, 2021",
+    "width": 1600,
+    "height": 1060,
+    "ar": 1.509
+  },
+  {
+    "slug": "longmont-cat-rug",
+    "caption": "Longmont, Colorado, 2021",
+    "width": 1600,
+    "height": 1060,
+    "ar": 1.509
   },
   {
     "slug": "tuxedo-cat",
     "caption": "2021",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   },
   {
     "slug": "trail-dogs",
     "caption": "2020",
     "width": 1600,
-    "height": 1060
+    "height": 1060,
+    "ar": 1.509
   },
   {
     "slug": "about-hiking",
     "caption": "Colorado, 2017",
     "width": 1600,
-    "height": 1060
+    "height": 1060,
+    "ar": 1.509
   },
   {
     "slug": "about-shepherd",
     "caption": "2014",
     "width": 1600,
-    "height": 1067
+    "height": 1067,
+    "ar": 1.5
   },
   {
     "slug": "about-danica-puppy",
     "caption": "2013",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "ar": 0.667
   },
   {
     "slug": "about-danica-cat",
     "caption": "2013",
     "width": 1600,
-    "height": 1600
+    "height": 1600,
+    "ar": 1
   }
 ]
