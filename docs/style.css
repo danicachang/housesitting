@@ -374,6 +374,12 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
 }
 
+/* Stacked, this row opens with its photo instead of the heading — the first
+   thing below the intro is a face rather than more prose. It has to be
+   declared before the breakpoint: the reset there has the same specificity
+   and only wins on source order. */
+.split--media-first .split__media { order: -1; }
+
 @media (min-width: 58rem) {
   /* Asymmetric by default — the text column is the wider one. */
   .split { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
@@ -381,6 +387,7 @@ p:last-child { margin-bottom: 0; }
      runs heading → prose on narrow screens. */
   .split--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
   .split--flip .split__media { order: -1; }
+  .split--media-first .split__media { order: 0; }
 }
 
 .split__text { min-width: 0; }
