@@ -351,23 +351,6 @@ h2::after {
   margin-top: 0.9rem;
 }
 
-/* Editorial section numbering — the counter runs across the page, so the
-   sections stay numbered correctly if one is added or removed. */
-body { counter-reset: section; }
-
-.numbered h2 { counter-increment: section; }
-
-.numbered h2::before {
-  content: counter(section, decimal-leading-zero);
-  display: block;
-  margin-bottom: var(--space-3);
-  font-family: var(--sans);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--ink-subtle);
-}
-
 p { max-width: var(--measure); margin: 0 0 1.1em; }
 p:last-child { margin-bottom: 0; }
 
@@ -381,18 +364,6 @@ p:last-child { margin-bottom: 0; }
   font-size: var(--text-sm);
   color: var(--ink-muted);
   max-width: 42rem;
-}
-
-/* A drop cap opens each narrative section — the print convention this layout
-   borrows from. Only ever on the first paragraph, never on a short line. */
-.dropcap::first-letter {
-  float: left;
-  font-family: var(--serif);
-  font-size: 3.6em;
-  line-height: 0.82;
-  padding-right: 0.08em;
-  margin-top: 0.06em;
-  color: var(--accent);
 }
 
 /* ---------- text beside a photo ---------- */
