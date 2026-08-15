@@ -120,36 +120,136 @@ a:hover { color: var(--ink); }
 
 /* ---------- hero ---------- */
 
-/* Edge to edge — the photos are the first thing on the page and they get the
-   whole screen. */
-.hero__images {
+/* Edge to edge, photo behind the words. This is the one place on the page
+   where an image is cropped to fit its slot — everywhere else the photos are
+   shown at the shape they were taken in. */
+.hero {
+  position: relative;
   display: grid;
-  gap: 2px;
-  grid-template-columns: 1fr;
-}
-
-/* Every photo on this page is shown at the shape it was taken in — nothing is
-   cropped to fit a slot. These two are both 3:2, so the pair still lines up
-   when the grid goes to two columns. */
-.hero__images img {
-  width: 100%;
+  align-content: start;
   background: var(--surface-sunken);
+
+  /* Kept short on a phone. The photograph is 3:2, so the taller this box gets
+     on a narrow screen the more width `cover` has to cut away — and what it
+     cuts is the dogs at either side of Dan. At this height barely any of the
+     frame is lost. (Two values: the first is the fallback for browsers with
+     no svh.) */
+  min-height: 26rem;
+  min-height: clamp(24rem, 56svh, 30rem);
 }
 
+/* Once the window is wide enough that the whole 3:2 frame fits across it, the
+   hero can have the screen. */
+/* Once the window is wide enough that the whole 3:2 frame fits across it, the
+   hero can have the screen. The cap is generous because it is what stops a
+   very wide monitor from turning this into a letterbox slot: at 2560px across,
+   a 50rem hero would be a 3.2:1 box and `cover` would throw away half the
+   height of the picture to fill it. */
 @media (min-width: 50rem) {
-  .hero__images { grid-template-columns: 1fr 1fr; }
+  .hero {
+    min-height: 34rem;
+
+    /* The second term is what keeps the words off Dan. Because the crop is
+       anchored to the bottom of the picture, the wider the box the further
+       down the frame its top edge starts — and Dan's head is at 45% of the
+       frame, so past a certain width the text lands on him. Holding the box
+       to `37vw + 19rem` keeps the top edge high enough that the last line
+       clears his cap with room to spare, at any width. The text block is a
+       fixed 293px tall once the type stops scaling, which is where the 19rem
+       comes from. */
+    min-height: max(clamp(34rem, 88svh, 64rem), calc(37vw + 19rem));
+  }
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Anchored near the foot of the picture. Dan and the dogs stand along the
+     bottom edge of the frame, so when a wide window crops the height, all of
+     it has to come off the top — sky the words are sitting on anyway. At 95%
+     the dogs are still whole on a 3440px monitor, which is the point at which
+     the crop is throwing away everything above the treeline; on an ordinary
+     laptop the difference between this and centring is about 1% of the frame,
+     so it costs nothing where it isn't needed. */
+  object-position: 50% 95%;
+}
+
+/* The scrim. The words are in the top half and the animals are in the bottom
+   half, so the weight comes down from the top and is gone before it reaches
+   them. Deliberately light — it darkens the sky a little rather than sitting
+   on the photograph as a panel, and the text-shadow on .hero__text does the
+   rest of the work of holding the words off the picture. */
+/* Stacked explicitly: a pseudo-element is the first child of .hero, so without
+   these the photograph after it in the source paints straight over the top. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    rgba(18, 16, 14, 0.2) 0%,
+    rgba(18, 16, 14, 0.1) 30%,
+    rgba(18, 16, 14, 0.0) 70%);
 }
 
 .hero__text {
+  position: relative;
+  z-index: 2;           /* above the scrim */
+  color: var(--on-accent);
+  padding-block: clamp(3.5rem, 10vw, 6rem) 0;
+  text-align: center;
+  /* Three passes rather than one: a tight pass to hold the edge of the letter
+     against whatever is directly behind it, then two progressively softer and
+     wider ones that pool into a shadow the shape of the words. Cheaper on the
+     photograph than darkening the whole top of it. */
+  text-shadow:
+    0 1px 2px rgba(18, 16, 14, 0.55),
+    0 2px 12px rgba(18, 16, 14, 0.7),
+    0 4px 32px rgba(18, 16, 14, 0.6);
+}
+
+/* Kept inside the darkest part of the scrim rather than running out to the
+   full width of the picture. */
+.hero__text > * {
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
+.hero__names {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.35rem);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  /* `auto` on the sides, not 0 — this rule comes after the one that centres
+     the blocks in .hero__text and a shorthand here would undo it. */
+  margin: 0 auto var(--space-4);
+}
+
+/* Held back from the full display size — two lines of it at --text-3xl would
+   run past the measure the block is set to. */
+.hero h1 { font-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.25rem); }
+
+/* ---------- intro ---------- */
+
+/* What used to sit in the hero: the offer, the terms, and the way to act on
+   them. Off the photograph and back on the paper, where it reads. */
+.intro {
   display: grid;
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: end;
-  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
 }
 
 @media (min-width: 58rem) {
-  .hero__text { grid-template-columns: 1fr 1fr; }
+  .intro { grid-template-columns: 1fr 1fr; }
 }
+
+.intro .lede { margin-bottom: 0; }
+
+.hero .cta { text-shadow: none; }
 
 h1 {
   font-family: var(--serif);
@@ -170,7 +270,7 @@ h1 {
   max-width: none;
 }
 
-.hero__text > div:last-child .eyebrow { margin: 0 0 var(--space-6); }
+.eyebrow--tight { margin: 0 0 var(--space-6); }
 
 .lede {
   font-family: var(--serif);
