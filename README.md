@@ -86,10 +86,11 @@ until that's a real address.
 `https://danicachang.github.io/housesitting/`. If the site ever moves, those
 absolute URLs have to move with it, or link previews break.
 
-**Where the "Get in touch" buttons are.** Two of them: one under the hero, one
-directly after the last review. Both are `<a class="cta" href="#contact">`.
-They exist because a host who's convinced by review three shouldn't have to
-scroll past ten more to act.
+**Where the "Get in touch" button is.** One, under the hero:
+`<a class="cta" href="#contact">`. There was a second directly after the last
+review, on the reasoning that a host convinced by review three shouldn't have
+to scroll past ten more to act; it was removed. If the reviews ever feel like
+they end in mid-air, that's the gap it filled.
 
 ## Notes
 
@@ -125,21 +126,42 @@ scroll past ten more to act.
   down, `row-reverse` plus `wrap-reverse` on the container — which move the
   short leftover row from the bottom to the top without disturbing reading or
   DOM order. Both are commented in place.
+- **The photo column is the wider half, and it widens again on big screens** —
+  `1.2fr` against `1fr` from 58rem (about 55/45), then `1.6fr` from 90rem
+  (about 62/38). The review pays nothing for this where it has slack: its
+  paragraphs are capped at `--measure` (36rem), so past a point the extra
+  column width was going unused anyway. The two tiers exist because that slack
+  isn't there at the bottom of the range — `1.6fr` at a 928px window would cut
+  the review to 40 characters a line, where at 1440px and up it still leaves
+  62 to 72.
 - **`--row-h` is tuned to the photos, and it is not a smooth dial.** It sets
   the target row height, which decides how many photos land in that top row.
-  190px sits between two different failures: below 185 a portrait gets left
-  alone at the top and stretches to about 1315px, and above 225 the galleries
-  gain a row each and the photo column grows to 1100–1440px, overshooting the
-  review beside it. Anything from 185 to 220 renders identically. The boundary
-  moves when a sit gains photos — it last moved when Oakland went from four to
-  seven — so if a gallery starts opening on something enormous, re-derive the
-  value against the current photos rather than nudging it by eye.
+  What matters up there is the *shape* of what lands in it, not the count: a
+  row's height is the column width over the sum of its aspect ratios, so alone
+  in an 838px column a landscape is 559px, a square is 838px and a portrait is
+  1256px.
+
+  **It is a percentage, not a length, and that is the point.** `flex-basis`
+  percentages resolve against the container, so the target is always the same
+  fraction of the gallery's own width, and every sit breaks into the same rows
+  holding the same photos at every window size — only the size changes. A pixel
+  value cannot do that: the column slides from 451px to 945px across the
+  breakpoints, and a target giving three good rows at one end gives one row at
+  the other. Two rounds of tuning went into chasing that before the units
+  turned out to be the problem.
+
+  24% is the value that satisfies everything at once, checked against every sit
+  from 451px to 945px: no sit collapses to a single row, nothing worse than a
+  landscape ever lands alone on top, and galleries stay near 1.06× the column
+  tall so they don't tower over the review. Below 40rem it opens to 32%,
+  because three photos to a row is too many on a phone.
 - **`sizes` describes the column, not the photo.** A photo's rendered width in
   a justified row depends on everything else in its row, so it changes whenever
   a sit gains a photo and can't be written per-image without going stale. Since
   there are only two candidates in each `srcset`, every value between about
-  24vw and the column's own 44vw picks the same file at desktop — so the
+  24vw and the column's own 48vw picks the same file at desktop — so the
   column width is both the honest description and the one that stays true.
+  It tracks the column: if the 1.2fr split changes, this changes with it.
 - `sharp` is a dev dependency only. It runs on your machine to produce image
   files and is never involved in serving the site.
 - **The page loads two fonts from Google Fonts** — Lora for headings and the

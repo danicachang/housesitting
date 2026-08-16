@@ -320,20 +320,6 @@ h1 {
   transform: rotate(45deg);
 }
 
-/* The one after the reviews carries a line of context with it. */
-.cta-block {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  padding-top: clamp(2.5rem, 5vw, 4rem);
-  border-top: 2px solid var(--accent);
-}
-
-.cta-block p {
-  font-family: var(--serif);
-  font-size: var(--text-lg);
-  line-height: 1.45;
-  margin: 0 0 var(--space-6);
-}
-
 /* ---------- sections ---------- */
 
 section { padding-block: var(--section); }
@@ -480,44 +466,6 @@ figcaption {
 
 /* ---------- reviews ---------- */
 
-.tally {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 1.5rem var(--gap);
-  margin: 2.5rem 0 2rem;
-  padding-block: 1.75rem;
-  border-block: 1px solid var(--rule);
-}
-
-.tally > div { min-width: 0; }
-
-/* The stars are set much smaller than the numerals, so give every figure the
-   same box and sit it on the bottom — otherwise the labels below step up and
-   down across the row. */
-.tally dt {
-  display: flex;
-  align-items: flex-end;
-  min-height: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
-  font-family: var(--serif);
-  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
-  line-height: 1;
-  color: var(--accent);
-}
-
-.tally > div:last-child dt {
-  font-size: clamp(1rem, 0.6rem + 1.5vw, 1.6rem);
-  letter-spacing: 0.1em;
-}
-
-.tally dd {
-  margin: 0.5rem 0 0;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-subtle);
-}
-
 .sits { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 .sit {
@@ -540,7 +488,17 @@ figcaption {
    to fill but never shrinks it. --row-h is a floor to tune against, not the
    height you get, and 190 is not a round number by accident — see below. */
 .sit__gallery {
-  --row-h: 110px;
+  /* A PERCENTAGE, not a length, and that is the whole trick. flex-basis
+     percentages resolve against the container, so the target row height is
+     always the same fraction of the gallery's own width — which makes the row
+     composition scale-invariant. Every sit breaks into the same rows, holding
+     the same photos, at every window size; only the size changes.
+
+     A pixel value cannot do that. The column slides from 451px to 945px across
+     the breakpoints, and a fixed target that gives three good rows at one end
+     gives one row at the other. Two rounds of tuning went into chasing that
+     before the units turned out to be the problem. */
+  --row-h: 32%;
 
   display: flex;
   align-items: flex-start;
@@ -599,25 +557,30 @@ figcaption {
 .sit__gallery img:nth-child(14) { order: 1; }
 
 /* Every row justifies, the short one included — no flush-left remainder. The
-   cost is that the top row, holding one or two photos, grows tall to fill the
-   width, which is why --row-h is doing more work than it looks: it decides how
-   many photos land up there, and a lone portrait would stretch to around
-   1150px.
+   cost is that the top row grows tall to fill the width, and how tall depends
+   on the SHAPE of what lands there, not just how much. A row's height is the
+   column width over the sum of its aspect ratios, so alone in an 838px column:
+   a landscape (1.5) is 559px, a square is 838px, a portrait (0.667) is 1256px.
+   One photo up there is fine — three sits open that way — as long as it's a
+   wide one. That is what --row-h is really steering.
 
-   190 sits between two different failures. Below 185 a portrait is left alone
-   at the top and stretches to about 1315px — a cliff, not a slope. Above 225
-   the top row does cap lower, but the galleries gain a row each and the photo
-   column grows to 1100–1440px, overshooting the review beside it; 190 keeps
-   most columns between 450 and 780px. Anywhere from 185 to 220 renders
-   identically, so there is room either side, but not below.
+   24% is the value that satisfies everything at once, checked against every
+   sit at column widths from 451px to 945px:
 
-   The boundary moves when a sit gains photos — it last moved when Oakland went
-   from four to seven. If a gallery starts opening on something enormous,
-   re-derive this against the current photos rather than nudging it by eye. */
+     - no sit collapses to a single row
+     - nothing worse than a landscape ever lands alone on top (0.67x the
+       column width) — no stranded squares, no stranded portraits
+     - galleries average 2.2 rows and stay near 1.06x the column tall, so the
+       photos don't tower over the review beside them
+
+   Because it is a fraction rather than a length, that holds at every width in
+   between rather than at the one point it was measured. Below 40rem the
+   gallery is the full width of a phone, where three photos to a row is too
+   many, so it opens up to 32% — the same layout, two to a row instead. */
 
 /* No sit has a single photo any more, so this matches nothing today. It stays
    as a guard: one photo alone has no row to justify into, and growing it to
-   the full column would make a portrait about 1150px tall. Natural size,
+   the full column would make a portrait about 1250px tall. Natural size,
    capped, uncropped. */
 .sit__gallery:not(:has(img + img)) img {
   flex: 0 1 auto;
@@ -625,10 +588,11 @@ figcaption {
   max-height: 32rem;
 }
 
-/* Between the card breakpoints the sit is still one column, so the gallery is
-   full width and needs a taller floor to avoid rows of six tiny photos. */
+/* On a phone the gallery is the full width of the screen and three photos to
+   a row is too many, so the base value above opens up to two. From here on the
+   gallery is a column of a card and 24% holds at every width. */
 @media (min-width: 40rem) {
-  .sit__gallery { --row-h: 140px; }
+  .sit__gallery { --row-h: 24%; }
 }
 
 /* Half review, half photos, swapping sides on alternate cards. The body is
@@ -637,17 +601,38 @@ figcaption {
    raises --row-h, and the base value above would otherwise win on source
    order — both selectors have the same specificity. */
 @media (min-width: 58rem) {
-  .sit,
-  .sit:nth-of-type(even) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* The photos get the wider column — 1.2 shares against 1, about 55/45. That
+     costs the review nothing on a wide screen, where its paragraphs are capped
+     at --measure (36rem) and were leaving most of a 768px column unused; the
+     photos simply take back slack that was already there. It does bite at the
+     bottom of this breakpoint, though, where there is no slack: at a 928px
+     window the review column goes from 413px to 375px.
+
+     minmax(0, …) on both so a wide photo can't refuse to shrink and shove the
+     split out of true. */
+  .sit {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
     align-items: start;
   }
 
+  .sit:nth-of-type(even) {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
   .sit__body    { grid-column: 1; grid-row: 1; }
-  .sit__gallery { grid-column: 2; grid-row: 1; --row-h: 190px; }
+  .sit__gallery { grid-column: 2; grid-row: 1; }
 
   .sit:nth-of-type(even) .sit__body    { grid-column: 2; }
   .sit:nth-of-type(even) .sit__gallery { grid-column: 1; }
+}
+
+/* Above 90rem the review has slack again — its paragraphs stop at --measure
+   long before the column does — so the photos take more of the card: 1.6
+   shares against 1, roughly 62/38. Below this width that same split would cut
+   the review to 40 characters a line; here it still leaves 62 to 72. */
+@media (min-width: 90rem) {
+  .sit          { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+  .sit:nth-of-type(even) { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
 }
 
 .sit__body { min-width: 0; }
@@ -688,8 +673,8 @@ figcaption {
   line-height: 1.2;
 }
 
-/* Every one of these sits was rated five stars, and the tally at the top says
-   so — repeating it on each review saves the reader taking that on trust. */
+/* Every one of these sits was rated five stars, and each review says so on its
+   own — nothing at the top of the section makes that claim for them. */
 .sit__stars {
   margin: 0.3rem 0 0;
   font-size: 0.85rem;
@@ -716,18 +701,30 @@ figcaption {
   line-height: 1.6;
 }
 
+/* A hanging quote mark needs a margin to hang into, and on a phone there isn't
+   one: the page gutter is 1.25rem and the mark is about 15px wide, which left
+   it around 5px off the screen edge. So it only hangs once the card goes to two
+   columns and there is room either side. Below that it sits in an indent of its
+   own — the mark inside the box, the text stepped past it. */
+.review { padding-left: 1.6rem; }
+
 .review::before {
   /* Empty alt text after the slash — the mark is decoration, and the
      blockquote already carries the meaning. Screen readers skip it. */
   content: "\201C" / "";
   position: absolute;
   top: -0.3em;
-  left: -0.55ch;
+  left: 0;
   font-family: var(--serif);
   font-size: 3.4em;
   line-height: 1;
   color: var(--rule-strong);
   pointer-events: none;
+}
+
+@media (min-width: 58rem) {
+  .review { padding-left: 0; }
+  .review::before { left: -0.55ch; }
 }
 
 .review p { margin: 0 0 0.8em; }
