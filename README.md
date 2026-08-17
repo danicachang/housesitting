@@ -1,12 +1,15 @@
 # Danica & Dan — house and pet sitting
 
-A single static page. No framework, no build step, no JavaScript — the
-justified photo galleries included.
+A single static page. No framework and no build step, and the justified photo
+galleries are CSS alone. The one piece of JavaScript is `docs/lightbox.js`,
+which opens a photo full screen; delete the `<script>` tag at the bottom of
+`index.html` and the page is exactly what it was without it.
 
 ```
 docs/          the site itself — this is what GitHub Pages serves
   index.html
   style.css
+  lightbox.js  full-screen photo viewer; the page works without it
   images/      generated; do not edit by hand
 originals/     full-size photos and review screenshots (not committed)
 tools/         one-off image pipeline
@@ -75,6 +78,28 @@ The photo's position in the gallery matters at the top and nowhere else. The
 first photos in the source are the ones that land in the short, tall row that
 opens the gallery, so the strongest shot of a sit belongs first; the rest can
 fall in any order.
+
+**The lightbox.** Adding a photo needs nothing here — that's the point of it.
+`docs/lightbox.js` attaches to `.gallery`, so any photo in any gallery is
+clickable the moment it's on the page, and each gallery is its own slideshow:
+the arrows run to the ends of that sit and stop, and never carry you into the
+next one. Nothing else on the page opens — not the hero, not the two large
+`split__media` photos, not the reviewer avatars.
+
+It reads two things out of `index.html`, and **renaming either breaks it in
+silence** — no error, no console warning:
+
+- `.gallery` decides which photos are clickable at all.
+- `.sit__where` supplies the caption, so a photo is captioned with the place,
+  date and duration its sit card already gives — *Taupō, New Zealand · May 2023
+  · 1 month 1 week*. There is no per-photo caption anywhere and nothing to keep
+  in sync; edit the sit card and the caption follows. The "who we are" gallery
+  has no sit card above it, so those eight photos show the counter alone.
+
+It adds no image files. The viewer reuses the same `srcset` the gallery already
+has, painting the thumbnail out of cache first so the frame is never empty and
+swapping in the 1600 once it decodes. On a retina screen that file has usually
+been fetched already, and opening a photo costs nothing.
 
 **The email address.** It appears twice in the contact section near the bottom
 of `docs/index.html`, as the link target and the visible text. It is still the
@@ -175,6 +200,37 @@ they end in mid-air, that's the gap it filled.
   of `style.css` with their measured contrast ratio in a comment beside each.
   Use the tokens in components rather than reintroducing literal hex — the
   ratios are what keep the small grey metadata text legible.
+- **The lightbox is the one place JavaScript was worth it, and it buys exactly
+  one thing.** Everything else on this page was cheaper in CSS — the justified
+  galleries are the proof, and they still are. A full-screen viewer isn't: the
+  CSS-only version needs a `:target` panel per photo, which means 92 duplicate
+  `<img>` tags in the markup, a Back button that walks backwards through the
+  slideshow one photo at a time, and no Esc key. So the rule became *the page is
+  static, the viewer is an enhancement* — hence no markup for it in
+  `index.html`, and `tabindex`/`role` set from the script rather than typed into
+  the page. Without the file nothing advertises a viewer that isn't there.
+- **Photos are never enlarged past their own file.** The viewer caps each photo
+  at the `width` attribute already on it, so on a very wide screen a 1600px
+  photo stops at 1600px and gains backdrop rather than softening. It's the same
+  commitment as never cropping, pointing the other way. One original —
+  `oakland-danica-cat` — was smaller than the rest and is 961px wide; the cap is
+  read per photo rather than special-cased, so the next small original behaves
+  correctly without anyone remembering to handle it.
+- **The lightbox colours are measured against the backdrop, not the page.** Two
+  tokens that look redundant aren't: `--on-backdrop` exists because
+  `--ink-subtle`, the colour of every caption on the page, is 3.1:1 on a dark
+  panel and fails outright, and the focus ring is restated inside `.lightbox`
+  because `--accent` is 8.3:1 on paper but 2:1 there — below the 3:1 a focus
+  indicator needs. Anything added to the viewer has to be checked against
+  `--backdrop`; the ratios in the main palette don't transfer.
+- **The end of a set is said three ways, and each input gets exactly one.** The
+  arrow disables, which a mouse user can see — and a disabled button emits no
+  click, so that feedback reaches nobody else. A key press gets a 220ms nudge,
+  because a keystroke has nothing spatial about it to feel. A drag gets neither:
+  it already follows at quarter speed and springs home, which is the rubber band,
+  and nudging on top of that moves the photo the same way twice and reads as a
+  double bounce. All of it is covered by the existing `prefers-reduced-motion`
+  block, which is why the viewer's CSS has no media query of its own.
 - **Section numbers are a CSS counter**, not typed into the HTML. Adding
   `class="numbered"` to a `<section>` gives its `<h2>` the next number
   automatically, so inserting or removing a section renumbers the rest.

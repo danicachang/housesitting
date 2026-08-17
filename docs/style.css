@@ -1,5 +1,6 @@
 /* Danica & Dan — house and pet sitters.
-   One page, no build step, no JavaScript.
+   One page, no build step. The justified galleries are CSS alone; the only
+   JavaScript is the full-screen photo viewer, styled in the last section.
 
    Style: Editorial Grid / Magazine — asymmetric grid, pull quotes, drop caps,
    bylines, section dividers, large imagery, serif body.
@@ -26,6 +27,22 @@
   /* ---- lines ---- */
   --rule:        #e6ded3;
   --rule-strong: #cfc4b5;
+
+  /* ---- lightbox (ratios measured against --backdrop, not --surface) ----
+     --backdrop is --ink unmixed: the page with the lights off. Pure black
+     would be 10% darker and read cold beside photographs this warm. */
+  --backdrop:        #1c1917;
+  --on-backdrop:     #cfc4b5;  /* 10.2:1  caption, counter, buttons, focus ring */
+
+  /* An arrow disabled at the end of a set. Deliberately below 4.5:1 — WCAG
+     exempts inactive components, and holding this to the text minimum is what
+     made it read as "slightly darker" instead of "off". There is nothing to
+     compare it against on screen: at the first photo the dead arrow is on the
+     far left and the live one is 1400px away on the far right. It's
+     --ink-muted's hex, taken down to 2.5:1 by the backdrop — and the rule that
+     uses it drops the opacity to 0.45 on top, which composites to about 1.4:1.
+     Read the two together; this number alone isn't what lands on screen. */
+  --on-backdrop-off: #5f574d;  /*   2.5:1 before the opacity in .lightbox__nav:disabled */
 
   /* ---- type ---- */
   --serif: "Lora", ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype",
@@ -798,3 +815,226 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- lightbox ----------
+
+   Styles the full-screen viewer that lightbox.js builds, and matches nothing if
+   that file doesn't load.
+
+   The reduced-motion block above already covers everything here — it kills both
+   the fade and the nudge — so nothing below needs its own media query. */
+
+.lightbox {
+  /* A <dialog> arrives with a border, padding, a centred auto width and a
+     max-height of the viewport minus margins. All of it has to go before it
+     can be a full-screen panel. */
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+
+  background: var(--backdrop);
+  color: var(--on-backdrop);
+
+  /* Horizontal movement goes to the swipe handler in lightbox.js; vertical pan
+     and pinch stay with the browser. Without this the browser claims a
+     horizontal drag as a pan, cancels the pointer stream, and the swipe
+     silently never fires. */
+  touch-action: pan-y pinch-zoom;
+
+  /* Stops the caption being selected mid-drag. draggable="false" on the image
+     handles the native image drag, which cancels the pointer stream the same
+     way and shows a not-allowed cursor. */
+  user-select: none;
+
+  /* Paper to near-black is a 16.5:1 luminance jump, jarring in one frame at
+     night. Two things depend on this duration: the fade needs a forced reflow
+     after showModal() to run at all (see that call), and the fallback timeout
+     in close() has to stay above it or the dialog shuts mid-fade. */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.lightbox.is-open { opacity: 1; }
+
+/* Transparent on purpose, not an omission. ::backdrop isn't a child of the
+   dialog — it's painted behind it in the top layer, so the dialog's opacity
+   never reaches it and any colour here appears instantly at full strength while
+   the photo is still fading up. The dialog covers the viewport and carries the
+   colour itself. Still has to be stated: the UA default is a translucent black,
+   and browsers disagree on how dark. */
+.lightbox::backdrop { background: transparent; }
+
+/* The page's focus ring is --accent, 8.3:1 on paper but 2:1 on the backdrop —
+   under the 3:1 WCAG wants. Restated here and nowhere else. */
+.lightbox :focus-visible { outline-color: var(--on-backdrop); }
+
+/* The panel takes focus on open (see open()) but isn't an operable control, so
+   it shows no ring. Note the missing space: this is the dialog itself, and the
+   rule above still rings its buttons. */
+.lightbox:focus-visible { outline: none; }
+
+/* Two rows: the photo takes what's left, and the caption strip is reserved
+   whether or not there's a caption in it — which is what keeps the frame
+   identical across portrait, landscape, and the "who we are" gallery that has
+   no sit card to read a caption from. */
+.lightbox__figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+
+  /* minmax(0, 1fr), not 1fr — the same trap as min-width: 0 on the gallery
+     images above. A bare 1fr means minmax(auto, 1fr), whose auto minimum is the
+     row's CONTENT size: a 2400px-tall portrait then refuses to shrink and
+     shoves the caption strip off the bottom of the screen. The 0 minimum is
+     also what makes the photo's max-height: 100% below resolve sensibly. */
+  grid-template-rows: minmax(0, 1fr) auto;
+
+  place-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4) var(--space-4);
+}
+
+.lightbox__photo {
+  /* max-width is set inline per photo, from the width attribute the page
+     already carries, so nothing is shown larger than its own file — see show()
+     in lightbox.js. Uncropped, so no object-fit either. */
+  max-height: 100%;
+  min-height: 0;
+  border-radius: var(--radius);
+  background: var(--surface-sunken);
+
+  /* Three jobs: springs the photo back from a drag released short of
+     committing, throws it out of frame when the drag commits, and brings the
+     next one in from the far side. A committed swipe spends two of these back
+     to back, so 0.16s is 0.32s in total. */
+  transition: transform 0.16s ease-out;
+}
+
+/* Movement with no transition, in the three places that need it: while the
+   finger is down, so the photo doesn't lag behind it; for the frame in which
+   the next photo is placed off the far side, which has to be silent; and for
+   the whole of the nudge, which drives this same property from @keyframes and
+   would otherwise compete with a spring-back for it. */
+.lightbox__photo.is-instant { transition: none; }
+
+@keyframes lightbox-nudge {
+  0%, 100% { transform: none; }
+  35%      { transform: translateX(var(--nudge, 0)); }
+}
+
+.lightbox__photo.is-nudged { animation: lightbox-nudge 220ms ease-out; }
+
+/* Overrides the generic figcaption treatment, which is uppercase and
+   letterspaced for the two hand-written captions on the page. Serif rather than
+   .sit__where's sans, even though this is .sit__where's text: alone under a
+   photograph it is the only sentence on screen. The colour can't be inherited
+   either — --ink-subtle is 3.1:1 on the backdrop, a fail. min-height holds the
+   strip open in "who we are", where there is no caption. */
+.lightbox__caption {
+  min-height: 1.2em;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: center;
+  color: var(--on-backdrop);
+}
+
+/* Inside the figure so the one live region announces the position too, pulled
+   out of the grid flow to the corner. 0,0 rather than a spacing token: an
+   absolutely positioned child of a grid container with no grid placement
+   resolves against the container's PADDING edge, so the figure's padding is
+   already the inset. */
+.lightbox__counter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+
+  /* Padding rather than a larger top/left: 0,0 here is the figure's padding
+     edge, while the close button in the opposite corner is anchored to the
+     dialog. The two don't share an origin, so they can't take the same inset. */
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--serif);   /* one typeface inside the frame */
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  color: var(--on-backdrop);
+
+  /* Same two passes as the buttons: a photo tall enough to fill the frame
+     reaches this corner. The caption has a grid row to itself and never has a
+     photo behind it. */
+  text-shadow:
+    0 1px 2px rgba(18, 16, 14, 0.6),
+    0 2px 12px rgba(18, 16, 14, 0.7);
+}
+
+/* The figure covers the whole panel, so the controls need to sit above it. */
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--on-backdrop);
+  line-height: 1;
+  cursor: pointer;
+
+  /* The controls are pinned to the window, not the photo, so a wide landscape
+     sits behind them and 10.2:1 against the backdrop buys nothing against a
+     pale sky. Same near-black as .hero__text, two passes rather than its three
+     — these are single glyphs, and its widest pass is for pooling under a whole
+     headline. */
+  text-shadow:
+    0 1px 2px rgba(18, 16, 14, 0.6),
+    0 2px 12px rgba(18, 16, 14, 0.7);
+
+  font-family: var(--serif);   /* buttons don't inherit a font */
+}
+
+.lightbox__close {
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: var(--space-3);
+  font-size: 2rem;
+}
+
+/* Pinned to the window rather than the photo, so they don't move with aspect
+   ratio. The padding takes the target to roughly 4rem by 6rem, so a near-miss
+   still advances. */
+.lightbox__nav {
+  top: 50%;
+  translate: 0 -50%;
+  padding: var(--space-6) var(--space-4);
+  font-size: 2.5rem;
+}
+
+.lightbox__nav--prev { left: 0; }
+.lightbox__nav--next { right: 0; }
+
+/* Dropping the shadow lets the arrow fade into whatever is behind it, which is
+   the message. It is also what makes the opacity read at all: a shadowed glyph
+   stays crisp however faint its colour. */
+.lightbox__nav:disabled {
+  color: var(--on-backdrop-off);
+  opacity: 0.45;
+  text-shadow: none;
+  cursor: default;
+}
+
+/* The one visible change to the page itself. Keyed off the role lightbox.js
+   adds, so without the script there is no cursor promising a viewer. */
+.gallery img[role="button"] { cursor: zoom-in; }
