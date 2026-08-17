@@ -71,6 +71,7 @@ const photos = [
   ['20220129-11-16-18.jpg', 'oakland-dan-toy', 'Oakland, California, 2022'],
   ['20220131-14-44-36.jpg', 'oakland-terrier-sit', 'Oakland, California, 2022'],
   ['20220131-15-47-38.jpg', 'oakland-dan-trail', 'Oakland, California, 2022'],
+  ['20220202-14-33-04.jpg', 'oakland-danica-trail', 'Oakland, California, 2022'],
 
   // Jane's two cats in Leeds, Jul–Sep 2022 — the ginger one and a grey tabby.
   ['20220805-13-33-55.jpg', 'leeds-ginger-cat', 'Leeds, England, 2022'],
@@ -142,13 +143,18 @@ const photos = [
   ['20211010-18-12-36.jpg', 'tuxedo-cat', '2021'],
   ['20200131-09-47-50.jpg', 'trail-dogs', '2020'],
 
-  // Older, personal photos. These predate the sitting and are used in the
-  // "who we are" section rather than the gallery, so they aren't captioned
-  // as sits.
+  // Personal photos. None of these are from a sit — they're the two of them
+  // with animals wherever they happened to be — so they're used in the "who we
+  // are" section rather than the gallery and aren't captioned as sits. The Nara
+  // deer is the odd one: April 2024, three weeks before the Tokyo sit started,
+  // so it's travel rather than work despite falling inside the sitting years.
   ['20170924-12-57-45.jpg', 'about-hiking', 'Colorado, 2017'],
   ['20140202-705.JPG', 'about-shepherd', '2014'],
   ['20130106-211.jpg', 'about-danica-puppy', '2013'],
   ['20130106-254.jpg', 'about-danica-cat', '2013'],
+  ['20141020-1501.jpg', 'about-camels', 'Morocco, 2014'],
+  ['20190905-10-42-56.jpg', 'about-alpaca', 'Peru, 2019'],
+  ['20240405-16-24-01.jpg', 'about-nara-deer', 'Nara, Japan, 2024'],
 ];
 
 // Originals that are deliberately not published, and why. Anything in

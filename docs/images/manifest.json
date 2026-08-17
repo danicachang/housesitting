@@ -259,6 +259,13 @@
     "ar": 1.5
   },
   {
+    "slug": "oakland-danica-trail",
+    "caption": "Oakland, California, 2022",
+    "width": 1600,
+    "height": 2400,
+    "ar": 0.667
+  },
+  {
     "slug": "leeds-ginger-cat",
     "caption": "Leeds, England, 2022",
     "width": 1600,
@@ -614,5 +621,26 @@
     "width": 1600,
     "height": 1600,
     "ar": 1
+  },
+  {
+    "slug": "about-camels",
+    "caption": "Morocco, 2014",
+    "width": 1600,
+    "height": 1600,
+    "ar": 1
+  },
+  {
+    "slug": "about-alpaca",
+    "caption": "Peru, 2019",
+    "width": 1600,
+    "height": 2415,
+    "ar": 0.663
+  },
+  {
+    "slug": "about-nara-deer",
+    "caption": "Nara, Japan, 2024",
+    "width": 1600,
+    "height": 1066,
+    "ar": 1.501
   }
 ]

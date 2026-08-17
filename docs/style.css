@@ -486,8 +486,11 @@ figcaption {
 
    Rows come out taller than --row-h, never shorter: flex grows a wrapped row
    to fill but never shrinks it. --row-h is a floor to tune against, not the
-   height you get, and 190 is not a round number by accident — see below. */
-.sit__gallery {
+   height you get, and 190 is not a round number by accident — see below.
+
+   Shared: every sit uses it, and so does the gallery in "Who we are", which
+   overrides --row-h for its own column width down in "photo grids". */
+.gallery {
   /* A PERCENTAGE, not a length, and that is the whole trick. flex-basis
      percentages resolve against the container, so the target row height is
      always the same fraction of the gallery's own width — which makes the row
@@ -516,7 +519,7 @@ figcaption {
   justify-content: flex-end;
 }
 
-.sit__gallery img {
+.gallery img {
   flex: var(--ar) 1 calc(var(--ar) * var(--row-h));
 
   /* Flex items are min-width:auto by default, which on a replaced element
@@ -541,20 +544,20 @@ figcaption {
 
    Fourteen covers the largest sit (nine photos) with room to grow. A sit with
    more than fourteen would need another line here. */
-.sit__gallery img:nth-child(1)  { order: 14; }
-.sit__gallery img:nth-child(2)  { order: 13; }
-.sit__gallery img:nth-child(3)  { order: 12; }
-.sit__gallery img:nth-child(4)  { order: 11; }
-.sit__gallery img:nth-child(5)  { order: 10; }
-.sit__gallery img:nth-child(6)  { order: 9; }
-.sit__gallery img:nth-child(7)  { order: 8; }
-.sit__gallery img:nth-child(8)  { order: 7; }
-.sit__gallery img:nth-child(9)  { order: 6; }
-.sit__gallery img:nth-child(10) { order: 5; }
-.sit__gallery img:nth-child(11) { order: 4; }
-.sit__gallery img:nth-child(12) { order: 3; }
-.sit__gallery img:nth-child(13) { order: 2; }
-.sit__gallery img:nth-child(14) { order: 1; }
+.gallery img:nth-child(1)  { order: 14; }
+.gallery img:nth-child(2)  { order: 13; }
+.gallery img:nth-child(3)  { order: 12; }
+.gallery img:nth-child(4)  { order: 11; }
+.gallery img:nth-child(5)  { order: 10; }
+.gallery img:nth-child(6)  { order: 9; }
+.gallery img:nth-child(7)  { order: 8; }
+.gallery img:nth-child(8)  { order: 7; }
+.gallery img:nth-child(9)  { order: 6; }
+.gallery img:nth-child(10) { order: 5; }
+.gallery img:nth-child(11) { order: 4; }
+.gallery img:nth-child(12) { order: 3; }
+.gallery img:nth-child(13) { order: 2; }
+.gallery img:nth-child(14) { order: 1; }
 
 /* Every row justifies, the short one included — no flush-left remainder. The
    cost is that the top row grows tall to fill the width, and how tall depends
@@ -582,7 +585,7 @@ figcaption {
    as a guard: one photo alone has no row to justify into, and growing it to
    the full column would make a portrait about 1250px tall. Natural size,
    capped, uncropped. */
-.sit__gallery:not(:has(img + img)) img {
+.gallery:not(:has(img + img)) img {
   flex: 0 1 auto;
   max-width: 100%;
   max-height: 32rem;
@@ -592,7 +595,7 @@ figcaption {
    a row is too many, so the base value above opens up to two. From here on the
    gallery is a column of a card and 24% holds at every width. */
 @media (min-width: 40rem) {
-  .sit__gallery { --row-h: 24%; }
+  .gallery { --row-h: 24%; }
 }
 
 /* Half review, half photos, swapping sides on alternate cards. The body is
@@ -732,28 +735,41 @@ figcaption {
 
 /* ---------- photo grids ---------- */
 
-/* Two up on a phone — three across 360px leaves each face too small to read.
-   Three up from 40rem, which is where the sizes attribute switches. These
-   three are a portrait, a square and a landscape and stay that way, so the
-   row is aligned at the top and left to end unevenly. */
-.trio {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: start;
-  gap: clamp(0.5rem, 1.2vw, 1rem);
+/* The eight photos of the two of them with animals, justified by the same rules
+   as the review galleries — same flex trick, same reversal, only --row-h
+   differs. It has to differ, and at every width: a sit gallery is one column of
+   a card, this one is the full width of the page, and --row-h is a fraction of
+   that width. Nothing here inherits from the values above.
+
+   Eight is a much kinder number than the five this started with. Every layout
+   below divides evenly into rows of two, three or four, so no photo is ever
+   left alone on a row of its own to be grown to the full width of the page —
+   which with a portrait would be a picture half again as tall as it is wide.
+
+     phone     37.5%   4 rows of 2
+     40rem     26%     2 + 3 + 3
+     58rem     20%     4 + 4, both rows within 4% of the same height
+
+   Each value has 5% or better clearance from the width at which the row would
+   break differently, so none of them are sitting on a knife edge.
+
+   The order in the HTML is what makes the rows come out even, and it is by
+   shape rather than by date: the two widest photos are first, so the row that
+   takes the remainder is a pair of landscapes rather than a pair of portraits.
+   Reordering those images will change the row heights. */
+.about-gallery {
+  --row-h: 37.5%;
   margin: var(--gap) 0 0.9rem;
 }
 
 @media (min-width: 40rem) {
-  .trio { grid-template-columns: repeat(3, 1fr); }
+  .about-gallery { --row-h: 26%; }
 }
 
-.trio figure { margin: 0; }
-
-.trio img {
-  width: 100%;
-  border-radius: var(--radius);
-  background: var(--surface-sunken);
+/* Four across, at 186px tall where this starts and 350px at the 100rem cap —
+   the same order of size as the review photos, which is the point. */
+@media (min-width: 58rem) {
+  .about-gallery { --row-h: 20%; }
 }
 
 /* ---------- contact ---------- */
