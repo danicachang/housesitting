@@ -94,28 +94,48 @@ silence** — no error, no console warning:
   date and duration its sit card already gives — *Taupō, New Zealand · May 2023
   · 1 month 1 week*. There is no per-photo caption anywhere and nothing to keep
   in sync; edit the sit card and the caption follows. The "who we are" gallery
-  has no sit card above it, so those eight photos show the counter alone.
+  has no sit card above it, so those seven photos show the counter alone. The
+  shepherd photo beside the contact card isn't in a gallery at all, so it
+  doesn't open — the same as the two other photos set beside text.
 
 It adds no image files. The viewer reuses the same `srcset` the gallery already
 has, painting the thumbnail out of cache first so the frame is never empty and
 swapping in the 1600 once it decodes. On a retina screen that file has usually
 been fetched already, and opening a photo costs nothing.
 
-**The email address.** It appears twice in the contact section near the bottom
-of `docs/index.html`, as the link target and the visible text. It is still the
-`REPLACE-WITH-YOUR-ADDRESS@example.com` placeholder — the page can't do its job
-until that's a real address.
+**The email address.** It appears twice in the contact card near the bottom of
+`docs/index.html`, as the `mailto:` and as the visible text of the same link —
+the address is the action down there, so it has to be both clickable and
+readable. Both are `dan.goyette@gmail.com`; change one and change the other.
+The `href` needs the `mailto:` scheme on it — without that it reads as a
+relative link and the browser goes looking for a file of that name.
 
 **The site URL.** Three `<meta>` tags in the `<head>` — `og:url` and
 `og:image`, plus the mailto — hardcode
 `https://danicachang.github.io/housesitting/`. If the site ever moves, those
 absolute URLs have to move with it, or link previews break.
 
-**Where the "Get in touch" button is.** One, under the hero:
-`<a class="cta" href="#contact">`. There was a second directly after the last
-review, on the reasoning that a host convinced by review three shouldn't have
-to scroll past ten more to act; it was removed. If the reviews ever feel like
-they end in mid-air, that's the gap it filled.
+**Where the button is.** One, under the hero: `<a class="cta" href="#contact">`,
+and all it does is jump to the contact card. There was a second directly after
+the last review, on the reasoning that a host convinced by review three
+shouldn't have to scroll past ten more to act; it was removed. If the reviews
+ever feel like they end in mid-air, that's the gap it filled. The card at the
+foot has had a button of its own twice now, and both times it came out again:
+the address is right there, and a button beside it is a second route to the
+same `mailto:`.
+
+**The copyright year** in the footer is written out in the HTML, not generated —
+there is no build step, and the only script on the page is the lightbox. It
+needs bumping by hand each January.
+
+**Adding a section.** Sections alternate tone so no two neighbours share a
+background — paper under the hero, then `tint`, the dark band, `tint`, paper,
+`tint` to the foot. A new section has to keep that alternating, which means
+adding or moving one may mean re-toning the ones after it. Two classes do it:
+`.tint` paints the tone, and `.band` is the width utility to use *instead of*
+`.wrap` when the tone has to run to the edge of the window — same content width,
+set as padding rather than width, so the box itself is full-bleed. A section
+that stays on paper just keeps `.wrap`.
 
 ## Notes
 

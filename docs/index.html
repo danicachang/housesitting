@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Danica &amp; Dan — house and pet sitters</title>
+<title>Danica &amp; Dan, housesitters and petsitters</title>
 <meta name="description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
 <meta name="theme-color" content="#faf8f5">
 
 <!-- Absolute URLs: relative paths don't resolve for the scrapers behind link
      previews in Messenger, WhatsApp, Slack and iMessage. -->
-<meta property="og:title" content="Danica &amp; Dan — house and pet sitters">
+<meta property="og:title" content="Danica &amp; Dan, housesitters and petsitters">
 <meta property="og:description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://danicachang.github.io/housesitting/">
@@ -53,7 +53,7 @@
 
 <main id="main">
 
-<section class="wrap">
+<section class="band tint">
   <div class="split split--media-first">
     <div class="split__text">
       <h2>The arrangement</h2>
@@ -116,14 +116,14 @@
              width="256" height="256" loading="lazy" alt="">
         <dt>As many updates as you want.</dt>
         <dd>Some people want a photo every day. Some would rather hear nothing
-          unless something's wrong. Both are completely fine — just tell us
+          unless something's wrong. Both are completely fine. Just tell us
           which.</dd>
       </div>
     </dl>
   </div>
 </section>
 
-<section class="reviews wrap" id="reviews">
+<section class="reviews band tint" id="reviews">
   <h2>What Pet Parents have said</h2>
 
   <div class="sits">
@@ -946,7 +946,7 @@
         before moving somewhere new. </p>
       <p>One downside to our nomadic lifestyle is that pet ownership becomes
         difficult. We've spent the last couple of years chasing ski seasons and
-        hiking trails — wonderful, but not very compatible with having animals
+        hiking trails. Wonderful, but not very compatible with having animals
         around. We miss it.</p>
       <p>So the primary attraction of housesitting for us is the ability to
         spend time with animals. We'll give your pets a lot of great attention,
@@ -979,30 +979,24 @@
          width="1600" height="2400" loading="lazy"
          alt="A much younger Danica kneeling on a path, holding a German Shepherd puppy in her arms."
          style="--ar: 0.667">
-    <img src="images/about-alpaca-800.webp"
-         srcset="images/about-alpaca-800.webp 800w, images/about-alpaca-1600.webp 1600w"
-         sizes="(min-width: 58rem) 35vw, 70vw"
-         width="1600" height="2415" loading="lazy"
-         alt="Danica and Dan standing either side of a Peruvian handler and a white alpaca hung with coloured tassels, a lake and bare hills behind them."
-         style="--ar: 0.663">
     <img src="images/about-nara-deer-800.webp"
          srcset="images/about-nara-deer-800.webp 800w, images/about-nara-deer-1600.webp 1600w"
          sizes="(min-width: 58rem) 35vw, 70vw"
          width="1600" height="1066" loading="lazy"
          alt="Danica leaning down to feed a sika deer by hand under cherry blossom in Nara."
          style="--ar: 1.501">
+    <img src="images/about-alpaca-800.webp"
+         srcset="images/about-alpaca-800.webp 800w, images/about-alpaca-1600.webp 1600w"
+         sizes="(min-width: 58rem) 35vw, 70vw"
+         width="1600" height="2415" loading="lazy"
+         alt="Danica and Dan standing either side of a Peruvian handler and a white alpaca hung with coloured tassels, a lake and bare hills behind them."
+         style="--ar: 0.663">
     <img src="images/about-danica-cat-800.webp"
          srcset="images/about-danica-cat-800.webp 800w, images/about-danica-cat-1600.webp 1600w"
          sizes="(min-width: 58rem) 35vw, 70vw"
          width="1600" height="1600" loading="lazy"
          alt="Danica grinning with a black-and-white cat held up beside her cheek."
          style="--ar: 1">
-    <img src="images/about-shepherd-800.webp"
-         srcset="images/about-shepherd-800.webp 800w, images/about-shepherd-1600.webp 1600w"
-         sizes="(min-width: 58rem) 35vw, 70vw"
-         width="1600" height="1067" loading="lazy"
-         alt="Danica and Dan sitting on either side of a full-grown German Shepherd in a living room."
-         style="--ar: 1.5">
     <img src="images/about-camels-800.webp"
          srcset="images/about-camels-800.webp 800w, images/about-camels-1600.webp 1600w"
          sizes="(min-width: 58rem) 35vw, 70vw"
@@ -1018,19 +1012,51 @@
   </div>
 </section>
 
-<section class="wrap contact" id="contact">
-  <h2>Get in touch</h2>
-  <p class="big"><a href="mailto:REPLACE-WITH-YOUR-ADDRESS@example.com">REPLACE-WITH-YOUR-ADDRESS@example.com</a></p>
-  <p>Tell us where you are, when you're away, and who we'd be looking after.
-    A photo of them never hurts.</p>
-  <p class="note">We take sits of <strong>one month or longer</strong>, in New
-    Zealand and Australia. We don't charge for any of it.</p>
+<!-- The close. A tinted band so the page ends on something other than more
+     paper, and a card on top of it holding three things: the heading, the ask,
+     and the address. Everything else that has been tried here — a button, a
+     list of what to put in the first email, a strip of terms — was something
+     to read on the way to an address already on the page. -->
+<section class="contact-section tint" id="contact">
+  <div class="wrap">
+    <!-- The photo is first in the source, which is all it takes to put it on
+         the left of the row and on top of the stack — .split lays out in
+         source order at both. It doesn't need the --media-first modifier the
+         other two rows use; that one exists to pull a photo up from second
+         place on a phone, and this one is already there. -->
+    <div class="split">
+      <!-- Not in a .gallery, so the lightbox leaves it alone — the same as the
+           two other photographs set beside text further up the page. -->
+      <figure class="split__media">
+        <img src="images/about-shepherd-800.webp"
+             srcset="images/about-shepherd-800.webp 800w, images/about-shepherd-1600.webp 1600w"
+             sizes="(min-width: 58rem) 45vw, 100vw"
+             width="1600" height="1067" loading="lazy"
+             alt="Danica and Dan sitting on either side of a full-grown German Shepherd in a living room.">
+      </figure>
+
+      <div class="contact">
+        <h2>Get in touch</h2>
+        <p class="big">If you'd like us to housesit for you, email us with the
+          dates and where you are. A little about your pets too: their routine,
+          what we'd be responsible for, and photos if you have them.</p>
+        <p class="contact__address">
+          <span class="contact__label">Email</span>
+          <a href="mailto:dan.goyette@gmail.com">dan.goyette@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 </main>
 
-<footer class="wrap">
-  <p>Danica &amp; Dan</p>
+<footer class="band">
+  <p class="footer__name">Danica &amp; Dan</p>
+  <!-- The year is written out, not generated: there is no build step and the
+       only script on the page is the lightbox. It needs changing by hand. -->
+  <p class="footer__legal">© 2026 Danica &amp; Dan · Housesitting and petsitting
+    in New Zealand and Australia</p>
 </footer>
 
 <!-- Opens any gallery photo full screen. Nothing on the page needs it —

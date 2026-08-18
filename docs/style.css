@@ -11,8 +11,9 @@
 :root {
   /* ---- surfaces ---- */
   --surface:         #faf8f5;  /* warm paper */
-  --surface-sunken:  #f2ece3;  /* image placeholders while they load */
+  --surface-sunken:  #f2ece3;  /* every second section band — see .tint */
   --surface-raised:  #ffffff;
+  --surface-image:   #ece5da;  /* photo placeholders, and the monogram avatars */
 
   /* ---- ink (all ratios measured against --surface) ---- */
   --ink:         #1c1917;  /* 16.5:1  body + headings */
@@ -119,6 +120,28 @@ a:hover { color: var(--ink); }
   margin-inline: auto;
 }
 
+/* .wrap's twin, for a section that needs a background running to the edge of
+   the window. Same content width to the pixel — it is the same expression
+   solved for padding instead of width — but the box is the full width of the
+   page, so a background painted on it reaches both edges.
+
+   Below the cap, (100% - --page) is negative and max() takes the gutter; above
+   it, the padding is whatever is left either side of a --page-wide column.
+   Sections built as a band with a .wrap div inside (the expect and contact
+   bands) don't need this; it's for the ones where .wrap sits on the section
+   element itself and there is no inner element to hand the width to. */
+.band {
+  padding-inline: max(var(--gutter), (100% - var(--page)) / 2);
+}
+
+/* The alternating tone. No two sections down the page carry the same
+   background: paper under the hero, then tint / dark / tint / paper / tint to
+   the foot. It is a 2% step off the paper and it is not trying to be noticed —
+   it's there so the eye can tell where one section stops and the next starts
+   without a heavy rule between them. Every ink token still clears 4.5:1 on it
+   (--ink 14.9, --ink-muted 6.1, --ink-subtle 4.8, --accent 7.5). */
+.tint { background: var(--surface-sunken); }
+
 /* Keyboard users get past the hero photography in one keystroke. */
 .skip {
   position: absolute;
@@ -149,7 +172,7 @@ a:hover { color: var(--ink); }
   position: relative;
   display: grid;
   align-content: start;
-  background: var(--surface-sunken);
+  background: var(--surface-image);
 
   /* Kept short on a phone. The photograph is 3:2, so the taller this box gets
      on a narrow screen the more width `cover` has to cut away — and what it
@@ -304,9 +327,10 @@ h1 {
 
 /* ---------- call to action ---------- */
 
-/* The pattern this page follows puts a way to act next to the proof rather
-   than only at the end. This is that control, and it appears three times:
-   under the hero, after the reviews, and in the contact section. */
+/* One button on the page, under the hero, and all it does is jump to the
+   contact card at the foot. There is no button in the card itself: down there
+   the address is the action, and a button beside it would only be a second way
+   to reach the same mailto. */
 .cta {
   display: inline-flex;
   align-items: center;
@@ -335,7 +359,12 @@ h1 {
   border-top: 1.5px solid currentColor;
   border-right: 1.5px solid currentColor;
   transform: rotate(45deg);
+  /* Nudged along on hover. The reduced-motion block at the foot of the file
+     flattens this to nothing for anyone who has asked for that. */
+  transition: transform 0.15s ease;
 }
+
+.cta:hover::after { transform: translateX(2px) rotate(45deg); }
 
 /* ---------- sections ---------- */
 
@@ -389,7 +418,9 @@ p:last-child { margin-bottom: 0; }
 .split--media-first .split__media { order: -1; }
 
 @media (min-width: 58rem) {
-  /* Asymmetric by default — the text column is the wider one. */
+  /* Asymmetric, and it is the first column that's the wider one — which in the
+     two rows up the page is the text, and in the contact row at the foot is
+     the photograph, because that one leads with its photo in the source. */
   .split { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
   .split--media-first .split__media { order: 0; }
 }
@@ -399,7 +430,7 @@ p:last-child { margin-bottom: 0; }
 .split__media img {
   width: 100%;
   border-radius: var(--radius);
-  background: var(--surface-sunken);
+  background: var(--surface-image);
 }
 
 /* ---------- what to expect ---------- */
@@ -494,6 +525,12 @@ figcaption {
 
 .sit:first-child { border-top: 0; padding-top: 0; }
 
+/* --rule was picked to sit at 1.26 against the paper. On the tinted band it
+   falls to 1.14 and the twelve separators between the reviews all but vanish,
+   so on tint they step up to the stronger line, which lands at 1.46 — about
+   the same weight the hairline has everywhere else. */
+.tint .sit { border-top-color: var(--rule-strong); }
+
 /* Justified rows with no JavaScript and no measuring. Each photo's flex-basis
    is its aspect ratio times a target row height, and its flex-grow is that
    same ratio — so leftover space is handed out in proportion to width and
@@ -548,7 +585,7 @@ figcaption {
   width: auto;
   height: auto;
   border-radius: var(--radius);
-  background: var(--surface-sunken);
+  background: var(--surface-image);
 }
 
 /* Flex fills rows from the start and leaves the remainder on the last row.
@@ -682,7 +719,7 @@ figcaption {
   font-family: var(--serif);
   font-size: 1.5rem;
   color: var(--accent);
-  background: #ece5da;
+  background: var(--surface-image);
 }
 
 .sit__who h3 {
@@ -752,28 +789,31 @@ figcaption {
 
 /* ---------- photo grids ---------- */
 
-/* The eight photos of the two of them with animals, justified by the same rules
+/* The seven photos of the two of them with animals, justified by the same rules
    as the review galleries — same flex trick, same reversal, only --row-h
    differs. It has to differ, and at every width: a sit gallery is one column of
    a card, this one is the full width of the page, and --row-h is a fraction of
    that width. Nothing here inherits from the values above.
 
-   Eight is a much kinder number than the five this started with. Every layout
-   below divides evenly into rows of two, three or four, so no photo is ever
-   left alone on a row of its own to be grown to the full width of the page —
-   which with a portrait would be a picture half again as tall as it is wide.
+   Seven is an odd number and the phone layout pays for it:
 
-     phone     37.5%   4 rows of 2
-     40rem     26%     2 + 3 + 3
-     58rem     20%     4 + 4, both rows within 4% of the same height
+     phone     37.5%   1 + 2 + 2 + 2
+     40rem     26%     3 + 4, rows within 1% of the same height
+     58rem     20%     3 + 4, rows within 1% of the same height
 
-   Each value has 5% or better clearance from the width at which the row would
-   break differently, so none of them are sitting on a knife edge.
+   The 1 is trail-dogs, and it being trail-dogs is the whole reason the order
+   starts there. A row of one grows to the full width of the page, so the photo
+   that lands on it has to be the widest one in the set — at 1.5:1 it comes out
+   two thirds as tall as the page is wide, which reads as a lead photograph.
+   Any of the portraits alone on that row would be half again as tall as the
+   page is wide. This was eight photos until the shepherd moved down to the
+   contact section, and eight divided evenly at every width with no row of one
+   anywhere; if a photo is ever added back, check this table again.
 
    The order in the HTML is what makes the rows come out even, and it is by
-   shape rather than by date: the two widest photos are first, so the row that
-   takes the remainder is a pair of landscapes rather than a pair of portraits.
-   Reordering those images will change the row heights. */
+   shape rather than by date. Reordering those images will change the row
+   heights — the two wide layouts above are the good pairing out of all 5040
+   orders, and most of the others put a portrait on a row of its own. */
 .about-gallery {
   --row-h: 37.5%;
   margin: var(--gap) 0 0.9rem;
@@ -783,28 +823,99 @@ figcaption {
   .about-gallery { --row-h: 26%; }
 }
 
-/* Four across, at 186px tall where this starts and 350px at the 100rem cap —
-   the same order of size as the review photos, which is the point. */
+/* Three then four, at 250px tall where this starts and 430px at the 100rem cap.
+   Bigger than the review photos, where it used to match them: with one photo
+   fewer, the same seven have to fill the same two rows. --row-h is a floor and
+   the rows grow past it, so lowering it here doesn't shrink them — it packs
+   more into a row, and at anything low enough to matter all seven try to fit
+   on one line and leave the last photo stranded. */
 @media (min-width: 58rem) {
   .about-gallery { --row-h: 20%; }
 }
 
 /* ---------- contact ---------- */
 
-/* No button here — the address itself is the action, and people need to be
-   able to read and copy it. */
-.contact .big a {
+/* The tone comes from .tint, like every other banded section. What's specific
+   here is the card on top of it, in white — the same two-tone move as the
+   cards in "what to expect", inverted: light card, tinted ground. */
+
+/* Three things, one column, at any width: the heading, the ask, the address.
+   It had a button and a strip of terms beside it, and both were something to
+   read on the way to an address that was already on the page. */
+.contact {
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  background: var(--surface-raised);
+  border-top: 2px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+/* Bigger than the other h2s on the page — it's the last heading, and the one
+   the whole page is asking you to act on. The floor is only a little above the
+   other headings, though: on a phone the difference between 1.6 and 2.4rem is
+   two more lines of scrolling, not more emphasis. */
+.contact h2 {
+  font-size: clamp(1.85rem, 1.3rem + 2.4vw, 3.4rem);
+  margin-bottom: 1rem;
+}
+
+/* The address is the action now that there's no button, so it's set at the
+   size the invitation above it is. Serif, and breakable anywhere, which is
+   what keeps a long address inside the card on a phone. */
+.contact__address {
+  margin: var(--space-6) 0 0;
+}
+
+/* Set as a label rather than as a word in a sentence — same treatment as the
+   photo captions and the eyebrow under the hero, which is the page's way of
+   marking something as a heading for the line beneath it. On its own line, so
+   no colon: the line break is the colon. */
+.contact__label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.contact__address a {
   font-family: var(--serif);
+  font-size: var(--text-lg);
   overflow-wrap: anywhere;
 }
 
 /* ---------- footer ---------- */
 
+/* The dark end of the page, in the accent green — the same green as the band
+   in the middle of the page, so the two of them bracket the reviews and the
+   alternating tone finishes against something solid rather than fading out on
+   a hairline, which is what used to close the page.
+   .band rather than .wrap: the green has to reach both edges of the window. */
 footer {
-  border-top: 1px solid var(--rule);
-  padding-block: 2rem 3rem;
-  font-size: 0.875rem;
-  color: var(--ink-subtle);
+  background: var(--accent);
+  color: var(--on-accent);
+  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: var(--text-sm);
+}
+
+.footer__name {
+  margin: 0 0 var(--space-2);
+  font-family: var(--serif);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  color: var(--on-accent);            /* 8.3:1 */
+}
+
+/* Stepped back from the name so the two lines aren't the same weight. Held at
+   0.8 of --on-accent, which composites to #d3d7d1 over the green — 6:1, and
+   still past the minimum at this size. */
+.footer__legal {
+  margin: 0;
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: rgba(250, 248, 245, 0.8);
+  max-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -909,7 +1020,7 @@ footer {
   max-height: 100%;
   min-height: 0;
   border-radius: var(--radius);
-  background: var(--surface-sunken);
+  background: var(--surface-image);
 
   /* Three jobs: springs the photo back from a drag released short of
      committing, throws it out of frame when the drag commits, and brings the
