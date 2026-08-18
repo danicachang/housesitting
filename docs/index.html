@@ -7,8 +7,7 @@
 <meta name="description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
 <meta name="theme-color" content="#faf8f5">
 
-<!-- Absolute URLs: relative paths don't resolve for the scrapers behind link
-     previews in Messenger, WhatsApp, Slack and iMessage. -->
+<!-- Absolute URLs: relative paths don't resolve for link-preview scrapers. -->
 <meta property="og:title" content="Danica &amp; Dan, housesitters and petsitters">
 <meta property="og:description" content="We look after your home and your animals while you're away, and we don't charge for it. Sits of one month or longer in New Zealand and Australia.">
 <meta property="og:type" content="website">
@@ -79,8 +78,7 @@
     <h2>What to expect</h2>
     <dl class="expect">
       <div class="expect__card">
-        <!-- The icons carry no information the headings don't already give,
-             so they're empty-alt and skipped by screen readers. -->
+        <!-- Empty alt: the icons repeat the heading beside them. -->
         <img class="expect__icon" src="images/icons/house-svgrepo-com.png"
              width="256" height="256" loading="lazy" alt="">
         <dt>Home most of the day.</dt>
@@ -428,11 +426,8 @@
             We would definitely invite them back for a future vacation.</p>
         </blockquote>
       </div>
-      <!-- Reordered when the eighth photo went in. Seven fitted two rows; eight
-           don't, and in the old order the extra one pushed dan-toy out alone
-           onto a row of its own. This order breaks 2 + 3 + 3 with the rows
-           within half a step of each other, and puts the two trail photos —
-           Danica and Dan on the same path — side by side at the top. -->
+      <!-- Ordered by shape: this one breaks 2 + 3 + 3 with the rows within
+           half a step of each other. -->
       <div class="sit__gallery gallery">
         <img src="images/oakland-dan-trail-800.webp"
              srcset="images/oakland-dan-trail-800.webp 800w, images/oakland-dan-trail-1600.webp 1600w"
@@ -963,9 +958,8 @@
     </figure>
   </div>
 
-  <!-- Ordered by shape, not by date. The rows are laid out from the aspect
-       ratios, so which photo sits next to which is what decides how tall each
-       row comes out — see .about-gallery in the stylesheet. -->
+  <!-- Ordered by shape, not by date: the rows are laid out from the aspect
+       ratios. See .about-gallery in the stylesheet. -->
   <div class="gallery about-gallery">
     <img src="images/trail-dogs-800.webp"
          srcset="images/trail-dogs-800.webp 800w, images/trail-dogs-1600.webp 1600w"
@@ -1012,21 +1006,12 @@
   </div>
 </section>
 
-<!-- The close. A tinted band so the page ends on something other than more
-     paper, and a card on top of it holding three things: the heading, the ask,
-     and the address. Everything else that has been tried here — a button, a
-     list of what to put in the first email, a strip of terms — was something
-     to read on the way to an address already on the page. -->
 <section class="contact-section tint" id="contact">
   <div class="wrap">
-    <!-- The photo is first in the source, which is all it takes to put it on
-         the left of the row and on top of the stack — .split lays out in
-         source order at both. It doesn't need the --media-first modifier the
-         other two rows use; that one exists to pull a photo up from second
-         place on a phone, and this one is already there. -->
+    <!-- The photo is first in the source, which is all it takes to put it left
+         of the row and on top of the stack; no --media-first needed here. -->
     <div class="split">
-      <!-- Not in a .gallery, so the lightbox leaves it alone — the same as the
-           two other photographs set beside text further up the page. -->
+      <!-- Not in a .gallery, so the lightbox leaves it alone. -->
       <figure class="split__media">
         <img src="images/about-shepherd-800.webp"
              srcset="images/about-shepherd-800.webp 800w, images/about-shepherd-1600.webp 1600w"
@@ -1053,14 +1038,12 @@
 
 <footer class="band">
   <p class="footer__name">Danica &amp; Dan</p>
-  <!-- The year is written out, not generated: there is no build step and the
-       only script on the page is the lightbox. It needs changing by hand. -->
+  <!-- No build step, so the year is written out. Bump it by hand. -->
   <p class="footer__legal">© 2026 Danica &amp; Dan · Housesitting and petsitting
     in New Zealand and Australia</p>
 </footer>
 
-<!-- Opens any gallery photo full screen. Nothing on the page needs it —
-     delete this line and the site is exactly what it was. -->
+<!-- Opens any gallery photo full screen. Nothing on the page needs it. -->
 <script src="lightbox.js" defer></script>
 
 </body>

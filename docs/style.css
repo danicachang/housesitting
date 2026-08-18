@@ -1,21 +1,15 @@
-/* Danica & Dan — house and pet sitters.
-   One page, no build step. The justified galleries are CSS alone; the only
-   JavaScript is the full-screen photo viewer, styled in the last section.
-
-   Style: Editorial Grid / Magazine — asymmetric grid, pull quotes, drop caps,
-   bylines, section dividers, large imagery, serif body.
-   Type:  Lora (display) + Raleway (text).
-   Every foreground/background pair below is verified at 4.5:1 or better; the
-   ratio is noted beside each token. */
+/* Danica & Dan — house and pet sitters. One page, no build step.
+   Type: Lora (display) + Raleway (text).
+   Contrast ratios are noted beside each colour token. */
 
 :root {
   /* ---- surfaces ---- */
-  --surface:         #faf8f5;  /* warm paper */
+  --surface:         #faf8f5;
   --surface-sunken:  #f2ece3;  /* every second section band — see .tint */
   --surface-raised:  #ffffff;
   --surface-image:   #ece5da;  /* photo placeholders, and the monogram avatars */
 
-  /* ---- ink (all ratios measured against --surface) ---- */
+  /* ---- ink (ratios against --surface) ---- */
   --ink:         #1c1917;  /* 16.5:1  body + headings */
   --ink-muted:   #5f574d;  /*  6.7:1  secondary prose */
   --ink-subtle:  #6f665c;  /*  5.3:1  metadata, captions */
@@ -29,21 +23,13 @@
   --rule:        #e6ded3;
   --rule-strong: #cfc4b5;
 
-  /* ---- lightbox (ratios measured against --backdrop, not --surface) ----
-     --backdrop is --ink unmixed: the page with the lights off. Pure black
-     would be 10% darker and read cold beside photographs this warm. */
+  /* ---- lightbox (ratios against --backdrop, not --surface) ---- */
   --backdrop:        #1c1917;
   --on-backdrop:     #cfc4b5;  /* 10.2:1  caption, counter, buttons, focus ring */
 
-  /* An arrow disabled at the end of a set. Deliberately below 4.5:1 — WCAG
-     exempts inactive components, and holding this to the text minimum is what
-     made it read as "slightly darker" instead of "off". There is nothing to
-     compare it against on screen: at the first photo the dead arrow is on the
-     far left and the live one is 1400px away on the far right. It's
-     --ink-muted's hex, taken down to 2.5:1 by the backdrop — and the rule that
-     uses it drops the opacity to 0.45 on top, which composites to about 1.4:1.
-     Read the two together; this number alone isn't what lands on screen. */
-  --on-backdrop-off: #5f574d;  /*   2.5:1 before the opacity in .lightbox__nav:disabled */
+  /* Disabled arrow. Below 4.5:1 on purpose — WCAG exempts inactive controls,
+     and .lightbox__nav:disabled drops the opacity to 0.45 on top of this. */
+  --on-backdrop-off: #5f574d;  /*  2.5:1 before that opacity */
 
   /* ---- type ---- */
   --serif: "Lora", ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype",
@@ -70,14 +56,9 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* Paragraphs stay at a readable measure no matter how wide the page gets —
-     the layout goes full width, the prose doesn't. */
-  /* One corner radius for every photograph and card on the page. The hero is
-     the exception: it runs to the edge of the window, so there is no corner to
-     round. */
   --radius: 0.5rem;
 
-  --measure: 36rem;
+  --measure: 36rem;   /* prose stays readable however wide the layout goes */
   --gutter:  clamp(1.25rem, 3.5vw, 4rem);
   --page:    100rem;
   --gap:     clamp(1.5rem, 4vw, 4rem);
@@ -89,7 +70,6 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  /* Anchored sections shouldn't land flush against the top edge. */
   scroll-padding-top: var(--space-8);
 }
 
@@ -107,8 +87,7 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 a:hover { color: var(--ink); }
 
-/* One focus treatment for everything, at 8.3:1 against the page — comfortably
-   past the 3:1 that WCAG asks of a focus indicator. */
+/* 8.3:1 against the page, past the 3:1 a focus indicator needs. */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -120,29 +99,18 @@ a:hover { color: var(--ink); }
   margin-inline: auto;
 }
 
-/* .wrap's twin, for a section that needs a background running to the edge of
-   the window. Same content width to the pixel — it is the same expression
-   solved for padding instead of width — but the box is the full width of the
-   page, so a background painted on it reaches both edges.
-
-   Below the cap, (100% - --page) is negative and max() takes the gutter; above
-   it, the padding is whatever is left either side of a --page-wide column.
-   Sections built as a band with a .wrap div inside (the expect and contact
-   bands) don't need this; it's for the ones where .wrap sits on the section
-   element itself and there is no inner element to hand the width to. */
+/* .wrap solved for padding instead of width: same content width, but the box
+   is full-bleed so a background on it reaches both edges. Use instead of .wrap
+   when .wrap would sit on the section element itself. */
 .band {
   padding-inline: max(var(--gutter), (100% - var(--page)) / 2);
 }
 
-/* The alternating tone. No two sections down the page carry the same
-   background: paper under the hero, then tint / dark / tint / paper / tint to
-   the foot. It is a 2% step off the paper and it is not trying to be noticed —
-   it's there so the eye can tell where one section stops and the next starts
-   without a heavy rule between them. Every ink token still clears 4.5:1 on it
+/* Sections alternate tone so no two neighbours share a background: paper,
+   tint, dark, tint, paper, tint. Every ink token still clears 4.5:1 here
    (--ink 14.9, --ink-muted 6.1, --ink-subtle 4.8, --accent 7.5). */
 .tint { background: var(--surface-sunken); }
 
-/* Keyboard users get past the hero photography in one keystroke. */
 .skip {
   position: absolute;
   left: var(--space-4);
@@ -165,43 +133,27 @@ a:hover { color: var(--ink); }
 
 /* ---------- hero ---------- */
 
-/* Edge to edge, photo behind the words. This is the one place on the page
-   where an image is cropped to fit its slot — everywhere else the photos are
-   shown at the shape they were taken in. */
+/* Edge to edge, photo behind the words. The only cropped image on the page. */
 .hero {
   position: relative;
   display: grid;
   align-content: start;
   background: var(--surface-image);
 
-  /* Kept short on a phone. The photograph is 3:2, so the taller this box gets
-     on a narrow screen the more width `cover` has to cut away — and what it
-     cuts is the dogs at either side of Dan. At this height barely any of the
-     frame is lost. (Two values: the first is the fallback for browsers with
-     no svh.) */
+  /* Kept short on a phone: the photo is 3:2, so a taller box here means
+     `cover` cuts more width, and what it cuts is the dogs either side of Dan.
+     First value is the fallback for browsers with no svh. */
   min-height: 26rem;
   min-height: clamp(24rem, 56svh, 30rem);
 }
 
-/* Once the window is wide enough that the whole 3:2 frame fits across it, the
-   hero can have the screen. */
-/* Once the window is wide enough that the whole 3:2 frame fits across it, the
-   hero can have the screen. The cap is generous because it is what stops a
-   very wide monitor from turning this into a letterbox slot: at 2560px across,
-   a 50rem hero would be a 3.2:1 box and `cover` would throw away half the
-   height of the picture to fill it. */
 @media (min-width: 50rem) {
   .hero {
     min-height: 34rem;
 
-    /* The second term is what keeps the words off Dan. Because the crop is
-       anchored to the bottom of the picture, the wider the box the further
-       down the frame its top edge starts — and Dan's head is at 45% of the
-       frame, so past a certain width the text lands on him. Holding the box
-       to `37vw + 19rem` keeps the top edge high enough that the last line
-       clears his cap with room to spare, at any width. The text block is a
-       fixed 293px tall once the type stops scaling, which is where the 19rem
-       comes from. */
+    /* The 37vw term keeps the words off Dan. The crop is anchored to the foot
+       of the picture, so the wider the box the further down the frame its top
+       edge starts; this holds the top edge above his head at any width. */
     min-height: max(clamp(34rem, 88svh, 64rem), calc(37vw + 19rem));
   }
 }
@@ -212,23 +164,13 @@ a:hover { color: var(--ink); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Anchored near the foot of the picture. Dan and the dogs stand along the
-     bottom edge of the frame, so when a wide window crops the height, all of
-     it has to come off the top — sky the words are sitting on anyway. At 95%
-     the dogs are still whole on a 3440px monitor, which is the point at which
-     the crop is throwing away everything above the treeline; on an ordinary
-     laptop the difference between this and centring is about 1% of the frame,
-     so it costs nothing where it isn't needed. */
+  /* Dan and the dogs stand along the bottom edge, so a wide window's crop has
+     to come off the top — sky the words sit on anyway. */
   object-position: 50% 95%;
 }
 
-/* The scrim. The words are in the top half and the animals are in the bottom
-   half, so the weight comes down from the top and is gone before it reaches
-   them. Deliberately light — it darkens the sky a little rather than sitting
-   on the photograph as a panel, and the text-shadow on .hero__text does the
-   rest of the work of holding the words off the picture. */
-/* Stacked explicitly: a pseudo-element is the first child of .hero, so without
-   these the photograph after it in the source paints straight over the top. */
+/* Scrim over the sky only; the text-shadow on .hero__text does the rest.
+   z-index is needed — the photograph follows this in the source. */
 .hero::before {
   content: "";
   position: absolute;
@@ -246,18 +188,15 @@ a:hover { color: var(--ink); }
   color: var(--on-accent);
   padding-block: clamp(3.5rem, 10vw, 6rem) 0;
   text-align: center;
-  /* Three passes rather than one: a tight pass to hold the edge of the letter
-     against whatever is directly behind it, then two progressively softer and
-     wider ones that pool into a shadow the shape of the words. Cheaper on the
-     photograph than darkening the whole top of it. */
+  /* Three passes: one tight to hold each letter edge, two softer ones pooling
+     into a shadow the shape of the words. */
   text-shadow:
     0 1px 2px rgba(18, 16, 14, 0.55),
     0 2px 12px rgba(18, 16, 14, 0.7),
     0 4px 32px rgba(18, 16, 14, 0.6);
 }
 
-/* Kept inside the darkest part of the scrim rather than running out to the
-   full width of the picture. */
+/* Kept inside the darkest part of the scrim. */
 .hero__text > * {
   max-width: 32rem;
   margin-inline: auto;
@@ -268,19 +207,15 @@ a:hover { color: var(--ink); }
   font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.35rem);
   line-height: 1.2;
   letter-spacing: 0.01em;
-  /* `auto` on the sides, not 0 — this rule comes after the one that centres
-     the blocks in .hero__text and a shorthand here would undo it. */
+  /* `auto`, not 0 — this follows the rule centring .hero__text's blocks. */
   margin: 0 auto var(--space-4);
 }
 
-/* Held back from the full display size — two lines of it at --text-3xl would
-   run past the measure the block is set to. */
+/* Held back from --text-3xl, which would run past the block's measure. */
 .hero h1 { font-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.25rem); }
 
 /* ---------- intro ---------- */
 
-/* What used to sit in the hero: the offer, the terms, and the way to act on
-   them. Off the photograph and back on the paper, where it reads. */
 .intro {
   display: grid;
   gap: clamp(1.5rem, 3vw, 3rem);
@@ -327,10 +262,7 @@ h1 {
 
 /* ---------- call to action ---------- */
 
-/* One button on the page, under the hero, and all it does is jump to the
-   contact card at the foot. There is no button in the card itself: down there
-   the address is the action, and a button beside it would only be a second way
-   to reach the same mailto. */
+/* The only button on the page: jumps to the contact card at the foot. */
 .cta {
   display: inline-flex;
   align-items: center;
@@ -359,8 +291,6 @@ h1 {
   border-top: 1.5px solid currentColor;
   border-right: 1.5px solid currentColor;
   transform: rotate(45deg);
-  /* Nudged along on hover. The reduced-motion block at the foot of the file
-     flattens this to nothing for anyone who has asked for that. */
   transition: transform 0.15s ease;
 }
 
@@ -411,16 +341,12 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
 }
 
-/* Stacked, this row opens with its photo instead of the heading — the first
-   thing below the intro is a face rather than more prose. It has to be
-   declared before the breakpoint: the reset there has the same specificity
-   and only wins on source order. */
+/* Stacked, this row leads with its photo. Must precede the breakpoint: the
+   reset there has the same specificity and wins only on source order. */
 .split--media-first .split__media { order: -1; }
 
 @media (min-width: 58rem) {
-  /* Asymmetric, and it is the first column that's the wider one — which in the
-     two rows up the page is the text, and in the contact row at the foot is
-     the photograph, because that one leads with its photo in the source. */
+  /* The first column is the wider one, whichever it holds. */
   .split { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
   .split--media-first .split__media { order: 0; }
 }
@@ -435,11 +361,8 @@ p:last-child { margin-bottom: 0; }
 
 /* ---------- what to expect ---------- */
 
-/* Edge to edge, and the one dark band on the page — a break between two
-   stretches of paper. A photograph behind the cards was too busy under small
-   text, so it's a gradient in the accent purple instead: a shade above the
-   accent at the top, a shade below it at the foot, so the band has some depth
-   without turning into a second subject. */
+/* The one dark band on the page. The middle stop is --accent; the outer two
+   are a shade either side of it. */
 .expect-section {
   background: linear-gradient(to bottom, #634c7b 0%, #56426b 45%, #362a43 100%);
   padding-block: clamp(3.5rem, 8vw, 7rem);
@@ -447,8 +370,7 @@ p:last-child { margin-bottom: 0; }
 
 .expect-section h2 { color: var(--on-accent); }
 
-/* The rule under every other h2 is the accent purple, which is the background
-   here. */
+/* Elsewhere this rule is --accent, which is the background here. */
 .expect-section h2::after { border-top-color: var(--on-accent); }
 
 .expect {
@@ -461,8 +383,7 @@ p:last-child { margin-bottom: 0; }
   .expect { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Four across only once there is room for it — at 58rem, where the rest of the
-   page goes two-column, these would be 13rem strips of small text. */
+/* Four across only at 75rem — at 58rem these would be 13rem strips. */
 @media (min-width: 75rem) {
   .expect { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
@@ -470,8 +391,7 @@ p:last-child { margin-bottom: 0; }
 .expect__card {
   min-width: 0;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  /* Still translucent, so each card picks up the purple behind it and the ones
-     lower down the band sit a little deeper than the ones above. */
+  /* Translucent, so each card picks up the gradient behind it. */
   background: rgba(250, 248, 245, 0.75);
   border-top: 2px solid var(--accent);
   border-radius: var(--radius);
@@ -483,8 +403,6 @@ p:last-child { margin-bottom: 0; }
   margin: 0 auto var(--space-4);
 }
 
-/* Centred under the icon; the body copy below stays ranged left, where a
-   paragraph of it reads. */
 .expect dt {
   font-family: var(--serif);
   font-size: 1.2rem;
@@ -493,10 +411,8 @@ p:last-child { margin-bottom: 0; }
   text-wrap: balance;
 }
 
-/* Full-strength ink rather than the muted grey used for secondary prose
-   elsewhere. At 0.75 the card is only as light as what is behind it: over the
-   foot of the gradient it settles around #c9c5c9, where --ink-muted would fall
-   to 4.2:1. --ink holds 10:1 even there. */
+/* Full-strength ink, not the muted grey: over the foot of the gradient the
+   translucent card settles near #c9c5c9, where --ink-muted falls to 4.2:1. */
 .expect dd {
   margin: 0.5rem 0 0;
   font-size: var(--text-sm);
@@ -525,61 +441,41 @@ figcaption {
 
 .sit:first-child { border-top: 0; padding-top: 0; }
 
-/* --rule was picked to sit at 1.26 against the paper. On the tinted band it
-   falls to 1.14 and the twelve separators between the reviews all but vanish,
-   so on tint they step up to the stronger line, which lands at 1.46 — about
-   the same weight the hairline has everywhere else. */
+/* --rule falls to 1.14 on the tinted band and the separators vanish. */
 .tint .sit { border-top-color: var(--rule-strong); }
 
-/* Justified rows with no JavaScript and no measuring. Each photo's flex-basis
-   is its aspect ratio times a target row height, and its flex-grow is that
-   same ratio — so leftover space is handed out in proportion to width and
-   every photo in a row settles on an identical height, which is what
-   "justified" means. --ar is set per image in the HTML, from the width and
-   height already on the tag.
+/* Justified rows, CSS only. Each photo's flex-grow and flex-basis are both
+   proportional to its aspect ratio, so a row's leftover space is shared out in
+   proportion to width and every photo in it lands on the same height. --ar is
+   set per image in the HTML. Shared with the "who we are" gallery, which
+   overrides --row-h in "photo grids" below.
 
-   Rows come out taller than --row-h, never shorter: flex grows a wrapped row
-   to fill but never shrinks it. --row-h is a floor to tune against, not the
-   height you get, and 190 is not a round number by accident — see below.
-
-   Shared: every sit uses it, and so does the gallery in "Who we are", which
-   overrides --row-h for its own column width down in "photo grids". */
+   --row-h is a floor, not the height you get: flex grows a wrapped row to fill
+   but never shrinks it. */
 .gallery {
-  /* A PERCENTAGE, not a length, and that is the whole trick. flex-basis
-     percentages resolve against the container, so the target row height is
-     always the same fraction of the gallery's own width — which makes the row
-     composition scale-invariant. Every sit breaks into the same rows, holding
-     the same photos, at every window size; only the size changes.
-
-     A pixel value cannot do that. The column slides from 451px to 945px across
-     the breakpoints, and a fixed target that gives three good rows at one end
-     gives one row at the other. Two rounds of tuning went into chasing that
-     before the units turned out to be the problem. */
+  /* A percentage, not a length. flex-basis percentages resolve against the
+     container, so every sit breaks into the same rows at every window size —
+     a pixel target that gives three rows at 451px gives one at 945px. */
   --row-h: 32%;
 
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
 
-  /* Both reversals move the short, tall row to the top. See the order rules
-     below — this half flips the rendering back so the photos still read left
-     to right, top to bottom. */
+  /* With the order rules below, these move the short row to the top while
+     keeping the photos reading left to right, top to bottom. */
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
 
-  /* row-reverse packs from the right, so anything that doesn't grow to fill
-     its row would sit against the right edge. In row-reverse, flex-end is
-     the left. */
+  /* flex-end is the left in row-reverse. */
   justify-content: flex-end;
 }
 
 .gallery img {
   flex: var(--ar) 1 calc(var(--ar) * var(--row-h));
 
-  /* Flex items are min-width:auto by default, which on a replaced element
-     resolves to its intrinsic width — 800px here. That floor silently beats
-     the flex-basis above and puts one oversized photo on every row. This is
-     the line that makes any of it work. */
+  /* Load-bearing: min-width:auto on a replaced element resolves to its
+     intrinsic 800px, which beats the flex-basis and puts one photo per row. */
   min-width: 0;
 
   width: auto;
@@ -588,16 +484,11 @@ figcaption {
   background: var(--surface-image);
 }
 
-/* Flex fills rows from the start and leaves the remainder on the last row.
-   Reversing the order reverses which photos are left over, so the remainder
-   becomes the *first* photos — and the two reversals above flip the rendering
-   back the right way round. The short row lands at the top and holds the
-   opening photos, reading order still runs left to right and top to bottom in
-   source order, and DOM order still matches what you see, so none of this
-   moves anything for a screen reader.
+/* Flex leaves the remainder on the last row; reversing the order makes that
+   remainder the first photos, and the reversals above put it back on top.
+   DOM order is untouched, so reading order is unaffected.
 
-   Fourteen covers the largest sit (nine photos) with room to grow. A sit with
-   more than fourteen would need another line here. */
+   Fourteen covers the largest sit (nine photos); a longer one needs more. */
 .gallery img:nth-child(1)  { order: 14; }
 .gallery img:nth-child(2)  { order: 13; }
 .gallery img:nth-child(3)  { order: 12; }
@@ -613,60 +504,30 @@ figcaption {
 .gallery img:nth-child(13) { order: 2; }
 .gallery img:nth-child(14) { order: 1; }
 
-/* Every row justifies, the short one included — no flush-left remainder. The
-   cost is that the top row grows tall to fill the width, and how tall depends
-   on the SHAPE of what lands there, not just how much. A row's height is the
-   column width over the sum of its aspect ratios, so alone in an 838px column:
-   a landscape (1.5) is 559px, a square is 838px, a portrait (0.667) is 1256px.
-   One photo up there is fine — three sits open that way — as long as it's a
-   wide one. That is what --row-h is really steering.
-
-   24% is the value that satisfies everything at once, checked against every
-   sit at column widths from 451px to 945px:
-
-     - no sit collapses to a single row
-     - nothing worse than a landscape ever lands alone on top (0.67x the
-       column width) — no stranded squares, no stranded portraits
-     - galleries average 2.2 rows and stay near 1.06x the column tall, so the
-       photos don't tower over the review beside them
-
-   Because it is a fraction rather than a length, that holds at every width in
-   between rather than at the one point it was measured. Below 40rem the
-   gallery is the full width of a phone, where three photos to a row is too
-   many, so it opens up to 32% — the same layout, two to a row instead. */
-
-/* No sit has a single photo any more, so this matches nothing today. It stays
-   as a guard: one photo alone has no row to justify into, and growing it to
-   the full column would make a portrait about 1250px tall. Natural size,
-   capped, uncropped. */
+/* Guard for a one-photo gallery — none today. Alone in a row a photo grows to
+   the full column, which for a portrait is about 1250px tall. */
 .gallery:not(:has(img + img)) img {
   flex: 0 1 auto;
   max-width: 100%;
   max-height: 32rem;
 }
 
-/* On a phone the gallery is the full width of the screen and three photos to
-   a row is too many, so the base value above opens up to two. From here on the
-   gallery is a column of a card and 24% holds at every width. */
+/* Once the gallery is a card column rather than the full width of a phone,
+   24% holds at every width. Checked against every sit from 451px to 945px: no
+   sit collapses to one row, and nothing narrower than a landscape ever lands
+   alone on top, where a row grows to the full column width. */
 @media (min-width: 40rem) {
   .gallery { --row-h: 24%; }
 }
 
 /* Half review, half photos, swapping sides on alternate cards. The body is
-   always first in the source, so screen readers and narrow screens get
-   name → review → photos in that order. This block comes last because it
-   raises --row-h, and the base value above would otherwise win on source
-   order — both selectors have the same specificity. */
+   first in the source, so narrow screens get name → review → photos. Must come
+   after the --row-h rules above: same specificity, wins on source order. */
 @media (min-width: 58rem) {
-  /* The photos get the wider column — 1.2 shares against 1, about 55/45. That
-     costs the review nothing on a wide screen, where its paragraphs are capped
-     at --measure (36rem) and were leaving most of a 768px column unused; the
-     photos simply take back slack that was already there. It does bite at the
-     bottom of this breakpoint, though, where there is no slack: at a 928px
-     window the review column goes from 413px to 375px.
+  /* Photos take the wider column, about 55/45. The review pays nothing for it
+     where its paragraphs are already capped at --measure.
 
-     minmax(0, …) on both so a wide photo can't refuse to shrink and shove the
-     split out of true. */
+     minmax(0, …) on both so a wide photo can't refuse to shrink. */
   .sit {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
     align-items: start;
@@ -683,9 +544,7 @@ figcaption {
   .sit:nth-of-type(even) .sit__gallery { grid-column: 1; }
 }
 
-/* Above 90rem the review has slack again — its paragraphs stop at --measure
-   long before the column does — so the photos take more of the card: 1.6
-   shares against 1, roughly 62/38. Below this width that same split would cut
+/* Roughly 62/38 once the review has slack again. This split at 928px would cut
    the review to 40 characters a line; here it still leaves 62 to 72. */
 @media (min-width: 90rem) {
   .sit          { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
@@ -694,7 +553,6 @@ figcaption {
 
 .sit__body { min-width: 0; }
 
-/* The reviewer, their location and the dates, set as a byline. */
 .sit__who {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -711,8 +569,8 @@ figcaption {
   background: var(--rule);
 }
 
-/* Kiwi House Sitters and Aussie House Sitters don't show reviewer photos, so
-   those get a monogram at the same size — the column stays even. */
+/* Kiwi and Aussie House Sitters don't show reviewer photos; those reviews get
+   a monogram at the same size instead. */
 .avatar--initial {
   display: grid;
   place-items: center;
@@ -730,8 +588,6 @@ figcaption {
   line-height: 1.2;
 }
 
-/* Every one of these sits was rated five stars, and each review says so on its
-   own — nothing at the top of the section makes that claim for them. */
 .sit__stars {
   margin: 0.3rem 0 0;
   font-size: 0.85rem;
@@ -748,8 +604,6 @@ figcaption {
   max-width: none;
 }
 
-/* The review in full, verbatim, and never behind a control — someone deciding
-   whether to trust us with their house shouldn't have to click to read it. */
 .review {
   position: relative;
   margin: 0;
@@ -758,17 +612,12 @@ figcaption {
   line-height: 1.6;
 }
 
-/* A hanging quote mark needs a margin to hang into, and on a phone there isn't
-   one: the page gutter is 1.25rem and the mark is about 15px wide, which left
-   it around 5px off the screen edge. So it only hangs once the card goes to two
-   columns and there is room either side. Below that it sits in an indent of its
-   own — the mark inside the box, the text stepped past it. */
+/* The quote mark hangs only where there's a margin to hang into; on a phone it
+   sits in an indent instead. See the 58rem block below. */
 .review { padding-left: 1.6rem; }
 
 .review::before {
-  /* Empty alt text after the slash — the mark is decoration, and the
-     blockquote already carries the meaning. Screen readers skip it. */
-  content: "\201C" / "";
+  content: "\201C" / "";   /* empty alt: decoration, skipped by screen readers */
   position: absolute;
   top: -0.3em;
   left: 0;
@@ -789,31 +638,17 @@ figcaption {
 
 /* ---------- photo grids ---------- */
 
-/* The seven photos of the two of them with animals, justified by the same rules
-   as the review galleries — same flex trick, same reversal, only --row-h
-   differs. It has to differ, and at every width: a sit gallery is one column of
-   a card, this one is the full width of the page, and --row-h is a fraction of
-   that width. Nothing here inherits from the values above.
+/* Same flex layout as the sit galleries, but this one is the full width of the
+   page rather than a card column, so --row-h has to be retuned at every width:
 
-   Seven is an odd number and the phone layout pays for it:
+     phone   37.5%   1 + 2 + 2 + 2
+     40rem   26%     3 + 4
+     58rem   20%     3 + 4
 
-     phone     37.5%   1 + 2 + 2 + 2
-     40rem     26%     3 + 4, rows within 1% of the same height
-     58rem     20%     3 + 4, rows within 1% of the same height
-
-   The 1 is trail-dogs, and it being trail-dogs is the whole reason the order
-   starts there. A row of one grows to the full width of the page, so the photo
-   that lands on it has to be the widest one in the set — at 1.5:1 it comes out
-   two thirds as tall as the page is wide, which reads as a lead photograph.
-   Any of the portraits alone on that row would be half again as tall as the
-   page is wide. This was eight photos until the shepherd moved down to the
-   contact section, and eight divided evenly at every width with no row of one
-   anywhere; if a photo is ever added back, check this table again.
-
-   The order in the HTML is what makes the rows come out even, and it is by
-   shape rather than by date. Reordering those images will change the row
-   heights — the two wide layouts above are the good pairing out of all 5040
-   orders, and most of the others put a portrait on a row of its own. */
+   The row of one is trail-dogs, the widest photo in the set — a row of one
+   grows to the full page width, and a portrait there would be half again as
+   tall as the page is wide. The image order in the HTML is by shape for that
+   reason; reordering it changes the row heights. */
 .about-gallery {
   --row-h: 37.5%;
   margin: var(--gap) 0 0.9rem;
@@ -823,25 +658,15 @@ figcaption {
   .about-gallery { --row-h: 26%; }
 }
 
-/* Three then four, at 250px tall where this starts and 430px at the 100rem cap.
-   Bigger than the review photos, where it used to match them: with one photo
-   fewer, the same seven have to fill the same two rows. --row-h is a floor and
-   the rows grow past it, so lowering it here doesn't shrink them — it packs
-   more into a row, and at anything low enough to matter all seven try to fit
-   on one line and leave the last photo stranded. */
+/* Lowering this further doesn't shrink the rows — --row-h is a floor — it just
+   packs all seven onto one line and strands the last photo. */
 @media (min-width: 58rem) {
   .about-gallery { --row-h: 20%; }
 }
 
 /* ---------- contact ---------- */
 
-/* The tone comes from .tint, like every other banded section. What's specific
-   here is the card on top of it, in white — the same two-tone move as the
-   cards in "what to expect", inverted: light card, tinted ground. */
-
-/* Three things, one column, at any width: the heading, the ask, the address.
-   It had a button and a strip of terms beside it, and both were something to
-   read on the way to an address that was already on the page. */
+/* A white card on the tinted band. */
 .contact {
   padding: clamp(1.5rem, 4vw, 3.5rem);
   background: var(--surface-raised);
@@ -849,26 +674,16 @@ figcaption {
   border-radius: var(--radius);
 }
 
-/* Bigger than the other h2s on the page — it's the last heading, and the one
-   the whole page is asking you to act on. The floor is only a little above the
-   other headings, though: on a phone the difference between 1.6 and 2.4rem is
-   two more lines of scrolling, not more emphasis. */
+/* Bigger than the other h2s — the heading the page is asking you to act on. */
 .contact h2 {
   font-size: clamp(1.85rem, 1.3rem + 2.4vw, 3.4rem);
   margin-bottom: 1rem;
 }
 
-/* The address is the action now that there's no button, so it's set at the
-   size the invitation above it is. Serif, and breakable anywhere, which is
-   what keeps a long address inside the card on a phone. */
 .contact__address {
   margin: var(--space-6) 0 0;
 }
 
-/* Set as a label rather than as a word in a sentence — same treatment as the
-   photo captions and the eyebrow under the hero, which is the page's way of
-   marking something as a heading for the line beneath it. On its own line, so
-   no colon: the line break is the colon. */
 .contact__label {
   display: block;
   margin-bottom: var(--space-1);
@@ -882,16 +697,12 @@ figcaption {
 .contact__address a {
   font-family: var(--serif);
   font-size: var(--text-lg);
-  overflow-wrap: anywhere;
+  overflow-wrap: anywhere;   /* keeps a long address inside the card */
 }
 
 /* ---------- footer ---------- */
 
-/* The dark end of the page, in the accent purple — the same purple as the band
-   in the middle of the page, so the two of them bracket the reviews and the
-   alternating tone finishes against something solid rather than fading out on
-   a hairline, which is what used to close the page.
-   .band rather than .wrap: the purple has to reach both edges of the window. */
+/* Takes .band rather than .wrap so the purple reaches both window edges. */
 footer {
   background: var(--accent);
   color: var(--on-accent);
@@ -907,9 +718,7 @@ footer {
   color: var(--on-accent);            /* 8.3:1 */
 }
 
-/* Stepped back from the name so the two lines aren't the same weight. Held at
-   0.8 of --on-accent, which composites to #d9d4d9 over the purple — 6:1, and
-   still past the minimum at this size. */
+/* 0.8 of --on-accent, which composites to #d9d4d9 over the purple — 6:1. */
 .footer__legal {
   margin: 0;
   font-size: var(--text-xs);
@@ -929,16 +738,12 @@ footer {
 
 /* ---------- lightbox ----------
 
-   Styles the full-screen viewer that lightbox.js builds, and matches nothing if
-   that file doesn't load.
-
-   The reduced-motion block above already covers everything here — it kills both
-   the fade and the nudge — so nothing below needs its own media query. */
+   Styles the viewer that lightbox.js builds; matches nothing without that file.
+   The reduced-motion block above covers everything here, so nothing below needs
+   its own media query. */
 
 .lightbox {
-  /* A <dialog> arrives with a border, padding, a centred auto width and a
-     max-height of the viewport minus margins. All of it has to go before it
-     can be a full-screen panel. */
+  /* Undoing the <dialog> defaults: border, padding, auto width, max-height. */
   position: fixed;
   inset: 0;
   width: 100%;
@@ -953,59 +758,44 @@ footer {
   background: var(--backdrop);
   color: var(--on-backdrop);
 
-  /* Horizontal movement goes to the swipe handler in lightbox.js; vertical pan
-     and pinch stay with the browser. Without this the browser claims a
-     horizontal drag as a pan, cancels the pointer stream, and the swipe
-     silently never fires. */
+  /* Load-bearing: without it the browser claims a horizontal drag as a pan,
+     cancels the pointer stream, and the swipe in lightbox.js never fires. */
   touch-action: pan-y pinch-zoom;
 
-  /* Stops the caption being selected mid-drag. draggable="false" on the image
-     handles the native image drag, which cancels the pointer stream the same
-     way and shows a not-allowed cursor. */
-  user-select: none;
+  user-select: none;   /* stops the caption being selected mid-drag */
 
-  /* Paper to near-black is a 16.5:1 luminance jump, jarring in one frame at
-     night. Two things depend on this duration: the fade needs a forced reflow
-     after showModal() to run at all (see that call), and the fallback timeout
-     in close() has to stay above it or the dialog shuts mid-fade. */
+  /* The fallback timeout in close() has to stay above this duration, or the
+     dialog shuts mid-fade. */
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
 .lightbox.is-open { opacity: 1; }
 
-/* Transparent on purpose, not an omission. ::backdrop isn't a child of the
-   dialog — it's painted behind it in the top layer, so the dialog's opacity
-   never reaches it and any colour here appears instantly at full strength while
-   the photo is still fading up. The dialog covers the viewport and carries the
-   colour itself. Still has to be stated: the UA default is a translucent black,
-   and browsers disagree on how dark. */
+/* Transparent on purpose: ::backdrop isn't a child of the dialog, so the
+   dialog's opacity never reaches it and any colour here would appear instantly
+   at full strength. The dialog covers the viewport and carries the colour. Must
+   still be stated — the UA default is a translucent black. */
 .lightbox::backdrop { background: transparent; }
 
-/* The page's focus ring is --accent, 8.3:1 on paper but 2:1 on the backdrop —
-   under the 3:1 WCAG wants. Restated here and nowhere else. */
+/* --accent is 8.3:1 on paper but 2:1 on the backdrop, under the 3:1 a focus
+   ring needs. */
 .lightbox :focus-visible { outline-color: var(--on-backdrop); }
 
-/* The panel takes focus on open (see open()) but isn't an operable control, so
-   it shows no ring. Note the missing space: this is the dialog itself, and the
-   rule above still rings its buttons. */
+/* The panel itself takes focus on open but isn't a control, so no ring. Note
+   the missing space — the rule above still rings its buttons. */
 .lightbox:focus-visible { outline: none; }
 
-/* Two rows: the photo takes what's left, and the caption strip is reserved
-   whether or not there's a caption in it — which is what keeps the frame
-   identical across portrait, landscape, and the "who we are" gallery that has
-   no sit card to read a caption from. */
+/* Two rows: photo, then a caption strip reserved whether or not there's a
+   caption, so the frame is identical across every photo shape. */
 .lightbox__figure {
   position: absolute;
   inset: 0;
   margin: 0;
   display: grid;
 
-  /* minmax(0, 1fr), not 1fr — the same trap as min-width: 0 on the gallery
-     images above. A bare 1fr means minmax(auto, 1fr), whose auto minimum is the
-     row's CONTENT size: a 2400px-tall portrait then refuses to shrink and
-     shoves the caption strip off the bottom of the screen. The 0 minimum is
-     also what makes the photo's max-height: 100% below resolve sensibly. */
+  /* minmax(0, 1fr), not 1fr: a bare 1fr means minmax(auto, 1fr), and that auto
+     minimum lets a tall portrait push the caption strip off the screen. */
   grid-template-rows: minmax(0, 1fr) auto;
 
   place-items: center;
@@ -1014,26 +804,20 @@ footer {
 }
 
 .lightbox__photo {
-  /* max-width is set inline per photo, from the width attribute the page
-     already carries, so nothing is shown larger than its own file — see show()
-     in lightbox.js. Uncropped, so no object-fit either. */
+  /* max-width is set inline per photo by show() in lightbox.js, so nothing is
+     shown larger than its own file. */
   max-height: 100%;
   min-height: 0;
   border-radius: var(--radius);
   background: var(--surface-image);
 
-  /* Three jobs: springs the photo back from a drag released short of
-     committing, throws it out of frame when the drag commits, and brings the
-     next one in from the far side. A committed swipe spends two of these back
-     to back, so 0.16s is 0.32s in total. */
+  /* Spring-back, fling out, and the next photo's entrance. A committed swipe
+     spends two of these back to back. */
   transition: transform 0.16s ease-out;
 }
 
-/* Movement with no transition, in the three places that need it: while the
-   finger is down, so the photo doesn't lag behind it; for the frame in which
-   the next photo is placed off the far side, which has to be silent; and for
-   the whole of the nudge, which drives this same property from @keyframes and
-   would otherwise compete with a spring-back for it. */
+/* Suppresses that transition while the finger is down, while the next photo is
+   placed off-frame, and for the whole of the nudge. */
 .lightbox__photo.is-instant { transition: none; }
 
 @keyframes lightbox-nudge {
@@ -1043,12 +827,9 @@ footer {
 
 .lightbox__photo.is-nudged { animation: lightbox-nudge 220ms ease-out; }
 
-/* Overrides the generic figcaption treatment, which is uppercase and
-   letterspaced for the two hand-written captions on the page. Serif rather than
-   .sit__where's sans, even though this is .sit__where's text: alone under a
-   photograph it is the only sentence on screen. The colour can't be inherited
-   either — --ink-subtle is 3.1:1 on the backdrop, a fail. min-height holds the
-   strip open in "who we are", where there is no caption. */
+/* Overrides the uppercase figcaption treatment. The colour can't be inherited
+   either: --ink-subtle is 3.1:1 on the backdrop. min-height holds the strip
+   open in "who we are", where there is no caption. */
 .lightbox__caption {
   min-height: 1.2em;
   margin: 0;
@@ -1061,29 +842,21 @@ footer {
   color: var(--on-backdrop);
 }
 
-/* Inside the figure so the one live region announces the position too, pulled
-   out of the grid flow to the corner. 0,0 rather than a spacing token: an
-   absolutely positioned child of a grid container with no grid placement
-   resolves against the container's PADDING edge, so the figure's padding is
-   already the inset. */
+/* Inside the figure so the one live region announces the position too. 0,0
+   because an absolutely positioned grid child with no placement resolves
+   against the container's padding edge — the figure's padding is the inset. */
 .lightbox__counter {
   position: absolute;
   top: 0;
   left: 0;
   margin: 0;
-
-  /* Padding rather than a larger top/left: 0,0 here is the figure's padding
-     edge, while the close button in the opposite corner is anchored to the
-     dialog. The two don't share an origin, so they can't take the same inset. */
   padding: var(--space-2) var(--space-3);
-  font-family: var(--serif);   /* one typeface inside the frame */
+  font-family: var(--serif);
   font-size: var(--text-xs);
   letter-spacing: 0.02em;
   color: var(--on-backdrop);
 
-  /* Same two passes as the buttons: a photo tall enough to fill the frame
-     reaches this corner. The caption has a grid row to itself and never has a
-     photo behind it. */
+  /* A photo tall enough to fill the frame reaches this corner. */
   text-shadow:
     0 1px 2px rgba(18, 16, 14, 0.6),
     0 2px 12px rgba(18, 16, 14, 0.7);
@@ -1105,10 +878,7 @@ footer {
   cursor: pointer;
 
   /* The controls are pinned to the window, not the photo, so a wide landscape
-     sits behind them and 10.2:1 against the backdrop buys nothing against a
-     pale sky. Same near-black as .hero__text, two passes rather than its three
-     — these are single glyphs, and its widest pass is for pooling under a whole
-     headline. */
+     sits behind them and 10.2:1 on the backdrop buys nothing against a sky. */
   text-shadow:
     0 1px 2px rgba(18, 16, 14, 0.6),
     0 2px 12px rgba(18, 16, 14, 0.7);
@@ -1123,9 +893,7 @@ footer {
   font-size: 2rem;
 }
 
-/* Pinned to the window rather than the photo, so they don't move with aspect
-   ratio. The padding takes the target to roughly 4rem by 6rem, so a near-miss
-   still advances. */
+/* Pinned to the window, so they don't move with the photo's aspect ratio. */
 .lightbox__nav {
   top: 50%;
   translate: 0 -50%;
@@ -1136,9 +904,8 @@ footer {
 .lightbox__nav--prev { left: 0; }
 .lightbox__nav--next { right: 0; }
 
-/* Dropping the shadow lets the arrow fade into whatever is behind it, which is
-   the message. It is also what makes the opacity read at all: a shadowed glyph
-   stays crisp however faint its colour. */
+/* The shadow has to go for the opacity to read — a shadowed glyph stays crisp
+   however faint its colour. */
 .lightbox__nav:disabled {
   color: var(--on-backdrop-off);
   opacity: 0.45;
@@ -1146,6 +913,6 @@ footer {
   cursor: default;
 }
 
-/* The one visible change to the page itself. Keyed off the role lightbox.js
-   adds, so without the script there is no cursor promising a viewer. */
+/* Keyed off the role lightbox.js adds, so without the script nothing promises
+   a viewer. */
 .gallery img[role="button"] { cursor: zoom-in; }

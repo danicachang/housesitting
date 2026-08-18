@@ -1,13 +1,11 @@
-// One-time image pipeline. Not part of serving the site — run it only when
-// photos are added or replaced.
+// Image pipeline. Not part of serving the site — run it when photos are added
+// or replaced:
 //
-//   npm install sharp
+//   npm install
 //   node tools/build-images.mjs
 //
-// Reads the full-size photos and the review screenshots from originals/, and
-// writes web-sized WebP into docs/images/. originals/ is deliberately not
-// committed — see .gitignore — so this script only runs on a machine that has
-// the source files locally.
+// Reads the photos and review screenshots from originals/ (gitignored) and
+// writes web-sized WebP into docs/images/.
 
 import sharp from 'sharp';
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
@@ -17,14 +15,10 @@ const root = path.resolve(import.meta.dirname, '..');
 const src = path.join(root, 'originals');
 const out = path.join(root, 'docs', 'images');
 
-// Photos worth publishing, with the slug they get on the site. Grouped by the
-// sit they came from, in the order the sits appear on the page; every photo in
-// a group ends up in that sit's card. 20210414 is the only original left out:
-// Dan is wearing a covid mask and the dogs aren't from a sit.
+// Published photos and the slug each gets on the site, grouped by sit in the
+// order the sits appear on the page.
 const photos = [
-  // Nico, the standard poodle from Gill's sit in Taupo, May 2023. The lake
-  // behind the shore and lakeside shots is Taupo itself; the rapids below the
-  // dam in -falls are Huka Falls, a few minutes upriver from the house.
+  // Gill — Taupō, New Zealand, May 2023
   ['20230523-04-35-30.jpg', 'nz-dan-poodle-maple', 'Nico — Taupō, New Zealand, 2023'],
   ['20230523-04-43-53.jpg', 'nz-danica-poodle', 'Nico — Taupō, New Zealand, 2023'],
   ['20230523-06-39-55.jpg', 'nz-dan-poodle-lake', 'Nico — Taupō, New Zealand, 2023'],
@@ -35,7 +29,7 @@ const photos = [
   ['20230523-09-33-05.jpg', 'nz-dan-poodle-wash', 'Nico — Taupō, New Zealand, 2023'],
   ['20230530-11-32-58.jpg', 'nz-poodle-lakeside', 'Nico — Taupō, New Zealand, 2023'],
 
-  // The two cocker spaniels from Alison's sit in Sheffield, Jun–Jul 2022.
+  // Alison — Sheffield, England, Jun–Jul 2022
   ['20220626-08-57-51.jpg', 'sheffield-cockers-gate', 'Sheffield, England, 2022'],
   ['20220626-08-38-19.jpg', 'sheffield-cockers-walk', 'Sheffield, England, 2022'],
   ['20220701-08-06-03.jpg', 'sheffield-danica-cockers', 'Sheffield, England, 2022'],
@@ -43,8 +37,7 @@ const photos = [
   ['20220713-02-43-44.jpg', 'sheffield-cockers-woods', 'Sheffield, England, 2022'],
   ['20220713-03-10-29.jpg', 'sheffield-danica-reservoir', 'Sheffield, England, 2022'],
 
-  // Jeff's three dogs in Denver, Jul–Aug 2024. The big tan one is the
-  // constant in the trail photos; the foothills are the Green Mountain side.
+  // Jeff — Denver, Colorado, Jul–Aug 2024
   ['20240705-04-31-26.jpg', 'denver-three-dogs', 'Denver, Colorado, 2024'],
   ['20240708-16-07-57.jpg', 'denver-dan-scruffy', 'Denver, Colorado, 2024'],
   ['20240710-20-00-32.jpg', 'denver-dog-belly', 'Denver, Colorado, 2024'],
@@ -54,7 +47,7 @@ const photos = [
   ['20240719-02-47-46.jpg', 'denver-dan-sunset', 'Denver, Colorado, 2024'],
   ['20240723-02-44-49.jpg', 'denver-dog-trail', 'Denver, Colorado, 2024'],
 
-  // Millie, the English Staffy from Lee-Ann's sit in Mile End, Jul–Aug 2023.
+  // Lee-Ann — Mile End, Australia, Jul–Aug 2023
   ['20230727-18-40-07.jpg', 'adelaide-dan-millie', 'Millie — Mile End, Australia, 2023'],
   ['20230807-14-42-28.jpg', 'adelaide-dan-millie-sofa', 'Millie — Mile End, Australia, 2023'],
   ['20230816-11-41-18.jpg', 'adelaide-millie-table', 'Millie — Mile End, Australia, 2023'],
@@ -63,7 +56,7 @@ const photos = [
   ['20230828-23-32-31.jpg', 'adelaide-danica-millie', 'Millie — Mile End, Australia, 2023'],
   ['20230830-12-47-35.jpg', 'adelaide-millie-tug', 'Millie — Mile End, Australia, 2023'],
 
-  // Mary's cat and terrier in Oakland, Jan–Feb 2022.
+  // Mary — Oakland, California, Jan–Feb 2022
   ['20220205-17-32-12.jpg', 'oakland-dog-floor', 'Oakland, California, 2022'],
   ['2022-01-31(1).jpeg', 'oakland-danica-cat', 'Oakland, California, 2022'],
   ['20220129-21-37-43.jpg', 'oakland-cat-and-dog', 'Oakland, California, 2022'],
@@ -73,7 +66,7 @@ const photos = [
   ['20220131-15-47-38.jpg', 'oakland-dan-trail', 'Oakland, California, 2022'],
   ['20220202-14-33-04.jpg', 'oakland-danica-trail', 'Oakland, California, 2022'],
 
-  // Jane's two cats in Leeds, Jul–Sep 2022 — the ginger one and a grey tabby.
+  // Jane — Leeds, England, Jul–Sep 2022
   ['20220805-13-33-55.jpg', 'leeds-ginger-cat', 'Leeds, England, 2022'],
   ['20220730-06-20-04.jpg', 'leeds-ginger-cat-perch', 'Leeds, England, 2022'],
   ['20220801-03-54-00.jpg', 'leeds-dan-cat-window', 'Leeds, England, 2022'],
@@ -81,8 +74,7 @@ const photos = [
   ['20220813-09-45-18.jpg', 'leeds-ginger-cat-rug', 'Leeds, England, 2022'],
   ['20220831-22-14-37.jpg', 'leeds-danica-cat', 'Leeds, England, 2022'],
 
-  // Frankie, the Boston terrier from Bianca's sit in Auckland, Jun–Jul 2023.
-  // The city behind the hill shot is the view from Maungawhau.
+  // Bianca — Auckland, New Zealand, Jun–Jul 2023
   ['20230619-11-41-08-2.jpg', 'auckland-frankie-hill', 'Frankie — Auckland, New Zealand, 2023'],
   ['20230615-12-07-25.jpg', 'auckland-frankie-toy', 'Frankie — Auckland, New Zealand, 2023'],
   ['20230618-12-50-08.jpg', 'auckland-danica-frankie', 'Frankie — Auckland, New Zealand, 2023'],
@@ -90,7 +82,7 @@ const photos = [
   ['20230619-16-56-10.jpg', 'auckland-dan-frankie-nose', 'Frankie — Auckland, New Zealand, 2023'],
   ['20230713-17-28-34.jpg', 'auckland-dan-frankie-arms', 'Frankie — Auckland, New Zealand, 2023'],
 
-  // Rusty, the cavoodle from Julie's sit in Brisbane, Sep–Oct 2023.
+  // Julie — Brisbane, Australia, Sep–Oct 2023
   ['20230922-12-46-46.jpg', 'brisbane-rusty-lap', 'Rusty — Brisbane, Australia, 2023'],
   ['20230908-16-42-00.jpg', 'brisbane-rusty-blossom', 'Rusty — Brisbane, Australia, 2023'],
   ['20230913-21-22-53.jpg', 'brisbane-rusty-chair', 'Rusty — Brisbane, Australia, 2023'],
@@ -100,15 +92,13 @@ const photos = [
   ['20230929-15-31-25.jpg', 'brisbane-dan-rusty', 'Rusty — Brisbane, Australia, 2023'],
   ['20231001-16-28-20.jpg', 'brisbane-rusty-pier', 'Rusty — Brisbane, Australia, 2023'],
 
-  // Elizabeth's two dogs in Estes Park, Dec 2021 — a week in the mountains
-  // over Christmas.
+  // Elizabeth — Estes Park, Colorado, Dec 2021
   ['20211215-20-54-17.jpg', 'estes-danica-fireside', 'Estes Park, Colorado, 2021'],
   ['20211213-16-00-33.jpg', 'estes-dan-trail', 'Estes Park, Colorado, 2021'],
   ['20211215-13-15-01.jpg', 'estes-danica-tree', 'Estes Park, Colorado, 2021'],
   ['20211215-18-27-49.jpg', 'estes-dan-armchair', 'Estes Park, Colorado, 2021'],
 
-  // Lyn's border terriers in Richmond, May–Jun 2022. One of the walks from
-  // the house goes past an abbey ruin — that's the background of -abbey.
+  // Lyn — Richmond, England, May–Jun 2022
   ['20220610-08-02-41.jpg', 'richmond-terrier', 'Richmond, England, 2022'],
   ['20220509-03-13-46.jpg', 'richmond-danica-abbey', 'Richmond, England, 2022'],
   ['20220515-04-39-15.jpg', 'richmond-dan-window', 'Richmond, England, 2022'],
@@ -116,24 +106,22 @@ const photos = [
   ['20220606-05-47-40.jpg', 'richmond-dan-floor', 'Richmond, England, 2022'],
   ['20220608-14-05-03.jpg', 'richmond-dan-arms', 'Richmond, England, 2022'],
 
-  // Barney, Cassio's pug. The sit was in Sumida, but the page says Tokyo,
-  // which is the ward's city and the name a reader outside Japan will know.
-  // Apr–May 2024. The two -Enhanced-NR files are the same afternoon on the
-  // sofa, denoised in Lightroom before export.
+  // Cassio — Sumida, Japan, Apr–May 2024. The page says Tokyo, the name a
+  // reader outside Japan will know.
   ['20240427-03-02-51-Enhanced-NR.jpg', 'tokyo-barney', 'Barney — Tokyo, Japan, 2024'],
   ['20240427-03-03-27-2-Enhanced-NR.jpg', 'tokyo-barney-toy', 'Barney — Tokyo, Japan, 2024'],
   ['20240427-03-04-41-Enhanced-NR.jpg', 'tokyo-barney-sofa', 'Barney — Tokyo, Japan, 2024'],
   ['20240503-09-16-39.jpg', 'tokyo-barney-pansies', 'Barney — Tokyo, Japan, 2024'],
   ['20240504-09-05-28.jpg', 'tokyo-barney-wall', 'Barney — Tokyo, Japan, 2024'],
 
-  // Sandra's ageing cockapoo and cat in Harrogate, Jul 2022.
+  // Sandra — Harrogate, England, Jul 2022
   ['20220721-07-41-11.jpg', 'harrogate-dog-sofa', 'Harrogate, England, 2022'],
   ['20220724-03-33-41.jpg', 'harrogate-danica-dog', 'Harrogate, England, 2022'],
   ['20220724-08-45-52.jpg', 'harrogate-cat-brush', 'Harrogate, England, 2022'],
   ['20220724-08-52-51-2.jpg', 'harrogate-dan-sofa', 'Harrogate, England, 2022'],
   ['20220726-02-50-55.jpg', 'harrogate-dog-walk', 'Harrogate, England, 2022'],
 
-  // Lillian's white terrier and long-haired cat in Longmont, Nov 2021.
+  // Lillian — Longmont, Colorado, Nov 2021
   ['20211123-19-33-18.jpg', 'longmont-terrier', 'Longmont, Colorado, 2021'],
   ['20211123-20-24-08.jpg', 'longmont-dan-terrier', 'Longmont, Colorado, 2021'],
   ['20211124-18-33-33.jpg', 'longmont-terrier-toy', 'Longmont, Colorado, 2021'],
@@ -143,11 +131,7 @@ const photos = [
   ['20211010-18-12-36.jpg', 'tuxedo-cat', '2021'],
   ['20200131-09-47-50.jpg', 'trail-dogs', '2020'],
 
-  // Personal photos. None of these are from a sit — they're the two of them
-  // with animals wherever they happened to be — so they're used in the "who we
-  // are" section rather than the gallery and aren't captioned as sits. The Nara
-  // deer is the odd one: April 2024, three weeks before the Tokyo sit started,
-  // so it's travel rather than work despite falling inside the sitting years.
+  // Personal photos, none from a sit. These go in the "who we are" section.
   ['20170924-12-57-45.jpg', 'about-hiking', 'Colorado, 2017'],
   ['20140202-705.JPG', 'about-shepherd', '2014'],
   ['20130106-211.jpg', 'about-danica-puppy', '2013'],
@@ -157,17 +141,13 @@ const photos = [
   ['20240405-16-24-01.jpg', 'about-nara-deer', 'Nara, Japan, 2024'],
 ];
 
-// Originals that are deliberately not published, and why. Anything in
-// originals/ listed neither here nor in `photos` above is reported at the end
-// of the run — a photo dropped into the folder shouldn't silently miss the
-// page just because nobody remembered to add it here.
+// Originals deliberately not published, and why. Anything in originals/ listed
+// neither here nor in `photos` is reported at the end of the run.
 const skipped = new Map([
   ['20210414-17-34-21.jpg', 'covid mask, and the dogs are strays rather than a sit'],
 ]);
 
-// Reviewer avatars live in the top-left of each screenshot. The screenshots
-// were taken at slightly different zoom levels, so the crop is expressed as a
-// fraction of image width rather than in pixels.
+// Review screenshots, cropped to the reviewer's avatar by findAvatar below.
 const avatars = [
   ['Screenshot 2025-04-11 194927.png', 'jeff'],
   ['Screenshot 2025-04-11 195012.png', 'cassio'],
@@ -183,14 +163,12 @@ const avatars = [
 
 const WIDTHS = [1600, 800];
 
-// The screenshots differ in width because the browser window was resized
-// between them, but the avatar is a constant 58px in all of them — so it can't
-// be cropped at a fixed fraction of the image width. Find it instead: it's the
-// only non-white thing in the top-left corner, so scan for pixels that differ
-// from the page background and square the bounding box off around its centre.
+// The screenshots differ in width but the avatar is a constant 58px, so a
+// fixed proportional crop drifts off it. Find it instead: it's the only
+// non-white thing in the top-left corner.
 async function findAvatar(image, width) {
-  // The avatar circle ends around 0.11 of the image width and the reviewer's
-  // name starts around 0.145, so search a window between the two.
+  // The avatar ends around 0.11 of the image width and the reviewer's name
+  // starts around 0.145, so search between the two.
   const search = Math.round(width * 0.125);
   const { data, info } = await image
     .clone()
@@ -204,7 +182,6 @@ async function findAvatar(image, width) {
   for (let y = 0; y < info.height; y++) {
     for (let x = 0; x < info.width; x++) {
       const i = (y * info.width + x) * info.channels;
-      // Anything meaningfully darker or more saturated than the page white.
       if (data[i] > 246 && data[i + 1] > 246 && data[i + 2] > 246) continue;
       if (x < minX) minX = x;
       if (y < minY) minY = y;
@@ -215,8 +192,8 @@ async function findAvatar(image, width) {
 
   if (maxX < 0) throw new Error('no avatar found in top-left corner');
 
-  // Pale avatars can lose a rim of near-white pixels to the threshold, so key
-  // the size off the larger axis and re-centre rather than trusting the box.
+  // Pale avatars lose a rim of near-white pixels to the threshold, so square
+  // off the larger axis and re-centre rather than trusting the box.
   const cx = (minX + maxX) / 2;
   const cy = (minY + maxY) / 2;
   const size = Math.max(maxX - minX, maxY - minY) + 1;
@@ -237,8 +214,8 @@ for (const [file, slug, caption] of photos) {
   const image = sharp(path.join(src, file)).rotate();
   const meta = await image.metadata();
 
-  // Every slug gets both sizes even when the original is small, so the
-  // srcset in index.html can be written the same way for every photo.
+  // Both sizes even when the original is small, so every srcset in index.html
+  // is written the same way.
   const sizes = {};
   for (const w of WIDTHS) {
     const info = await image
@@ -249,10 +226,8 @@ for (const [file, slug, caption] of photos) {
     sizes[w] = { width: info.width, height: info.height };
   }
 
-  // The aspect ratio is printed because the gallery needs it as a CSS custom
-  // property on every <img> — the justified rows are laid out from it, and
-  // there's no way for CSS to read it back off the width/height attributes.
-  // Printing it here keeps adding a photo to copying three numbers.
+  // The gallery lays out from --ar, and CSS can't read it back off the
+  // width/height attributes — so it's printed ready to paste.
   const { width, height } = sizes[WIDTHS[0]];
   const ar = +(width / height).toFixed(3);
 
