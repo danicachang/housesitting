@@ -21,8 +21,8 @@
   --ink-subtle:  #6f665c;  /*  5.3:1  metadata, captions */
 
   /* ---- accent ---- */
-  --accent:        #35513f;  /* 8.3:1 on surface, 8.8:1 under white text */
-  --accent-hover:  #263b2d;
+  --accent:        #56426b;  /* 8.3:1 on surface, 8.8:1 under white text */
+  --accent-hover:  #3e2f4e;
   --on-accent:     #faf8f5;
 
   /* ---- lines ---- */
@@ -437,17 +437,17 @@ p:last-child { margin-bottom: 0; }
 
 /* Edge to edge, and the one dark band on the page — a break between two
    stretches of paper. A photograph behind the cards was too busy under small
-   text, so it's a gradient in the accent green instead: a shade above the
+   text, so it's a gradient in the accent purple instead: a shade above the
    accent at the top, a shade below it at the foot, so the band has some depth
    without turning into a second subject. */
 .expect-section {
-  background: linear-gradient(to bottom, #3d5c48 0%, #35513f 45%, #223528 100%);
+  background: linear-gradient(to bottom, #634c7b 0%, #56426b 45%, #362a43 100%);
   padding-block: clamp(3.5rem, 8vw, 7rem);
 }
 
 .expect-section h2 { color: var(--on-accent); }
 
-/* The rule under every other h2 is the accent green, which is the background
+/* The rule under every other h2 is the accent purple, which is the background
    here. */
 .expect-section h2::after { border-top-color: var(--on-accent); }
 
@@ -470,7 +470,7 @@ p:last-child { margin-bottom: 0; }
 .expect__card {
   min-width: 0;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  /* Still translucent, so each card picks up the green behind it and the ones
+  /* Still translucent, so each card picks up the purple behind it and the ones
      lower down the band sit a little deeper than the ones above. */
   background: rgba(250, 248, 245, 0.75);
   border-top: 2px solid var(--accent);
@@ -495,7 +495,7 @@ p:last-child { margin-bottom: 0; }
 
 /* Full-strength ink rather than the muted grey used for secondary prose
    elsewhere. At 0.75 the card is only as light as what is behind it: over the
-   foot of the gradient it settles around #c4c8c2, where --ink-muted would fall
+   foot of the gradient it settles around #c9c5c9, where --ink-muted would fall
    to 4.2:1. --ink holds 10:1 even there. */
 .expect dd {
   margin: 0.5rem 0 0;
@@ -887,11 +887,11 @@ figcaption {
 
 /* ---------- footer ---------- */
 
-/* The dark end of the page, in the accent green — the same green as the band
+/* The dark end of the page, in the accent purple — the same purple as the band
    in the middle of the page, so the two of them bracket the reviews and the
    alternating tone finishes against something solid rather than fading out on
    a hairline, which is what used to close the page.
-   .band rather than .wrap: the green has to reach both edges of the window. */
+   .band rather than .wrap: the purple has to reach both edges of the window. */
 footer {
   background: var(--accent);
   color: var(--on-accent);
@@ -908,7 +908,7 @@ footer {
 }
 
 /* Stepped back from the name so the two lines aren't the same weight. Held at
-   0.8 of --on-accent, which composites to #d3d7d1 over the green — 6:1, and
+   0.8 of --on-accent, which composites to #d9d4d9 over the purple — 6:1, and
    still past the minimum at this size. */
 .footer__legal {
   margin: 0;
