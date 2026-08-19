@@ -67,6 +67,11 @@
   --page:    100rem;
   --gap:     clamp(1.5rem, 4vw, 4rem);
   --section: clamp(3rem, 7vw, 6rem);
+
+  /* The photo fade-in. Long enough to read as a fade rather than a repaint,
+     short enough that scrolling never outruns it. */
+  --reveal:      0.5s;
+  --reveal-ease: ease;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -731,6 +736,40 @@ footer {
   letter-spacing: 0.04em;
   color: rgba(250, 248, 245, 0.8);
   max-width: none;
+}
+
+/* ---------- photos fading in ----------
+
+   Photos start hidden and fade once reveal.js sees them cross into the
+   viewport. Two guards, because an element left at opacity 0 is invisible
+   content, not a subtle effect:
+
+   .js            set by an inline script in the head, so nothing hides unless
+                  a script is running that can unhide it. In the head and
+                  inline on purpose — a deferred file can paint before it runs,
+                  which would show the photos and then snatch them away.
+   no-preference  the reduced-motion block below zeroes transition durations
+                  but cannot reset an opacity, so reduced motion opts out of
+                  the hidden start rather than depending on the observer.
+
+   No stagger. :nth-child here is already spoken for by the order reversal in
+   the reviews section, so a per-child delay would run in DOM order against
+   photos sitting in reversed visual order. Each photo reaching the viewport on
+   its own timing gives the cascade anyway.
+
+   The hero is deliberately absent: it is the largest paint, and fading it in
+   would make the page feel slower rather than smoother. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .gallery img,
+  .js .split__media img {
+    opacity: 0;
+    transition: opacity var(--reveal) var(--reveal-ease);
+  }
+
+  .js .gallery img.is-revealed,
+  .js .split__media img.is-revealed {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

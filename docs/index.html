@@ -20,6 +20,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Raleway:wght@400;600&display=swap">
 <link rel="stylesheet" href="style.css">
+
+<!-- Lets the photo fade-in start hidden. Inline and here so it lands before
+     the first paint; reveal.js at the foot of the page unhides them again, and
+     if it never runs nothing was hidden in the first place. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
@@ -1091,6 +1096,9 @@
 
 <!-- Opens any gallery photo full screen. Nothing on the page needs it. -->
 <script src="lightbox.js" defer></script>
+
+<!-- Fades the photos in as they reach the viewport. Nothing needs it either. -->
+<script src="reveal.js" defer></script>
 
 </body>
 </html>
