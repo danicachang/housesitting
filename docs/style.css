@@ -19,6 +19,10 @@
   --accent-hover:  #3e2f4e;
   --on-accent:     #faf8f5;
 
+  /* Review stars. Not held to 4.5:1: they're a graphic (role="img", the rating
+     is in the aria-label), so 3:1 is the bar. */
+  --star:          #c07c10;  /* 3.2:1 on surface */
+
   /* ---- lines ---- */
   --rule:        #e6ded3;
   --rule-strong: #cfc4b5;
@@ -588,12 +592,14 @@ figcaption {
   line-height: 1.2;
 }
 
+/* Gold and a size up from the metadata below it, so the row of five reads as a
+   rating at a glance rather than as more small print under the name. */
 .sit__stars {
-  margin: 0.3rem 0 0;
-  font-size: 0.85rem;
+  margin: 0.35rem 0 0;
+  font-size: 1.1rem;
   line-height: 1;
-  letter-spacing: 0.1em;
-  color: var(--accent);
+  letter-spacing: 0.06em;
+  color: var(--star);
 }
 
 .sit__where {
