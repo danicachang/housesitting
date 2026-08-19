@@ -5,7 +5,10 @@
 //
 //   .gallery      decides which photos are clickable at all
 //   .sit__where   supplies the caption. The "who we are" gallery has no sit
-//                 card above it, so those photos show the counter alone.
+//                 card above it, so those photos carry a data-caption each.
+//
+// data-caption on an <img> wins over the sit card, so a one-off photo can say
+// something other than where and when the sit was.
 
 (() => {
   const galleries = document.querySelectorAll('.gallery');
@@ -261,9 +264,12 @@
     if (full.decode) full.decode().then(upgrade, () => {});
     else full.addEventListener('load', upgrade);
 
-    // From the sit card, so editing the card updates the caption.
+    // A hand-written data-caption first; otherwise the sit card, so editing the
+    // card updates the caption.
     const where = thumb.closest('.sit')?.querySelector('.sit__where');
-    caption.textContent = where ? where.textContent.trim().replace(/\s+/g, ' ') : '';
+    caption.textContent =
+      thumb.dataset.caption ??
+      (where ? where.textContent.trim().replace(/\s+/g, ' ') : '');
     counter.textContent = `${i + 1} / ${photos.length}`;
 
     const last = i === photos.length - 1;
