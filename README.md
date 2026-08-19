@@ -76,6 +76,21 @@ out of `index.html`, and **renaming either breaks it silently**:
   date and duration from its sit card. There are no per-photo captions to keep
   in sync. The "who we are" gallery has no sit card, so those photos show the
   counter alone.
+- `data-pets` puts the animals in front of the place and date. On the
+  `<article class="sit">` it covers the whole sit — `data-pets="Nico"` captions
+  every photo there `Nico · Taupō, New Zealand · May 2023 · 1 month 1 week`. On
+  an `<img>` it overrides that for the one photo, which is how a sit with two
+  pets captions the shots with only one of them in:
+
+  ```html
+  <article class="sit" data-pets="Alfie &amp; Bella">   <!-- the pair, by default -->
+    <img ... data-pets="Bella">                         <!-- but Bella alone here -->
+    <img ... data-pets="">                              <!-- and no animal in this one -->
+  ```
+
+  Both are optional. Leave them off and the caption is the place and date alone,
+  which is what the sits whose pets we never learned the names of do. An empty
+  `data-pets` names nobody, for the photo of the view or the garden.
 
 It adds no image files — the viewer reuses the gallery's own `srcset`, painting
 the cached thumbnail first and swapping in the 1600 once it decodes. Photos are

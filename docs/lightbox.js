@@ -7,8 +7,14 @@
 //   .sit__where   supplies the caption. The "who we are" gallery has no sit
 //                 card above it, so those photos carry a data-caption each.
 //
-// data-caption on an <img> wins over the sit card, so a one-off photo can say
-// something other than where and when the sit was.
+// data-pets names the animals in front of the place and date. On the <article
+// class="sit"> it covers every photo in the sit; on an <img> it overrides that
+// for the one photo, which is how a sit with two pets captions the shots that
+// only have one of them in. Both are optional — the sits whose pets we never
+// learned the names of carry neither.
+//
+// data-caption on an <img> wins over all of it, so a one-off photo can say
+// something other than who the pets were and where and when the sit was.
 
 (() => {
   const galleries = document.querySelectorAll('.gallery');
@@ -265,11 +271,18 @@
     else full.addEventListener('load', upgrade);
 
     // A hand-written data-caption first; otherwise the sit card, so editing the
-    // card updates the caption.
-    const where = thumb.closest('.sit')?.querySelector('.sit__where');
+    // card updates the caption. The pets lead, since they're what the photo is
+    // of, and the photo's own data-pets wins over the sit's — most of a sit is
+    // everyone, but the shot of one of the two dogs says only that dog. An
+    // empty data-pets is a photo with no animal in it, and names nobody; no
+    // data-pets anywhere is the place and date alone.
+    const sit = thumb.closest('.sit');
+    const where = sit?.querySelector('.sit__where');
     caption.textContent =
       thumb.dataset.caption ??
-      (where ? where.textContent.trim().replace(/\s+/g, ' ') : '');
+      [thumb.dataset.pets ?? sit?.dataset.pets,
+       where?.textContent.trim().replace(/\s+/g, ' ')]
+        .filter(Boolean).join(' · ');
     counter.textContent = `${i + 1} / ${photos.length}`;
 
     const last = i === photos.length - 1;
